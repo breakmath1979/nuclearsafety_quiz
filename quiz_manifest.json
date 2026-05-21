@@ -3,12 +3,14 @@
     {
       "label": "Lecture09 우선순위 100문제",
       "datasetId": "lecture09",
-      "file": "lecture09_questions_v3_format.json"
+      "file": "lecture09_questions_v3_format.json",
+      "progressFile": "lecture09_progress_v3.json"
     },
     {
       "label": "Lecture11 Page1-54 우선순위 100문제",
       "datasetId": "lecture11_p1_54",
-      "file": "lecture11_p1_54_questions_v3_format.json"
+      "file": "lecture11_p1_54_questions_v3_format.json",
+      "progressFile": "lecture11_p1_54_progress_v3.json"
     }
   ]
 }

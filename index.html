@@ -88,8 +88,10 @@
       <button class="secondary small" id="shuffleBtn">섞기</button>
       <button class="secondary small" id="listBtn">목록</button>
       <button class="secondary small" id="examBtn">시험지TXT</button>
+      <button class="secondary small" id="exportProgressBtn">진도JSON 내보내기</button>
+      <button class="secondary small" id="importProgressBtn">진도JSON 불러오기</button>
+      <input id="progressFileInput" class="hidden" type="file" accept="application/json,.json">
     </div>
-    <div class="hint">GitHub Pages에서 quiz_manifest.json을 읽어 문제 JSON 목록을 자동으로 불러옵니다. 새 강의는 JSON 파일 추가 후 manifest에 등록하면 됩니다.</div>
   </div>
 
   <div class="card">
@@ -156,7 +158,7 @@
       <span class="pill good" id="summaryRight">총 맞음 0</span>
       <span class="pill bad" id="summaryWrong">총 틀림 0</span>
       <span class="pill" id="summaryBlanks">추가 빈칸 0</span>
-      <span class="pill">진도저장: 브라우저 내부</span>
+      <span class="pill" id="progressFilePill">진도파일: JSON 분리</span>
     </div>
     <div class="dangerZone">
       <button class="secondary small" id="resetCurrentBtn">현재 문제 기록 초기화</button>
@@ -190,12 +192,12 @@
 
   const $ = id => document.getElementById(id);
   const els = {
-    appTitle:$('appTitle'), datasetSelect:$('datasetSelect'), modeSelect:$('modeSelect'), shuffleBtn:$('shuffleBtn'), listBtn:$('listBtn'), examBtn:$('examBtn'),
+    appTitle:$('appTitle'), datasetSelect:$('datasetSelect'), modeSelect:$('modeSelect'), shuffleBtn:$('shuffleBtn'), listBtn:$('listBtn'), examBtn:$('examBtn'), exportProgressBtn:$('exportProgressBtn'), importProgressBtn:$('importProgressBtn'), progressFileInput:$('progressFileInput'),
     numPill:$('numPill'), pagePill:$('pagePill'), priorityPill:$('priorityPill'), rightPill:$('rightPill'), wrongPill:$('wrongPill'), favPill:$('favPill'), progressInner:$('progressInner'),
     questionText:$('questionText'), userAnswer:$('userAnswer'), showAnswerBtn:$('showAnswerBtn'), markRightBtn:$('markRightBtn'), markWrongBtn:$('markWrongBtn'), favBtn:$('favBtn'),
     answerBox:$('answerBox'), answerText:$('answerText'), explainText:$('explainText'), blankInput:$('blankInput'), addBlankBtn:$('addBlankBtn'), extraBlankChips:$('extraBlankChips'),
     listCard:$('listCard'), searchInput:$('searchInput'), closeListBtn:$('closeListBtn'), questionList:$('questionList'),
-    summarySolved:$('summarySolved'), summaryRight:$('summaryRight'), summaryWrong:$('summaryWrong'), summaryBlanks:$('summaryBlanks'),
+    summarySolved:$('summarySolved'), summaryRight:$('summaryRight'), summaryWrong:$('summaryWrong'), summaryBlanks:$('summaryBlanks'), progressFilePill:$('progressFilePill'),
     aiMemoryRate:$('aiMemoryRate'), aiRiskCount:$('aiRiskCount'), aiWeakCount:$('aiWeakCount'), aiMasterCount:$('aiMasterCount'), aiCoachText:$('aiCoachText'), aiMemoryBar:$('aiMemoryBar'),
     resetCurrentBtn:$('resetCurrentBtn'), resetAllBtn:$('resetAllBtn'),
     prevBtn:$('prevBtn'), nextBtn:$('nextBtn')
@@ -268,6 +270,80 @@
     localStorage.setItem(stateKey(), JSON.stringify(state));
   }
 
+  function hasLocalState() {
+    return localStorage.getItem(stateKey()) !== null;
+  }
+
+  function progressFilename() {
+    if (dataset && dataset.progressFile) return dataset.progressFile;
+    return safeDatasetId() + '_progress_v3.json';
+  }
+
+  function makeEmptyProgressState() {
+    const stats = {}, extraBlanks = {};
+    QUESTIONS.forEach(q => {
+      const k = String(q.id);
+      stats[k] = {right:0, wrong:0};
+      extraBlanks[k] = [];
+    });
+    return {stats, extraBlanks, favorites:{}, mode:'all'};
+  }
+
+  async function loadProgressFileIfNeeded() {
+    if (hasLocalState()) return 'local';
+    if (!dataset || !dataset.progressFile) {
+      state = normalizeState(makeEmptyProgressState());
+      saveState();
+      return 'created';
+    }
+    try {
+      const progress = await loadJson(dataset.progressFile);
+      state = normalizeState(progress);
+      saveState();
+      return 'file';
+    } catch(e) {
+      // progress JSON이 없으면 새 강의용 빈 진도를 자동 생성한다.
+      state = normalizeState(makeEmptyProgressState());
+      saveState();
+      return 'created';
+    }
+  }
+
+  function downloadJson(obj, filename) {
+    const blob = new Blob([JSON.stringify(obj, null, 2)], {type:'application/json;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function exportProgressJson() {
+    saveState();
+    downloadJson(state, progressFilename());
+  }
+
+  function importProgressJson(file) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const obj = JSON.parse(reader.result);
+        state = normalizeState(obj);
+        saveState();
+        rebuildOrder();
+        render();
+        alert('진도 JSON을 불러왔습니다.');
+      } catch(e) {
+        alert('진도 JSON 파일을 읽지 못했습니다. 파일 형식을 확인하세요.');
+      }
+    };
+    reader.readAsText(file, 'utf-8');
+  }
+
   async function loadJson(url) {
     const res = await fetch(url + (url.includes('?') ? '&' : '?') + 'ts=' + Date.now(), {cache:'no-store'});
     if (!res.ok) throw new Error(url + ' load failed');
@@ -285,14 +361,19 @@
         const data = await loadJson(item.file);
         const normalized = normalizeDataset(data, item.datasetId || data.datasetId, item.label || data.title);
         if (!normalized.questions.length) continue;
+        const dsId = item.datasetId || data.datasetId || normalized.datasetId;
+        const safeDsId = String(dsId).replace(/[^a-zA-Z0-9_-]/g, '_');
+        const progressFile = item.progressFile || data.progressFile || (safeDsId + '_progress_v3.json');
         loaded.push({
           label: item.label || normalized.title || normalized.datasetId,
-          datasetId: item.datasetId || normalized.datasetId,
+          datasetId: dsId,
           file: item.file,
+          progressFile: progressFile,
           data: {
             ...data,
             title: item.label || data.title || normalized.title,
-            datasetId: item.datasetId || data.datasetId || normalized.datasetId,
+            datasetId: dsId,
+            progressFile: progressFile,
             questions: normalized.questions
           }
         });
@@ -311,13 +392,14 @@
       const lastId = localStorage.getItem(APP_KEY + '_last_dataset');
       const selected = BUNDLED.find(x => String(x.datasetId) === lastId) || BUNDLED[0];
       switchDataset(selected.data, false);
+      await loadProgressFileIfNeeded();
       buildDatasetSelect();
       rebuildOrder();
       render();
     } catch(e) {
       console.error(e);
-      els.questionText.textContent = '문제 데이터를 읽지 못했습니다. GitHub Pages에 index.html, quiz_manifest.json, 문제 JSON 파일이 같은 폴더에 있는지 확인하세요.';
-      els.aiCoachText.textContent = '로컬에서 직접 HTML을 더블클릭하면 일부 브라우저가 JSON fetch를 막을 수 있습니다. GitHub Pages 또는 간단한 로컬 서버에서 실행하세요.';
+      els.questionText.textContent = '문제 데이터를 읽지 못했습니다. index.html, quiz_manifest.json, 문제 JSON 파일의 위치를 확인하세요.';
+      els.aiCoachText.textContent = '직접 더블클릭 실행 시 브라우저가 JSON 읽기를 막을 수 있습니다. 웹 배포 주소 또는 간단한 로컬 서버에서 실행하세요.';
     }
   }
 
@@ -340,7 +422,13 @@
     state = loadState();
     els.modeSelect.value = state.mode;
     rebuildOrder();
-    if (doSave) render();
+
+    if (doSave) {
+      loadProgressFileIfNeeded().then(() => {
+        rebuildOrder();
+        render();
+      });
+    }
   }
 
   function currentQ() { return QUESTIONS.find(q => q.id === order[pos]) || QUESTIONS[0]; }
@@ -511,6 +599,7 @@
     els.summaryRight.textContent = `총 맞음 ${right}`;
     els.summaryWrong.textContent = `총 틀림 ${wrong}`;
     els.summaryBlanks.textContent = `추가 빈칸 ${blanks}`;
+    if (els.progressFilePill) els.progressFilePill.textContent = '진도파일: ' + progressFilename();
     renderAIStats();
   }
 
@@ -627,6 +716,12 @@
   els.shuffleBtn.addEventListener('click', shuffleOrder);
   els.listBtn.addEventListener('click',()=>{ els.listCard.classList.remove('hidden'); renderList(); els.searchInput.focus(); });
   els.examBtn.addEventListener('click', exportExamText);
+  els.exportProgressBtn.addEventListener('click', exportProgressJson);
+  els.importProgressBtn.addEventListener('click',()=>els.progressFileInput.click());
+  els.progressFileInput.addEventListener('change', e => {
+    if (e.target.files && e.target.files[0]) importProgressJson(e.target.files[0]);
+    e.target.value = '';
+  });
   els.closeListBtn.addEventListener('click',()=>els.listCard.classList.add('hidden'));
   els.searchInput.addEventListener('input', renderList);
   els.showAnswerBtn.addEventListener('click',()=>{ showAnswer=!showAnswer; els.answerBox.classList.toggle('show', showAnswer); els.showAnswerBtn.textContent=showAnswer?'정답 숨기기':'정답 보기'; });
