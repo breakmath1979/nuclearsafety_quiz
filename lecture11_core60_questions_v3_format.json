@@ -1,0 +1,547 @@
+{
+  "title": "Lecture 11 핵심 60문제 원문연결형 암기앱 v3",
+  "datasetId": "lecture11_core60",
+  "source": "Lecture11_Page1-54_PDF원문추출.txt and Lecture 11 professor-focused study flow",
+  "questions": [
+    {
+      "id": 1,
+      "page": "Page 2",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Topics for discussion include Potential Topical Report (TR) Application on Fuel Fragmentation, Relocation and (          ) ((          )) and Potential Topical Report (TR) Application on Accident Tolerant (          ) ((          )).",
+      "answer": "Dispersal / FFRD / Fuel / ATF",
+      "explanation": "Lecture 11의 전체 큰 축은 FFRD와 ATF입니다. 첫 페이지 목차에서 두 약어와 풀네임을 정확히 잡아야 이후 내용이 연결됩니다."
+    },
+    {
+      "id": 2,
+      "page": "Page 2",
+      "priority": "최상",
+      "type": "blank",
+      "question": "FFRD discussion includes Background of Interest in (          ) Phenomena, Phenomena during Large Break Loss of Coolant Accident ((          )), High Burnup (          ), Summary Information on FFRD known So Far, and Regulatory Prospect on FFRD TR Application.",
+      "answer": "FFRD / LB LOCA / Structure",
+      "explanation": "FFRD 파트의 흐름입니다. 배경 -> LB LOCA 현상 -> HBS -> 알려진 정보 -> 규제 전망 순서로 외우면 됩니다."
+    },
+    {
+      "id": 3,
+      "page": "Page 3",
+      "priority": "상",
+      "type": "blank",
+      "question": "Potential TR Application on Fuel Fragmentation, Relocation and Dispersal ((          )) is supported by references such as OECD/NEA (          ), US NRC (          ), and US NRC (          ).",
+      "answer": "FFRD / NEA/CSNI/R(2016)16 / NUREG-2121 / RIL 2021-13",
+      "explanation": "FFRD가 단순 개념이 아니라 OECD/NEA, NRC 문헌을 기반으로 규제 이슈가 된다는 점을 보여주는 원문 흐름입니다."
+    },
+    {
+      "id": 4,
+      "page": "Page 4",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Fuel Burnup keep increasing since (          ) in pursuit of (          ) and (          ) nuclear power generation with much advanced fuel (          ). Worldwide including Korea, there is a trend of introducing more (          ) nuclear fuels beyond current licensing fuel (          ).",
+      "answer": "1970s / efficient / economical / designs / high burnup / burnup",
+      "explanation": "FFRD가 왜 중요해졌는지 설명하는 출발 문장입니다. 고연소도 추세가 LB LOCA 시 FFRD 문제로 연결됩니다."
+    },
+    {
+      "id": 5,
+      "page": "Page 4",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Existing licensing fuel burnup (Rod averaged burnup) is Korea: (          ) GWD/MTU and The US: (          ) GWD/MTU. Current trend is Korea: (          ) GWD/MTU application with (          ) fuel cladding and The US: (          ) GWD/MTU application by (          ).",
+      "answer": "60 / 62 / 62 / HANA-6 / 68 / Westinghouse",
+      "explanation": "숫자형으로 매우 중요합니다. 60, 62, 62, 68과 HANA-6, Westinghouse를 한 세트로 외우세요."
+    },
+    {
+      "id": 6,
+      "page": "Page 6",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Increased fuel burnup poses some serious conditions on fuels when Large Break Loss Of Coolant Accident ((          )) occurs. Under LB LOCA occurrence, phenomena called Fuel (          ), (          ) and (          ) ((          )) may happen to high burnup fuels.",
+      "answer": "LB LOCA / Fragmentation / Relocation / Dispersal / FFRD",
+      "explanation": "고연소도 -> LB LOCA -> FFRD 발생 가능성이라는 핵심 연결 문장입니다."
+    },
+    {
+      "id": 7,
+      "page": "Page 6",
+      "priority": "최상",
+      "type": "blank",
+      "question": "FFRD creates several technical challenges to existing LOCA evaluation (          ). US NRC documents include (          ), SECY-15-0148, and (          ). As burnup exceeds (          ) GWD/MTU, fuels become increasingly susceptible to FFRD.",
+      "answer": "methodology / NUREG-2121 / RIL-2021-13 / 62",
+      "explanation": "FFRD는 기존 LOCA 평가 방법론의 도전 과제입니다. 62 GWD/MTU는 민감도가 증가하는 기준 숫자로 중요합니다."
+    },
+    {
+      "id": 8,
+      "page": "Page 7",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Technical Challenges due to FFRD Phenomena include Peak Cladding Temperature ((          )) Calculation and Accident Source Term Calculation. PCT calculation is affected by Fuel (          ), (          ), and (          ). Source term calculation is affected by Transient Fission Gas Release ((          )) and Dispersal.",
+      "answer": "PCT / Fragmentation / Relocation / Dispersal / tFGR",
+      "explanation": "FFRD의 안전해석 영향은 PCT와 source term 두 축입니다. PCT, tFGR은 반드시 암기해야 합니다."
+    },
+    {
+      "id": 9,
+      "page": "Page 8",
+      "priority": "상",
+      "type": "blank",
+      "question": "Experimental researches on FFRD phenomena include Halden Reactor Project (          ) Series, US NRC LOCA Testing at (          ), Studsvik Cladding Integrity Program ((          )), and experiments at Oak Ridge National Laboratory.",
+      "answer": "IFA-650 / Studsvik / SCIP",
+      "explanation": "FFRD 실험 연구의 대표 이름입니다. IFA-650, Studsvik, SCIP는 원문 그대로 연결해서 외우면 좋습니다."
+    },
+    {
+      "id": 10,
+      "page": "Page 8",
+      "priority": "상",
+      "type": "blank",
+      "question": "The most recent publications on FFRD phenomena are (          ) and DG-(          ) (2025). There also exists an EPRI publication: Technical Expert Panel Assessment of Existing Fuel Fragmentation, Relocation, and Dispersal Data.",
+      "answer": "RIL 2021-13 / 1434",
+      "explanation": "RIL 2021-13과 DG-1434는 규제 관점의 최신 FFRD 근거자료로 묶어 기억하세요."
+    },
+    {
+      "id": 11,
+      "page": "Page 9",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Loss of coolant from the (          ) circuit is called (          ). The consequences of the LOCA mainly depends on the size of the (          ), the location of the (          ), aggravating factors, and the characteristics of the (          ).",
+      "answer": "primary / LOCA / leak / break / fuel",
+      "explanation": "LOCA의 정의와 결과 결정 인자입니다. primary circuit, leak size/location, fuel characteristics가 핵심입니다."
+    },
+    {
+      "id": 12,
+      "page": "Page 9",
+      "priority": "상",
+      "type": "blank",
+      "question": "In some cases ((          )), loss of coolant from the primary circuit may induce an uncover of the (          ) and an increase in the temperature of the (          ) rod, leading to a weakening of the fuel and a change in its (          ).",
+      "answer": "LB LOCA / core / fuel / geometry",
+      "explanation": "LB LOCA가 core uncover, fuel rod temperature rise, geometry change로 이어지는 흐름입니다."
+    },
+    {
+      "id": 13,
+      "page": "Page 9",
+      "priority": "상",
+      "type": "blank",
+      "question": "LOCAs ((          ), (          ), (          )) are PWR design basis (          ), and engineered safety features such as safety injection systems are designed to ensure the return to a safe state of the (          ).",
+      "answer": "SB / MB / LB / accidents / reactor",
+      "explanation": "SB, MB, LB LOCA가 모두 PWR 설계기준사고라는 점과 safety injection system 목적을 묶은 문제입니다."
+    },
+    {
+      "id": 14,
+      "page": "Page 10",
+      "priority": "상",
+      "type": "blank",
+      "question": "Consequences on primary circuit during LB LOCA include primary pressure (          ) bar, reactor inlet liquid temperature (          ) degrees C, reactor outlet liquid temperature (          ) degrees C, maximum cold leg diameter about (          ) cm, and maximum flow at the break about (          ) ton/sec.",
+      "answer": "155 / 285 / 330 / 70 / 40",
+      "explanation": "숫자 암기형입니다. LB LOCA 초기 조건 숫자를 한 문제로 묶었습니다."
+    },
+    {
+      "id": 15,
+      "page": "Page 12",
+      "priority": "상",
+      "type": "blank",
+      "question": "Consequences on Fuel Rods during LB LOCA include power of one rod at 100% normal power (          ) kWth, mean linear power (          ) Wth/cm, temperature at fuel center (          ) degrees C, clad surface temperature (          ) degrees C, and internal rod pressure (          ) to (          ) bar.",
+      "answer": "70 / 170 / 1400 / 330 / 50 / 200",
+      "explanation": "Fuel rod 조건 숫자입니다. 계산형 문제의 기초 숫자이므로 한 세트로 외우면 효율적입니다."
+    },
+    {
+      "id": 16,
+      "page": "Page 16",
+      "priority": "최상",
+      "type": "blank",
+      "question": "HBS means High Burnup (          ). It is associated with UO2 microstructure change over time, fission product accumulation, radiation damage, fission gas (          ), bubble formation, and high burnup rim structure.",
+      "answer": "Structure / release",
+      "explanation": "HBS는 FFRD의 물리적 배경입니다. 고연소도 미세구조 변화와 gas bubble 현상을 같이 이해해야 합니다."
+    },
+    {
+      "id": 17,
+      "page": "Page 18-21",
+      "priority": "상",
+      "type": "blank",
+      "question": "UO2 microstructure change includes fission product accumulated in grain (          ), radiation damage such as void, interstitial and (          ), and Xe/Kr diffusion with bubble formation and (          ). Pellet outskirt region has high fission density by self-shielding (          ).",
+      "answer": "matrix / dislocation / growth / effect",
+      "explanation": "HBS 형성 전 단계입니다. fission product, defect, gas bubble, self-shielding effect를 연결하세요."
+    },
+    {
+      "id": 18,
+      "page": "Page 21",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Outskirt rim of the pellet experiences high (          ). As a result, High Burnup Structure ((          )) forms.",
+      "answer": "burnup / HBS",
+      "explanation": "pellet rim의 high burnup이 HBS 형성으로 이어진다는 핵심 문장입니다."
+    },
+    {
+      "id": 19,
+      "page": "Page 23-25",
+      "priority": "상",
+      "type": "blank",
+      "question": "High Porosity of HBS is characterized by Grain Sub-division, Large Bubble, High Porosity, and Xe (          ). Grain sub-division starts by stress concentration at grain edge/higher order interface by super saturated (          ).",
+      "answer": "Depletion / bubbles",
+      "explanation": "HBS 구조적 특징입니다. porosity와 grain subdivision은 fine fragmentation과 연결됩니다."
+    },
+    {
+      "id": 20,
+      "page": "Page 26",
+      "priority": "최상",
+      "type": "blank",
+      "question": "At low burnup, fuel becomes fragmented with (          ) chunks when LOCA happens. As burnup increases, HBS becomes dominant and fuel becomes fragmented with (          ) pieces when LOCA happens.",
+      "answer": "big / fine",
+      "explanation": "저연소도와 고연소도 fragmentation의 차이입니다. big chunks vs fine pieces가 시험에 좋습니다."
+    },
+    {
+      "id": 21,
+      "page": "Page 27",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Before LOCA, bubble and free volume pressure are equalized and bubble grows gradually, which is gas (          ). Once LOCA happens, bubble-free volume pressure balance (          ), and fine fragmentation called (          ) occurs.",
+      "answer": "swelling / collapses / Pulverization",
+      "explanation": "LOCA 전후 압력균형 변화가 pulverization으로 이어지는 핵심 물리 흐름입니다."
+    },
+    {
+      "id": 22,
+      "page": "Page 27",
+      "priority": "상",
+      "type": "blank",
+      "question": "LB LOCA: Temperature of bubble in the pellet rapidly increases from (          ) degrees C to (          ) degrees C. REA: Temperature of bubble in the pellet rapidly increases from (          ) degrees C to (          ) degrees C.",
+      "answer": "500 / 1200 / 500 / 2000",
+      "explanation": "LB LOCA와 REA의 bubble temperature rise 숫자입니다. 계산형으로도 변환 가능합니다."
+    },
+    {
+      "id": 23,
+      "page": "Page 28",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Relocation of pulverized high burnup fuel fragmentation may intensify local power (          ). LOCA PCT might be impacted by this (          ).",
+      "answer": "peaking / phenomena",
+      "explanation": "relocation은 local power peaking과 PCT 영향으로 연결됩니다. 시험에서 개념 연결형으로 중요합니다."
+    },
+    {
+      "id": 24,
+      "page": "Page 29",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Pellets fine fragmentation with size <= (          ) mm becomes strong for fuels with average burnup of (          ) GWD/MTU and more. Pellets fine fragmentation with size <= (          ) mm becomes clear for fuels with average burnup of (          ) GWD/MTU and more.",
+      "answer": "2 / 55 / 1 / 60",
+      "explanation": "fine fragmentation threshold 숫자입니다. 2mm-55, 1mm-60을 짝으로 외우세요."
+    },
+    {
+      "id": 25,
+      "page": "Page 30",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The average value of a strain threshold for relocation is (          )%. EPRI used (          )% strain criterion and NRC/DG-1434 uses a conservative (          )% cladding strain criterion.",
+      "answer": "3.7 / 5 / 3",
+      "explanation": "relocation/dispersal strain 기준입니다. 3.7%, 5%, 3%의 관계를 구분해야 합니다."
+    },
+    {
+      "id": 26,
+      "page": "Page 31",
+      "priority": "최상",
+      "type": "blank",
+      "question": "It is conservatively assumed that all fuel above a burnup of (          ) GWD/MTU in the rod length with greater than (          )-percent cladding strain could (          ).",
+      "answer": "55 / 3 / disperse",
+      "explanation": "DG-1434 성격의 보수적 dispersal 가정입니다. 55 GWD/MTU와 3% cladding strain이 핵심입니다."
+    },
+    {
+      "id": 27,
+      "page": "Page 32",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Transient fission gas release is abbreviated as (          ). It is a phenomenon that fission gas release (          ) during transient conditions including (          ).",
+      "answer": "tFGR / soars / LOCA",
+      "explanation": "tFGR는 source term 문제와 연결됩니다. transient 조건에서 fission gas release가 급증한다는 뜻입니다."
+    },
+    {
+      "id": 28,
+      "page": "Page 33",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The packing fraction is defined as the ratio of the volume of (          ) to the total available local (          ). High burnup packing fraction range may be about (          )% to (          )%.",
+      "answer": "fuel / volume / 70 / 85",
+      "explanation": "packing fraction 정의와 범위입니다. fuel relocation/dispersal 평가에서 중요한 수치입니다."
+    },
+    {
+      "id": 29,
+      "page": "Page 34",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Currently, FFRD is one of the most actively researched areas in nuclear (          ). Regulatory measure on FFRD would be (          ).",
+      "answer": "industry / inevitable",
+      "explanation": "FFRD 파트 결론입니다. 연구가 활발하고 규제조치가 불가피하다는 메시지를 기억하세요."
+    },
+    {
+      "id": 30,
+      "page": "Page 36",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Since Fukushima Daiichi nuclear power plants accident in (          ), Accident Tolerant Fuels have been developed around the world.",
+      "answer": "2011",
+      "explanation": "ATF 개발 배경의 기준 연도입니다. Fukushima 2011은 숫자형 빈칸 가능성이 큽니다."
+    },
+    {
+      "id": 31,
+      "page": "Page 37",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Station blackout caused cooling of the pressure vessel to be disrupted and temperatures inside the core to (          ). Zirconium melts at (          ) degrees C, loss of mechanical integrity happens at (          ) degrees C, and a run-away reaction occurs at (          ) degrees C.",
+      "answer": "rise / 1855 / 875 / 1200",
+      "explanation": "Fukushima 사고 progression과 Zr 관련 온도 숫자를 묶었습니다. 875, 1200, 1855는 매우 중요합니다."
+    },
+    {
+      "id": 32,
+      "page": "Page 37",
+      "priority": "상",
+      "type": "blank",
+      "question": "High temperature oxidation of Zirconium alloy cladding can generate (          ), and hydrogen generation can cause serious accident progression such as (          ).",
+      "answer": "hydrogen / explosion",
+      "explanation": "ATF가 필요한 이유입니다. Zr-steam reaction -> hydrogen generation -> accident progression으로 연결됩니다."
+    },
+    {
+      "id": 33,
+      "page": "Page 48",
+      "priority": "최상",
+      "type": "blank",
+      "question": "ATFs would endure loss of active cooling in the reactor core for a considerably longer period of time than the current fuel (          ). ATFs maintain or improve the fuel performance during normal operations and operational (          ).",
+      "answer": "system / transients",
+      "explanation": "OECD/NEA ATF 정의의 핵심입니다. 사고 조건뿐 아니라 정상/과도 운전 성능도 유지해야 합니다."
+    },
+    {
+      "id": 34,
+      "page": "Page 48",
+      "priority": "최상",
+      "type": "blank",
+      "question": "ATFs meet or exceed current fuel system performance under normal, operational transient, DBA, and design extension conditions ((          )).",
+      "answer": "DECs",
+      "explanation": "ATF 성능 범위에 DEC까지 들어간다는 점이 중요합니다."
+    },
+    {
+      "id": 35,
+      "page": "Page 49",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Key attributes of enhanced accident tolerance include reduced steam reaction (          ), lower hydrogen generation (          ), and reduction of stored energy in the (          ).",
+      "answer": "kinetics / rate / core",
+      "explanation": "ATF의 사고저항성 핵심 속성입니다. steam reaction kinetics, hydrogen generation rate, stored energy reduction을 외우세요."
+    },
+    {
+      "id": 36,
+      "page": "Page 49",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Fuel coping time is the time lapse between departure from normal operation and significant loss of geometry of the fuel (          ).",
+      "answer": "assemblies",
+      "explanation": "fuel coping time 정의입니다. ATF의 성능 향상을 시간 개념으로 표현합니다."
+    },
+    {
+      "id": 37,
+      "page": "Page 50",
+      "priority": "최상",
+      "type": "blank",
+      "question": "In the US, ATF was redefined based on NEIMA Act Section (          ). Fuels should have potential to enhance safety in case of a severe accident for a longer time than the current UO2-zirconium alloy fuel (          ).",
+      "answer": "107 / system",
+      "explanation": "US ATF 정의와 법적 근거입니다. NEIMA Section 107을 숫자로 외우세요."
+    },
+    {
+      "id": 38,
+      "page": "Page 51",
+      "priority": "최상",
+      "type": "blank",
+      "question": "IAEA definition: Fuels that have potential to enhance the safety in case of a (          ) accident in a reactor core for a longer time than the current UO2-zirconium alloy fuel (          ).",
+      "answer": "severe / system",
+      "explanation": "IAEA 정의는 severe accident와 current UO2-zirconium alloy fuel system 대비가 핵심입니다."
+    },
+    {
+      "id": 39,
+      "page": "Page 52",
+      "priority": "최상",
+      "type": "blank",
+      "question": "In Korea, ATF was originally defined as fuels that could sustain fuel integrity for a longer time in case of loss of active core (          ). Now, ATF is defined as fuels that could sustain fuel integrity for a longer time in case of (          ), increase fuel safety (          ), and accommodate new technologies which bring economic (          ).",
+      "answer": "cooling / accidents / margin / benefits",
+      "explanation": "한국 ATF 정의 변화입니다. 초기 정의는 active core cooling loss, 현재 정의는 사고/안전여유/경제성까지 포함합니다."
+    },
+    {
+      "id": 40,
+      "page": "Page 53",
+      "priority": "최상",
+      "type": "blank",
+      "question": "EU Taxonomy (Climate Delegate Act, '22.7) requires ATF should be used by (          ). Korea Taxonomy ('22.9) requires ATF should be used by (          ).",
+      "answer": "2025 / 2031",
+      "explanation": "정책 일정 숫자입니다. EU 2025, Korea 2031을 비교해서 외우세요."
+    },
+    {
+      "id": 41,
+      "page": "Page 54",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The regulatory body should prepare a regulatory review guide on (          ). ATF regulatory review focus should consider safety margin, accident tolerance, material behavior, and fuel performance under normal, transient, DBA, and DEC conditions.",
+      "answer": "ATFs",
+      "explanation": "Lecture 11의 ATF 결론입니다. 규제기관은 ATF review guide를 준비해야 한다는 점이 핵심입니다."
+    },
+    {
+      "id": 42,
+      "page": "Page 2-54",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Lecture 11 connects two future TR issues: (          ) for high burnup fuel under LB LOCA and (          ) for enhanced accident tolerance after Fukushima.",
+      "answer": "FFRD / ATF",
+      "explanation": "전체 강의의 큰 논리 구조입니다. FFRD는 고연소도/LB LOCA, ATF는 Fukushima/사고저항성입니다."
+    },
+    {
+      "id": 43,
+      "page": "Page 6-7",
+      "priority": "최상",
+      "type": "blank",
+      "question": "FFRD affects existing LOCA evaluation methodology mainly through (          ) calculation and accident source term calculation; key related terms are (          ), relocation, dispersal, and (          ).",
+      "answer": "PCT / fragmentation / tFGR",
+      "explanation": "FFRD가 안전해석에 주는 영향만 압축한 연결형 문제입니다."
+    },
+    {
+      "id": 44,
+      "page": "Page 21-28",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The physical chain for high burnup fuel is rim high (          ) -> HBS formation -> high porosity and bubble growth -> fine fragmentation or (          ) during LOCA -> relocation -> local power (          ) -> PCT impact.",
+      "answer": "burnup / pulverization / peaking",
+      "explanation": "FFRD 물리 흐름을 한 줄로 정리한 문제입니다. 100점 목표라면 이 연결을 꼭 암기해야 합니다."
+    },
+    {
+      "id": 45,
+      "page": "Page 36-49",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The motivation for ATF is related to Fukushima, loss of active cooling, high-temperature zirconium oxidation, hydrogen (          ), and the need for longer fuel (          ) time.",
+      "answer": "generation / coping",
+      "explanation": "ATF 필요성의 핵심 흐름입니다. hydrogen generation과 coping time을 묶어 기억하세요."
+    },
+    {
+      "id": 46,
+      "page": "Page 48-52",
+      "priority": "최상",
+      "type": "blank",
+      "question": "ATF definitions commonly emphasize longer endurance under loss of active cooling or accidents, maintaining or improving fuel performance, increasing safety (          ), and, in Korea, accommodating new technologies bringing economic (          ).",
+      "answer": "margin / benefits",
+      "explanation": "OECD/NEA, IAEA, Korea 정의를 연결한 통합 문제입니다."
+    },
+    {
+      "id": 47,
+      "page": "Page 4-6",
+      "priority": "상",
+      "type": "blank",
+      "question": "High burnup beyond current licensing fuel burnup becomes a regulatory issue because, under (          ), high burnup fuels may become increasingly susceptible to (          ).",
+      "answer": "LB LOCA / FFRD",
+      "explanation": "고연소도 자체보다 LB LOCA 조건에서 FFRD 민감도가 커지는 것이 규제 이슈입니다."
+    },
+    {
+      "id": 48,
+      "page": "Page 29-31",
+      "priority": "상",
+      "type": "blank",
+      "question": "Important regulatory numbers for FFRD include fine fragmentation threshold (          ) GWD/MTU, clearer <=1 mm fragmentation threshold (          ) GWD/MTU, average relocation strain threshold (          )%, and conservative dispersal strain criterion (          )%.",
+      "answer": "55 / 60 / 3.7 / 3",
+      "explanation": "FFRD 숫자형 핵심을 하나로 묶었습니다. 시험 직전 반복용입니다."
+    },
+    {
+      "id": 49,
+      "page": "Page 37-53",
+      "priority": "상",
+      "type": "blank",
+      "question": "Important ATF numbers include Fukushima year (          ), Zr mechanical integrity loss temperature (          ) degrees C, Zr run-away reaction temperature (          ) degrees C, Zr melting temperature (          ) degrees C, EU ATF use by (          ), and Korea ATF use by (          ).",
+      "answer": "2011 / 875 / 1200 / 1855 / 2025 / 2031",
+      "explanation": "ATF 숫자형 핵심을 한 문제로 압축했습니다."
+    },
+    {
+      "id": 50,
+      "page": "Page 4",
+      "priority": "계산",
+      "type": "calculation",
+      "question": "Calculate the increase from Korea existing licensing fuel burnup 60 GWD/MTU to Korea current trend 62 GWD/MTU: (          ) GWD/MTU.",
+      "answer": "2",
+      "explanation": "62 - 60 = 2 GWD/MTU입니다."
+    },
+    {
+      "id": 51,
+      "page": "Page 4",
+      "priority": "계산",
+      "type": "calculation",
+      "question": "Calculate the increase from US existing licensing fuel burnup 62 GWD/MTU to US current trend 68 GWD/MTU: (          ) GWD/MTU.",
+      "answer": "6",
+      "explanation": "68 - 62 = 6 GWD/MTU입니다."
+    },
+    {
+      "id": 52,
+      "page": "Page 10",
+      "priority": "계산",
+      "type": "calculation",
+      "question": "Calculate the temperature difference between reactor outlet 330 degrees C and reactor inlet 285 degrees C during LB LOCA primary circuit condition: (          ) degrees C.",
+      "answer": "45",
+      "explanation": "330 - 285 = 45 degrees C입니다."
+    },
+    {
+      "id": 53,
+      "page": "Page 12",
+      "priority": "계산",
+      "type": "calculation",
+      "question": "Calculate the temperature difference between fuel center 1400 degrees C and clad surface 330 degrees C: (          ) degrees C.",
+      "answer": "1070",
+      "explanation": "1400 - 330 = 1070 degrees C입니다."
+    },
+    {
+      "id": 54,
+      "page": "Page 27",
+      "priority": "계산",
+      "type": "calculation",
+      "question": "Calculate the LB LOCA bubble temperature rise from 500 degrees C to 1200 degrees C: (          ) degrees C.",
+      "answer": "700",
+      "explanation": "1200 - 500 = 700 degrees C입니다."
+    },
+    {
+      "id": 55,
+      "page": "Page 27",
+      "priority": "계산",
+      "type": "calculation",
+      "question": "Calculate the REA bubble temperature rise from 500 degrees C to 2000 degrees C: (          ) degrees C.",
+      "answer": "1500",
+      "explanation": "2000 - 500 = 1500 degrees C입니다."
+    },
+    {
+      "id": 56,
+      "page": "Page 29",
+      "priority": "계산",
+      "type": "calculation",
+      "question": "Calculate the burnup difference between 60 GWD/MTU and 55 GWD/MTU fragmentation thresholds: (          ) GWD/MTU.",
+      "answer": "5",
+      "explanation": "60 - 55 = 5 GWD/MTU입니다."
+    },
+    {
+      "id": 57,
+      "page": "Page 30-31",
+      "priority": "계산",
+      "type": "calculation",
+      "question": "Calculate the difference between EPRI 5% strain criterion and NRC/DG-1434 3% cladding strain criterion: (          )%.",
+      "answer": "2",
+      "explanation": "5 - 3 = 2%입니다."
+    },
+    {
+      "id": 58,
+      "page": "Page 37",
+      "priority": "계산",
+      "type": "calculation",
+      "question": "Calculate the difference between zirconium melting temperature 1855 degrees C and loss of mechanical integrity temperature 875 degrees C: (          ) degrees C.",
+      "answer": "980",
+      "explanation": "1855 - 875 = 980 degrees C입니다."
+    },
+    {
+      "id": 59,
+      "page": "Page 37",
+      "priority": "계산",
+      "type": "calculation",
+      "question": "Calculate the difference between fuel pellet melting temperature 2850 degrees C and zirconium melting temperature 1855 degrees C: (          ) degrees C.",
+      "answer": "995",
+      "explanation": "2850 - 1855 = 995 degrees C입니다."
+    },
+    {
+      "id": 60,
+      "page": "Page 53",
+      "priority": "계산",
+      "type": "calculation",
+      "question": "Calculate the year difference between EU Taxonomy ATF use by 2025 and Korea Taxonomy ATF use by 2031: (          ) years.",
+      "answer": "6",
+      "explanation": "2031 - 2025 = 6 years입니다."
+    }
+  ]
+}
