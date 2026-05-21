@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lecture 암기앱 v3 AI맞춤형 JSON분리형</title>
+<style>
+  :root {
+    --bg:#f6f7fb; --card:#ffffff; --ink:#111827; --muted:#6b7280; --line:#e5e7eb;
+    --primary:#2563eb; --primary2:#1d4ed8; --good:#059669; --bad:#dc2626; --warn:#d97706;
+    --soft:#eef2ff; --shadow:0 8px 24px rgba(17,24,39,.08);
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif; }
+  .app { max-width:880px; margin:0 auto; padding:14px 12px 90px; }
+  .top { position:sticky; top:0; z-index:10; background:rgba(246,247,251,.95); backdrop-filter:blur(8px); padding:10px 0 8px; }
+  .title { font-size:20px; font-weight:800; margin:0 0 8px; letter-spacing:-.03em; }
+  .bar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  button, select, input, textarea { font:inherit; }
+  button { border:0; background:var(--primary); color:white; padding:10px 12px; border-radius:12px; font-weight:700; cursor:pointer; }
+  button:hover { background:var(--primary2); }
+  button.secondary { background:#e5e7eb; color:#111827; }
+  button.secondary:hover { background:#d1d5db; }
+  button.good { background:var(--good); }
+  button.bad { background:var(--bad); }
+  button.warn { background:var(--warn); }
+  button.small { padding:7px 9px; border-radius:10px; font-size:13px; }
+  select, input, textarea { border:1px solid var(--line); border-radius:12px; padding:10px 12px; background:white; color:var(--ink); }
+  select { min-width:140px; }
+  input[type="text"] { width:100%; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:16px; margin-top:12px; }
+  .meta { display:flex; gap:8px; align-items:center; flex-wrap:wrap; color:var(--muted); font-size:13px; margin-bottom:12px; }
+  .pill { display:inline-flex; align-items:center; gap:4px; background:#f3f4f6; color:#374151; border-radius:999px; padding:5px 9px; font-weight:700; }
+  .pill.blue { background:var(--soft); color:#3730a3; }
+  .pill.good { background:#ecfdf5; color:#047857; }
+  .pill.bad { background:#fef2f2; color:#b91c1c; }
+  .question { font-size:21px; line-height:1.65; font-weight:750; letter-spacing:-.015em; white-space:pre-wrap; user-select:text; border-radius:16px; padding:14px; background:#fafafa; border:1px solid #f0f0f0; }
+  .hint { color:var(--muted); font-size:13px; line-height:1.55; }
+  textarea { width:100%; min-height:88px; margin-top:12px; resize:vertical; line-height:1.5; }
+  .answer { display:none; margin-top:12px; padding:14px; border-radius:16px; background:#f8fafc; border:1px solid var(--line); }
+  .answer.show { display:block; }
+  .answer h3 { margin:0 0 8px; font-size:16px; }
+  .answerText { font-size:18px; font-weight:800; color:#111827; white-space:pre-wrap; }
+  .explain { margin-top:10px; line-height:1.65; color:#374151; white-space:pre-wrap; }
+  .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:12px; }
+  .grow { flex:1 1 220px; }
+  .progressOuter { height:10px; background:#e5e7eb; border-radius:999px; overflow:hidden; flex:1 1 160px; }
+  .progressInner { height:100%; width:0%; background:var(--primary); transition:width .2s ease; }
+  .footerNav { position:fixed; bottom:0; left:0; right:0; background:rgba(255,255,255,.96); border-top:1px solid var(--line); backdrop-filter:blur(8px); padding:10px; }
+  .footerNav .inner { max-width:880px; margin:0 auto; display:flex; gap:8px; }
+  .footerNav button { flex:1; }
+  .chips { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+  .chip { display:inline-flex; align-items:center; gap:5px; border:1px solid var(--line); background:#fff; border-radius:999px; padding:5px 8px; font-size:13px; }
+  .chip button { padding:0 5px; border-radius:999px; background:#f3f4f6; color:#111827; font-size:12px; }
+  .list { max-height:360px; overflow:auto; border:1px solid var(--line); border-radius:14px; margin-top:10px; background:white; }
+  .item { padding:10px 12px; border-bottom:1px solid var(--line); cursor:pointer; }
+  .item:last-child { border-bottom:0; }
+  .item:hover { background:#f9fafb; }
+  .itemTitle { font-weight:800; font-size:14px; }
+  .itemQ { color:#4b5563; font-size:13px; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .hidden { display:none !important; }
+  .dangerZone { border-top:1px dashed var(--line); padding-top:12px; margin-top:12px; }
+  @media (max-width:540px) {
+    .app { padding:10px 9px 88px; }
+    .title { font-size:18px; }
+    .question { font-size:18px; line-height:1.6; padding:12px; }
+    button { padding:9px 10px; }
+    .card { border-radius:17px; padding:13px; }
+    .footerNav .inner { gap:6px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <h1 class="title" id="appTitle">Lecture 암기앱 v3 AI맞춤형</h1>
+    <div class="bar">
+      <select id="datasetSelect" title="문제 데이터 선택">
+        <option value="">문제데이터 선택</option>
+      </select>
+      <select id="modeSelect" title="학습 범위">
+        <option value="all">전체 문제</option>
+        <option value="weak">오답/취약 문제</option>
+        <option value="unseen">미풀이 문제</option>
+        <option value="favorite">표시한 문제</option>
+        <option value="ai">AI 추천 문제</option>
+      </select>
+      <button class="secondary small" id="shuffleBtn">섞기</button>
+      <button class="secondary small" id="listBtn">목록</button>
+      <button class="secondary small" id="examBtn">시험지TXT</button>
+    </div>
+    <div class="hint">GitHub Pages에서 quiz_manifest.json을 읽어 문제 JSON 목록을 자동으로 불러옵니다. 새 강의는 JSON 파일 추가 후 manifest에 등록하면 됩니다.</div>
+  </div>
+
+  <div class="card">
+    <div class="meta">
+      <span class="pill blue" id="numPill">문제 0</span>
+      <span class="pill" id="pagePill">Page</span>
+      <span class="pill" id="priorityPill">우선순위</span>
+      <span class="pill good" id="rightPill">맞음 0</span>
+      <span class="pill bad" id="wrongPill">틀림 0</span>
+      <span class="pill" id="favPill">☆</span>
+    </div>
+    <div class="progressOuter"><div class="progressInner" id="progressInner"></div></div>
+
+    <div id="questionText" class="question" aria-label="문제 문장">문제 데이터를 불러오는 중입니다.</div>
+    <div class="hint">문장 안에서 더 외우고 싶은 단어를 드래그한 뒤 “선택 단어 빈칸”을 누르면, 이 문제 문장 자체가 바로 업데이트됩니다.</div>
+
+    <textarea id="userAnswer" placeholder="여기에 답을 써보세요. 예: efficiency / licensing / licensees"></textarea>
+
+    <div class="row">
+      <button id="showAnswerBtn">정답 보기</button>
+      <button class="good" id="markRightBtn">맞음</button>
+      <button class="bad" id="markWrongBtn">틀림</button>
+      <button class="secondary" id="favBtn">☆ 표시</button>
+    </div>
+
+    <div id="answerBox" class="answer">
+      <h3>정답</h3>
+      <div id="answerText" class="answerText"></div>
+      <div id="explainText" class="explain"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <input id="blankInput" class="grow" type="text" placeholder="추가로 빈칸 처리할 단어/문구 입력 또는 문장에서 드래그">
+      <button id="addBlankBtn" class="warn">선택 단어 빈칸</button>
+    </div>
+    <div class="hint">예: nuclear reactor, multiple, pressure처럼 입력하면 현재 문제 문장 안의 해당 표현이 (          )로 바뀝니다.</div>
+    <div id="extraBlankChips" class="chips"></div>
+  </div>
+
+  <div id="listCard" class="card hidden">
+    <div class="row">
+      <input id="searchInput" class="grow" type="text" placeholder="검색: DNBR, TR, Tong, Page 35 등">
+      <button id="closeListBtn" class="secondary">닫기</button>
+    </div>
+    <div id="questionList" class="list"></div>
+  </div>
+
+  <div class="card">
+    <div class="meta">
+      <span class="pill blue" id="aiMemoryRate">암기율 0%</span>
+      <span class="pill bad" id="aiRiskCount">위험 0</span>
+      <span class="pill" id="aiWeakCount">취약 0</span>
+      <span class="pill good" id="aiMasterCount">완전암기 0</span>
+    </div>
+    <div class="hint" id="aiCoachText">AI 추천은 맞음/틀림/추가괄호/즐겨찾기를 기준으로 취약한 문제를 먼저 보여줍니다.</div>
+    <div class="progressOuter" style="margin-top:8px;"><div class="progressInner" id="aiMemoryBar"></div></div>
+  </div>
+
+  <div class="card">
+    <div class="meta">
+      <span class="pill" id="summarySolved">풀이 0</span>
+      <span class="pill good" id="summaryRight">총 맞음 0</span>
+      <span class="pill bad" id="summaryWrong">총 틀림 0</span>
+      <span class="pill" id="summaryBlanks">추가 빈칸 0</span>
+      <span class="pill">진도저장: 브라우저 내부</span>
+    </div>
+    <div class="dangerZone">
+      <button class="secondary small" id="resetCurrentBtn">현재 문제 기록 초기화</button>
+      <button class="secondary small" id="resetAllBtn">전체 기록 초기화</button>
+    </div>
+  </div>
+</div>
+
+<div class="footerNav">
+  <div class="inner">
+    <button class="secondary" id="prevBtn">이전</button>
+    <button id="nextBtn">다음</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  const APP_KEY = 'lecture_quiz_v3_github_json_app';
+  const MANIFEST_FILE = './quiz_manifest.json';
+  const blank = '(          )';
+
+  let BUNDLED = [];
+  let dataset = { title:'문제 데이터 없음', datasetId:'none', questions:[] };
+  let QUESTIONS = [];
+  let state = { stats:{}, extraBlanks:{}, favorites:{}, mode:'all' };
+  let order = [];
+  let pos = 0;
+  let showAnswer = false;
+
+  const $ = id => document.getElementById(id);
+  const els = {
+    appTitle:$('appTitle'), datasetSelect:$('datasetSelect'), modeSelect:$('modeSelect'), shuffleBtn:$('shuffleBtn'), listBtn:$('listBtn'), examBtn:$('examBtn'),
+    numPill:$('numPill'), pagePill:$('pagePill'), priorityPill:$('priorityPill'), rightPill:$('rightPill'), wrongPill:$('wrongPill'), favPill:$('favPill'), progressInner:$('progressInner'),
+    questionText:$('questionText'), userAnswer:$('userAnswer'), showAnswerBtn:$('showAnswerBtn'), markRightBtn:$('markRightBtn'), markWrongBtn:$('markWrongBtn'), favBtn:$('favBtn'),
+    answerBox:$('answerBox'), answerText:$('answerText'), explainText:$('explainText'), blankInput:$('blankInput'), addBlankBtn:$('addBlankBtn'), extraBlankChips:$('extraBlankChips'),
+    listCard:$('listCard'), searchInput:$('searchInput'), closeListBtn:$('closeListBtn'), questionList:$('questionList'),
+    summarySolved:$('summarySolved'), summaryRight:$('summaryRight'), summaryWrong:$('summaryWrong'), summaryBlanks:$('summaryBlanks'),
+    aiMemoryRate:$('aiMemoryRate'), aiRiskCount:$('aiRiskCount'), aiWeakCount:$('aiWeakCount'), aiMasterCount:$('aiMasterCount'), aiCoachText:$('aiCoachText'), aiMemoryBar:$('aiMemoryBar'),
+    resetCurrentBtn:$('resetCurrentBtn'), resetAllBtn:$('resetAllBtn'),
+    prevBtn:$('prevBtn'), nextBtn:$('nextBtn')
+  };
+
+  function safeDatasetId() {
+    return String((dataset && dataset.datasetId) || 'custom').replace(/[^a-zA-Z0-9_-]/g, '_');
+  }
+
+  function stateKey() {
+    return APP_KEY + '_state_' + safeDatasetId();
+  }
+
+  function normalizeQuestion(q, idx) {
+    return {
+      id: Number(q.id || idx + 1),
+      page: q.page ? String(q.page) : '',
+      priority: q.priority ? String(q.priority) : '',
+      question: String(q.question || q.prompt || ''),
+      answer: String(q.answer || ''),
+      explanation: String(q.explanation || q.explain || '')
+    };
+  }
+
+  function normalizeDataset(obj, forcedId, forcedTitle) {
+    obj = obj || {};
+    let arr = Array.isArray(obj) ? obj : (obj.questions || obj.data || []);
+    arr = arr.map(normalizeQuestion).filter(q => q.question && q.answer);
+    arr = arr.map((q, i) => ({...q, id: i + 1}));
+    return {
+      title: forcedTitle || obj.title || 'Lecture 암기앱 v3',
+      datasetId: forcedId || obj.datasetId || obj.id || 'custom',
+      questions: arr
+    };
+  }
+
+  function emptyState() {
+    const stats = {}, extraBlanks = {};
+    QUESTIONS.forEach(q => {
+      const k = String(q.id);
+      stats[k] = {right:0, wrong:0};
+      extraBlanks[k] = [];
+    });
+    return {stats, extraBlanks, favorites:{}, mode:'all'};
+  }
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(stateKey());
+      if (raw) return normalizeState(JSON.parse(raw));
+    } catch(e) { console.warn(e); }
+    return normalizeState({ stats:{}, extraBlanks:{}, favorites:{}, mode:'all' });
+  }
+
+  function normalizeState(s) {
+    s = s || {};
+    s.stats = s.stats || {};
+    s.extraBlanks = s.extraBlanks || {};
+    s.favorites = s.favorites || {};
+    s.mode = s.mode || 'all';
+    QUESTIONS.forEach(q => {
+      const k = String(q.id);
+      if (!s.stats[k]) s.stats[k] = {right:0, wrong:0};
+      if (!Array.isArray(s.extraBlanks[k])) s.extraBlanks[k] = [];
+    });
+    return s;
+  }
+
+  function saveState() {
+    localStorage.setItem(stateKey(), JSON.stringify(state));
+  }
+
+  async function loadJson(url) {
+    const res = await fetch(url + (url.includes('?') ? '&' : '?') + 'ts=' + Date.now(), {cache:'no-store'});
+    if (!res.ok) throw new Error(url + ' load failed');
+    return await res.json();
+  }
+
+  async function loadManifestDatasets() {
+    const manifest = await loadJson(MANIFEST_FILE);
+    const list = Array.isArray(manifest) ? manifest : (manifest.datasets || []);
+    const loaded = [];
+
+    for (const item of list) {
+      if (!item || !item.file) continue;
+      try {
+        const data = await loadJson(item.file);
+        const normalized = normalizeDataset(data, item.datasetId || data.datasetId, item.label || data.title);
+        if (!normalized.questions.length) continue;
+        loaded.push({
+          label: item.label || normalized.title || normalized.datasetId,
+          datasetId: item.datasetId || normalized.datasetId,
+          file: item.file,
+          data: {
+            ...data,
+            title: item.label || data.title || normalized.title,
+            datasetId: item.datasetId || data.datasetId || normalized.datasetId,
+            questions: normalized.questions
+          }
+        });
+      } catch(e) {
+        console.warn('Dataset load failed:', item.file, e);
+      }
+    }
+
+    return loaded;
+  }
+
+  async function initDatasets() {
+    try {
+      BUNDLED = await loadManifestDatasets();
+      if (!BUNDLED.length) throw new Error('No datasets loaded');
+      const lastId = localStorage.getItem(APP_KEY + '_last_dataset');
+      const selected = BUNDLED.find(x => String(x.datasetId) === lastId) || BUNDLED[0];
+      switchDataset(selected.data, false);
+      buildDatasetSelect();
+      rebuildOrder();
+      render();
+    } catch(e) {
+      console.error(e);
+      els.questionText.textContent = '문제 데이터를 읽지 못했습니다. GitHub Pages에 index.html, quiz_manifest.json, 문제 JSON 파일이 같은 폴더에 있는지 확인하세요.';
+      els.aiCoachText.textContent = '로컬에서 직접 HTML을 더블클릭하면 일부 브라우저가 JSON fetch를 막을 수 있습니다. GitHub Pages 또는 간단한 로컬 서버에서 실행하세요.';
+    }
+  }
+
+  function buildDatasetSelect() {
+    els.datasetSelect.innerHTML = '';
+    BUNDLED.forEach(item => {
+      const opt = document.createElement('option');
+      opt.value = String(item.datasetId).replace(/[^a-zA-Z0-9_-]/g, '_');
+      opt.textContent = item.label;
+      els.datasetSelect.appendChild(opt);
+    });
+    els.datasetSelect.value = safeDatasetId();
+  }
+
+  function switchDataset(nd, doSave=true) {
+    if (doSave) saveState();
+    dataset = normalizeDataset(nd);
+    QUESTIONS = dataset.questions;
+    localStorage.setItem(APP_KEY + '_last_dataset', dataset.datasetId);
+    state = loadState();
+    els.modeSelect.value = state.mode;
+    rebuildOrder();
+    if (doSave) render();
+  }
+
+  function currentQ() { return QUESTIONS.find(q => q.id === order[pos]) || QUESTIONS[0]; }
+  function statOf(id) { return state.stats[String(id)] || {right:0, wrong:0}; }
+  function extraOf(id) { return state.extraBlanks[String(id)] || []; }
+  function uniqueArray(arr) { return Array.from(new Set(arr.map(x=>String(x).trim()).filter(Boolean))); }
+
+  function makeOrder(mode) {
+    let arr = QUESTIONS.slice();
+    if (mode === 'weak') arr = arr.filter(q => { const st=statOf(q.id); return st.wrong > 0 || st.wrong >= st.right; });
+    if (mode === 'unseen') arr = arr.filter(q => { const st=statOf(q.id); return st.wrong + st.right === 0; });
+    if (mode === 'favorite') arr = arr.filter(q => !!state.favorites[String(q.id)]);
+    if (mode === 'ai') {
+      arr = arr.slice().sort((a,b) => weaknessScore(b) - weaknessScore(a));
+      arr = arr.filter(q => weaknessScore(q) > -1);
+    }
+    if (arr.length === 0) arr = QUESTIONS.slice();
+    return arr.map(q => q.id);
+  }
+
+  function rebuildOrder(keepId) {
+    order = makeOrder(state.mode);
+    let newPos = keepId ? order.indexOf(keepId) : -1;
+    pos = newPos >= 0 ? newPos : 0;
+  }
+
+  function shuffleOrder() {
+    for (let i=order.length-1; i>0; i--) {
+      const j = Math.floor(Math.random()*(i+1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    pos = 0;
+    render();
+  }
+
+  function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  function applyExtraBlanks(text, terms) {
+    let out = text;
+    terms.forEach(term => {
+      const t = String(term).trim();
+      if (!t) return;
+      try {
+        const re = new RegExp(escapeRegExp(t), 'g');
+        out = out.replace(re, blank);
+      } catch(e) {}
+    });
+    return out;
+  }
+
+  function baseBlankPositions(text) {
+    const out = [];
+    const re = /\(\s{3,}\)/g;
+    let m;
+    while ((m = re.exec(text)) !== null) out.push(m.index);
+    return out;
+  }
+
+  function answerByBlankOrder(q) {
+    const events = [];
+    const answers = String(q.answer).split('/').map(s => s.trim()).filter(Boolean);
+    baseBlankPositions(q.question).forEach((pos, i) => events.push({pos, ans: answers[i] || ''}));
+    extraOf(q.id).forEach(term => {
+      const t = String(term).trim();
+      if (!t) return;
+      const re = new RegExp(escapeRegExp(t), 'g');
+      let m;
+      while ((m = re.exec(q.question)) !== null) events.push({pos:m.index, ans:t});
+    });
+    return events.filter(e=>e.ans).sort((a,b)=>a.pos-b.pos).map(e=>e.ans).join(' / ');
+  }
+
+  function render() {
+    if (!QUESTIONS.length) return;
+    const q = currentQ();
+    const st = statOf(q.id);
+    const extras = extraOf(q.id);
+    showAnswer = false;
+    els.answerBox.classList.remove('show');
+    els.showAnswerBtn.textContent = '정답 보기';
+    els.userAnswer.value = '';
+    els.appTitle.textContent = (dataset.title || 'Lecture 암기앱 v3') + ' [' + safeDatasetId() + ']';
+    els.datasetSelect.value = String(dataset.datasetId).replace(/[^a-zA-Z0-9_-]/g, '_');
+    els.numPill.textContent = `문제 ${q.id} / ${QUESTIONS.length}  ·  현재 ${pos+1}/${order.length}`;
+    els.pagePill.textContent = q.page;
+    els.priorityPill.textContent = q.priority ? '우선순위 ' + q.priority : '우선순위';
+    els.rightPill.textContent = '맞음 ' + st.right;
+    els.wrongPill.textContent = '틀림 ' + st.wrong;
+    els.favPill.textContent = state.favorites[String(q.id)] ? '★ 표시됨' : '☆ 미표시';
+    els.favBtn.textContent = state.favorites[String(q.id)] ? '★ 표시 해제' : '☆ 표시';
+    els.progressInner.style.width = ((pos+1)/Math.max(order.length,1)*100).toFixed(1)+'%';
+    els.questionText.textContent = applyExtraBlanks(q.question, extras);
+    els.answerText.textContent = answerByBlankOrder(q);
+    els.explainText.textContent = q.explanation;
+    renderChips();
+    renderSummary();
+  }
+
+  function renderChips() {
+    const q = currentQ();
+    const extras = q ? extraOf(q.id) : [];
+    els.extraBlankChips.innerHTML = '';
+    extras.forEach((term, idx) => {
+      const chip = document.createElement('span'); chip.className='chip';
+      const label = document.createElement('span'); label.textContent = term;
+      const btn = document.createElement('button'); btn.type='button'; btn.textContent='복원';
+      btn.addEventListener('click', () => {
+        state.extraBlanks[String(q.id)].splice(idx,1);
+        saveState(); render();
+      });
+      chip.append(label, btn); els.extraBlankChips.appendChild(chip);
+    });
+    if (!extras.length) {
+      const span = document.createElement('span'); span.className='hint'; span.textContent='추가 빈칸 없음';
+      els.extraBlankChips.appendChild(span);
+    }
+  }
+
+  function weaknessScore(q) {
+    const st = statOf(q.id);
+    const extras = extraOf(q.id).length;
+    const fav = state.favorites[String(q.id)] ? 1 : 0;
+    const attempts = st.right + st.wrong;
+    const unseen = attempts === 0 ? 1.2 : 0;
+    const priority = String(q.priority || '');
+    const pBoost = priority.includes('최상') ? 1.0 : (priority.includes('계산') ? 0.8 : (priority.includes('상') ? 0.4 : 0));
+    return st.wrong * 3.2 + extras * 1.5 + fav * 1.2 + unseen + pBoost - st.right * 0.75;
+  }
+
+  function getAiStats() {
+    let solved=0, mastered=0, risk=0, weak=0, right=0, wrong=0;
+    QUESTIONS.forEach(q => {
+      const st = statOf(q.id);
+      const score = weaknessScore(q);
+      right += st.right; wrong += st.wrong;
+      if (st.right + st.wrong > 0) solved++;
+      if (st.right >= 2 && st.wrong === 0) mastered++;
+      if (st.wrong >= 2 || score >= 5) risk++;
+      if (st.wrong > 0 || score >= 2.5) weak++;
+    });
+    const memoryRate = QUESTIONS.length ? Math.round(mastered / QUESTIONS.length * 100) : 0;
+    return {solved, mastered, risk, weak, right, wrong, memoryRate};
+  }
+
+  function renderAIStats() {
+    const s = getAiStats();
+    els.aiMemoryRate.textContent = `암기율 ${s.memoryRate}%`;
+    els.aiRiskCount.textContent = `위험 ${s.risk}`;
+    els.aiWeakCount.textContent = `취약 ${s.weak}`;
+    els.aiMasterCount.textContent = `완전암기 ${s.mastered}`;
+    els.aiMemoryBar.style.width = s.memoryRate + '%';
+
+    const top = QUESTIONS.slice().sort((a,b)=>weaknessScore(b)-weaknessScore(a)).slice(0,3);
+    const names = top.map(q => `#${q.id}(${q.page})`).join(', ');
+    if (s.risk > 0) {
+      els.aiCoachText.textContent = `AI 추천: 지금은 ${names} 순서로 먼저 복습하는 것이 좋습니다. 위험문제 ${s.risk}개를 줄이면 점수가 빨리 오릅니다.`;
+    } else if (s.weak > 0) {
+      els.aiCoachText.textContent = `AI 추천: 큰 위험문제는 적지만 취약문제 ${s.weak}개가 남아 있습니다. AI 추천 모드로 한 바퀴 복습하세요.`;
+    } else {
+      els.aiCoachText.textContent = `AI 추천: 현재 기록상 안정적입니다. 미풀이 문제와 계산형 문제를 섞어 실전시험 TXT를 만들어 보세요.`;
+    }
+  }
+
+  function renderSummary() {
+    let solved=0, right=0, wrong=0, blanks=0;
+    QUESTIONS.forEach(q=>{ const st=statOf(q.id); if(st.right+st.wrong>0) solved++; right+=st.right; wrong+=st.wrong; blanks+=extraOf(q.id).length; });
+    els.summarySolved.textContent = `풀이 ${solved}/${QUESTIONS.length}`;
+    els.summaryRight.textContent = `총 맞음 ${right}`;
+    els.summaryWrong.textContent = `총 틀림 ${wrong}`;
+    els.summaryBlanks.textContent = `추가 빈칸 ${blanks}`;
+    renderAIStats();
+  }
+
+  function makeExamText() {
+    const count = 25;
+    const selected = QUESTIONS.slice()
+      .sort((a,b)=>weaknessScore(b)-weaknessScore(a))
+      .slice(0, Math.min(count, QUESTIONS.length));
+
+    const now = new Date();
+    const title = `${dataset.title || 'Lecture Quiz'} - AI 맞춤 실전시험`;
+    let lines = [];
+    lines.push(title);
+    lines.push(`생성일: ${now.toLocaleString()}`);
+    lines.push(`기준: 맞음/틀림/추가괄호/즐겨찾기 기반 취약도 상위 ${selected.length}문제`);
+    lines.push('='.repeat(70));
+    lines.push('');
+    lines.push('[문제]');
+    selected.forEach((q, i) => {
+      lines.push('');
+      lines.push(`${i+1}. ${q.page} / 우선순위 ${q.priority} / 취약도 ${weaknessScore(q).toFixed(1)}`);
+      lines.push(applyExtraBlanks(q.question, extraOf(q.id)));
+    });
+    lines.push('');
+    lines.push('='.repeat(70));
+    lines.push('[정답 및 해설]');
+    selected.forEach((q, i) => {
+      lines.push('');
+      lines.push(`${i+1}. 정답: ${answerByBlankOrder(q)}`);
+      lines.push(`해설: ${q.explanation}`);
+    });
+    return lines.join('\n');
+  }
+
+  function downloadTextFile(text, filename) {
+    const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function exportExamText() {
+    const id = safeDatasetId();
+    const date = new Date().toISOString().slice(0,10);
+    downloadTextFile(makeExamText(), `${id}_AI맞춤실전시험_${date}.txt`);
+  }
+
+  function addBlank(term) {
+    const q = currentQ();
+    term = String(term || '').trim();
+    if (!term) return alert('빈칸으로 만들 단어를 선택하거나 입력하세요.');
+    if (term.includes(blank) || term.length > 80) return alert('너무 길거나 이미 빈칸인 표현은 추가하지 않았습니다.');
+    if (!q.question.includes(term)) return alert('현재 문제 문장 안에서 정확히 같은 단어/문구를 찾지 못했습니다. 대소문자와 띄어쓰기를 확인하세요.');
+    const k = String(q.id);
+    state.extraBlanks[k] = uniqueArray([...(state.extraBlanks[k]||[]), term]);
+    saveState();
+    els.blankInput.value = '';
+    render();
+  }
+
+  function selectedTextInQuestion() {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0) return '';
+    const text = sel.toString().trim();
+    if (!text) return '';
+    const node = sel.anchorNode;
+    if (node && els.questionText.contains(node.nodeType === 3 ? node.parentNode : node)) return text;
+    return text;
+  }
+
+  function mark(which) {
+    const q = currentQ();
+    const st = statOf(q.id);
+    if (which === 'right') st.right += 1;
+    if (which === 'wrong') st.wrong += 1;
+    state.stats[String(q.id)] = st;
+    saveState();
+    renderSummary();
+    els.rightPill.textContent = '맞음 ' + st.right;
+    els.wrongPill.textContent = '틀림 ' + st.wrong;
+  }
+
+  function move(delta) {
+    if (!order.length) return;
+    pos = (pos + delta + order.length) % order.length;
+    render();
+  }
+
+  function renderList() {
+    const kw = els.searchInput.value.trim().toLowerCase();
+    els.questionList.innerHTML = '';
+    QUESTIONS.filter(q => {
+      const hay = `${q.id} ${q.page} ${q.priority} ${q.question} ${q.answer} ${q.explanation}`.toLowerCase();
+      return !kw || hay.includes(kw);
+    }).forEach(q => {
+      const st = statOf(q.id);
+      const div = document.createElement('div'); div.className='item';
+      div.innerHTML = `<div class="itemTitle">문제 ${q.id} · ${q.page} · ${q.priority} · 맞음 ${st.right} / 틀림 ${st.wrong}</div><div class="itemQ"></div>`;
+      div.querySelector('.itemQ').textContent = applyExtraBlanks(q.question, extraOf(q.id));
+      div.addEventListener('click',()=>{ state.mode='all'; els.modeSelect.value='all'; rebuildOrder(q.id); els.listCard.classList.add('hidden'); render(); });
+      els.questionList.appendChild(div);
+    });
+  }
+
+  els.datasetSelect.addEventListener('change', () => {
+    const val = els.datasetSelect.value;
+    const found = BUNDLED.find(item => String(item.datasetId).replace(/[^a-zA-Z0-9_-]/g, '_') === val);
+    if (found) switchDataset(found.data);
+  });
+
+  els.modeSelect.addEventListener('change',()=>{ state.mode=els.modeSelect.value; saveState(); rebuildOrder(); render(); });
+  els.shuffleBtn.addEventListener('click', shuffleOrder);
+  els.listBtn.addEventListener('click',()=>{ els.listCard.classList.remove('hidden'); renderList(); els.searchInput.focus(); });
+  els.examBtn.addEventListener('click', exportExamText);
+  els.closeListBtn.addEventListener('click',()=>els.listCard.classList.add('hidden'));
+  els.searchInput.addEventListener('input', renderList);
+  els.showAnswerBtn.addEventListener('click',()=>{ showAnswer=!showAnswer; els.answerBox.classList.toggle('show', showAnswer); els.showAnswerBtn.textContent=showAnswer?'정답 숨기기':'정답 보기'; });
+  els.markRightBtn.addEventListener('click',()=>mark('right'));
+  els.markWrongBtn.addEventListener('click',()=>mark('wrong'));
+  els.favBtn.addEventListener('click',()=>{ const q=currentQ(); const k=String(q.id); state.favorites[k]=!state.favorites[k]; saveState(); render(); });
+  els.addBlankBtn.addEventListener('click',()=>addBlank(els.blankInput.value.trim() || selectedTextInQuestion()));
+  els.blankInput.addEventListener('keydown',e=>{ if(e.key==='Enter') addBlank(els.blankInput.value); });
+  els.prevBtn.addEventListener('click',()=>move(-1));
+  els.nextBtn.addEventListener('click',()=>move(1));
+  els.resetCurrentBtn.addEventListener('click',()=>{ const q=currentQ(); if(confirm('현재 문제의 맞음/틀림 기록과 추가 빈칸을 초기화할까요?')) { state.stats[String(q.id)]={right:0,wrong:0}; state.extraBlanks[String(q.id)]=[]; saveState(); render(); } });
+  els.resetAllBtn.addEventListener('click',()=>{ if(confirm('현재 문제데이터의 전체 맞음/틀림 기록과 추가 빈칸을 모두 초기화할까요?')) { localStorage.removeItem(stateKey()); state=loadState(); rebuildOrder(); render(); } });
+
+  document.addEventListener('keydown',e=>{
+    if (['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return;
+    if (e.key==='ArrowLeft') move(-1);
+    if (e.key==='ArrowRight') move(1);
+    if (e.key===' ') { e.preventDefault(); els.showAnswerBtn.click(); }
+    if (e.key==='o' || e.key==='O') mark('right');
+    if (e.key==='x' || e.key==='X') mark('wrong');
+  });
+
+  initDatasets();
+})();
+</script>
+</body>
+</html>

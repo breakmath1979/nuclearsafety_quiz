@@ -1,0 +1,806 @@
+{
+  "title": "Lecture 09 우선순위 100문제 암기앱 v3",
+  "datasetId": "lecture09",
+  "questions": [
+    {
+      "id": 1,
+      "page": "Page 3",
+      "priority": "최상",
+      "question": "Topical Report (TR) is just one of many different kinds of license (          ).",
+      "answer": "applications",
+      "explanation": "TR은 단순 참고자료가 아니라 인허가 신청서류의 한 종류라는 뜻입니다. 첫 문장에서 license applications를 못 쓰면 TR의 법적 성격을 놓치게 됩니다."
+    },
+    {
+      "id": 2,
+      "page": "Page 3",
+      "priority": "최상",
+      "question": "TR allows for a single (          ) body’s (          ) of a (          ) topic that applies to (          ) nuclear power plants.",
+      "answer": "regulatory / review / safety-related / multiple",
+      "explanation": "TR의 핵심 정의 문장입니다. 규제기관이 safety-related topic을 한 번 review하고, 그것을 multiple NPPs에 적용할 수 있게 하는 제도입니다."
+    },
+    {
+      "id": 3,
+      "page": "Page 3",
+      "priority": "최상",
+      "question": "TR increases the (          ) of the (          ) process and reduce the burden on (          ) by minimizing the (          ) and (          ) that both industry and the regulatory body staff would expend on multiple reviews of the same topic.",
+      "answer": "efficiency / licensing / licensees / time / resources",
+      "explanation": "TR의 목적 문장입니다. 같은 주제를 반복 심사하지 않게 하여 licensing efficiency를 높이고 licensee 부담을 줄이는 것이 핵심입니다."
+    },
+    {
+      "id": 4,
+      "page": "Page 3",
+      "priority": "최상",
+      "question": "Anybody who wishes to (          ) or (          ) a nuclear reactor, or who participates in this project can apply for approval of TRs.",
+      "answer": "construct / operate",
+      "explanation": "TR 신청자는 원전을 건설하거나 운전하려는 자뿐 아니라 프로젝트 참여자까지 포함됩니다. construct와 operate를 세트로 외우면 됩니다."
+    },
+    {
+      "id": 5,
+      "page": "Page 3",
+      "priority": "최상",
+      "question": "For example, (          ) ((          )) can apply TRs and (          ) ((          ) Vendor) can also apply TRs.",
+      "answer": "KHNP / licensee / KNF / Fuel",
+      "explanation": "교수님이 강조한 신청 주체 예시입니다. KHNP는 licensee, KNF는 Fuel Vendor입니다. licensee만 되는 것이 아니라 vendor도 가능하다는 점이 포인트입니다."
+    },
+    {
+      "id": 6,
+      "page": "Page 4",
+      "priority": "최상",
+      "question": "Safety-related topics covered by TRs include (          ) and (          ) codes related to technical information concerning the selection of a site for a nuclear reactor facility, design, manufacture, construction, pre-service test, trial operation, operation and disassembly.",
+      "answer": "methodologies / computing",
+      "explanation": "TR 대상의 핵심은 methodologies와 computing codes입니다. site selection부터 disassembly까지 전 생애주기를 덮는다는 흐름을 잡아야 합니다."
+    },
+    {
+      "id": 7,
+      "page": "Page 4",
+      "priority": "최상",
+      "question": "Therefore, TRs can be submitted over almost all (          ) of (          ).",
+      "answer": "lifetime / NPPs",
+      "explanation": "TR은 원전 생애주기 거의 전체에서 제출될 수 있습니다. almost all lifetime of NPPs는 원문 그대로 외우는 것이 안전합니다."
+    },
+    {
+      "id": 8,
+      "page": "Page 4",
+      "priority": "최상",
+      "question": "An approved TR shall be applied (          ) for an (          ) purpose.",
+      "answer": "repeatedly / identical",
+      "explanation": "승인된 TR은 동일 목적에 반복 적용됩니다. repeatedly와 identical purpose가 빈칸으로 나올 가능성이 매우 높습니다."
+    },
+    {
+      "id": 9,
+      "page": "Page 4",
+      "priority": "최상",
+      "question": "TRs shall provide the (          ) for preparing (          ) to be attached to applications for permits related to a nuclear reactor facility.",
+      "answer": "basis / documents",
+      "explanation": "TR은 허가 신청서 첨부문서 작성의 basis가 됩니다. 즉, 승인된 TR은 이후 허가문서의 근거자료 역할을 합니다."
+    },
+    {
+      "id": 10,
+      "page": "Page 5",
+      "priority": "최상",
+      "question": "Abstract stating the (          ) and (          ).",
+      "answer": "overview / conclusion",
+      "explanation": "TR 구성요소 중 Abstract에는 overview와 conclusion이 들어갑니다. 짧지만 숫자/구성형 문제로 자주 나올 수 있습니다."
+    },
+    {
+      "id": 11,
+      "page": "Page 5",
+      "priority": "최상",
+      "question": "Introduction stating the (          ), (          ) of application and (          ).",
+      "answer": "purpose / scope / limitations",
+      "explanation": "Introduction은 purpose, scope of application, limitations를 설명합니다. 이 세 단어를 한 세트로 암기하세요."
+    },
+    {
+      "id": 12,
+      "page": "Page 5",
+      "priority": "최상",
+      "question": "Main text stating an (          ) of the (          ) matter.",
+      "answer": "explanation / subject",
+      "explanation": "Main text는 subject matter의 explanation입니다. TR의 본문 역할을 묻는 기본 빈칸입니다."
+    },
+    {
+      "id": 13,
+      "page": "Page 5",
+      "priority": "최상",
+      "question": "List of data in connection with test (          ), description of computer (          ), and detailed analysis and the derivation (          ) thereof.",
+      "answer": "results / codes / procedures",
+      "explanation": "TR에는 test results, computer codes, detailed analysis, derivation procedures가 들어갑니다. proprietary information과도 연결됩니다."
+    },
+    {
+      "id": 14,
+      "page": "Page 5",
+      "priority": "최상",
+      "question": "A standard processing period of a TR review is (          ) months but usually, the period becomes (          ) even getting longer than 24 months.",
+      "answer": "24 / flexible",
+      "explanation": "숫자 문제로 매우 중요합니다. 표준 처리기간은 24 months지만 실제로는 flexible합니다."
+    },
+    {
+      "id": 15,
+      "page": "Page 5",
+      "priority": "최상",
+      "question": "Most of TRs are closed to the (          ) because they include a lot of (          ) information.",
+      "answer": "public / proprietary",
+      "explanation": "TR 비공개 이유입니다. 업체 고유 기술과 실험자료가 들어가기 때문에 proprietary information이 핵심어입니다."
+    },
+    {
+      "id": 16,
+      "page": "Page 6",
+      "priority": "상",
+      "question": "Areas of Topical Report Applications Submitted include For New Analysis (          ) and For New Fuels & Their (          ).",
+      "answer": "Codes / Designs",
+      "explanation": "제출된 TR 사례의 큰 분류입니다. New Analysis Codes와 New Fuels & Their Designs를 먼저 잡아야 합니다."
+    },
+    {
+      "id": 17,
+      "page": "Page 6",
+      "priority": "상",
+      "question": "TR on the (          ) code for NPP Design (PWR), TR on the (          ) code for NPP Design (PWR), TR on (          ) Subchannel Analysis Code (PWR), and TR on (          ) Code for TH Design of SFR.",
+      "answer": "SPACE / CAP / THALES / SLTHEN",
+      "explanation": "New Analysis Codes 사례입니다. SPACE, CAP, THALES, SLTHEN을 코드 이름 세트로 외우면 됩니다."
+    },
+    {
+      "id": 18,
+      "page": "Page 6",
+      "priority": "상",
+      "question": "TR on CHF Correlation for (          ) Thermal Analysis, TR on CHF Correlation for (          ) Thermal Analysis, TR on (          ) CHF Correlation for HIPER16 Fuel, and TR on CHF Correlation of Modified 37 Fuel Bundles (          ).",
+      "answer": "HIPER17 / HIPER16 / KCE-1H / PHWR",
+      "explanation": "New Fuels & Their Designs 사례입니다. HIPER17, HIPER16, KCE-1H, Modified 37 Fuel Bundles가 CHF correlation과 연결됩니다."
+    },
+    {
+      "id": 19,
+      "page": "Page 7",
+      "priority": "상",
+      "question": "TR on (          ) Fuel Design and Safety Evaluation for (          ) and (          ) NPPs.",
+      "answer": "HIPER16 / OPR1000 / APR1400",
+      "explanation": "HIPER16 fuel design은 OPR1000과 APR1400에 연결됩니다. 원전명과 fuel design을 같이 묶어 기억하세요."
+    },
+    {
+      "id": 20,
+      "page": "Page 7",
+      "priority": "상",
+      "question": "TR on (          ) Cladding Tubes Application to (          ) & (          ) Reactors.",
+      "answer": "HANA-6 / OPR1000 / APR1400",
+      "explanation": "HANA-6은 cladding tubes application이며 OPR1000과 APR1400에 적용되는 사례입니다."
+    },
+    {
+      "id": 21,
+      "page": "Page 7",
+      "priority": "상",
+      "question": "TR on the (          ) Evaluation of Emergency Core Cooling System, TR on the (          ) Best-Estimate Evaluation Methodology of the APR1400 NPPs, and TR on the Non-LOCA Safety Analysis Methodology for Typical APR1400 with the (          ) Code.",
+      "answer": "Realistic / LBLOCA / SPACE",
+      "explanation": "New Analysis Methodologies 사례입니다. ECCS realistic evaluation, LBLOCA Best-Estimate, Non-LOCA with SPACE를 같이 외웁니다."
+    },
+    {
+      "id": 22,
+      "page": "Page 8",
+      "priority": "상",
+      "question": "TR on the realistic (          ) best-estimate plus (          ) methodology considering fuel (          ) and (          ) phenomena.",
+      "answer": "LBLOCA / uncertainty / fragmentation / relocation",
+      "explanation": "미래 TR 이슈입니다. LBLOCA BEPU는 fuel fragmentation and relocation, 즉 FFR을 고려하는 방향입니다."
+    },
+    {
+      "id": 23,
+      "page": "Page 9",
+      "priority": "상",
+      "question": "TR on (          ) tolerant (          ) application.",
+      "answer": "accident / fuel",
+      "explanation": "ATF의 원문 표현입니다. accident tolerant fuel application이 future TR topic으로 제시되었습니다."
+    },
+    {
+      "id": 24,
+      "page": "Page 11",
+      "priority": "중",
+      "question": "Three fundamental modes of heat transfer are (          ), (          ), and (          ).",
+      "answer": "Conduction / Convection / Radiation",
+      "explanation": "열전달 기본 3종입니다. 이후 CHF와 boiling을 이해하는 출발점입니다."
+    },
+    {
+      "id": 25,
+      "page": "Page 13",
+      "priority": "중",
+      "question": "In a nuclear facility, (          ) heat transfer is the major mechanism to deliver heat from fuel rods by nuclear fission reaction.",
+      "answer": "convective",
+      "explanation": "원전에서는 핵분열로 생긴 열을 냉각재로 전달하는 주요 메커니즘이 convective heat transfer입니다."
+    },
+    {
+      "id": 26,
+      "page": "Page 13",
+      "priority": "중",
+      "question": "Major locations where the convective heat transfer occurs are the (          ) and the (          ).",
+      "answer": "reactor core / steam generator",
+      "explanation": "원전 열전달의 핵심 위치입니다. core와 SG를 같이 외우세요."
+    },
+    {
+      "id": 27,
+      "page": "Page 13",
+      "priority": "중",
+      "question": "At the reactor core, heat produced from the fuel rods is delivered to the (          ) coolant by the two phase (water, steam) convective heat transfer.",
+      "answer": "primary",
+      "explanation": "Reactor core에서는 fuel rod 열이 primary coolant로 전달됩니다."
+    },
+    {
+      "id": 28,
+      "page": "Page 13",
+      "priority": "중",
+      "question": "At the steam generator, heat delivered by the primary coolant is transferred to the (          ) coolant by the two phase (water, steam) convective heat transfer.",
+      "answer": "secondary",
+      "explanation": "Steam generator에서는 primary coolant의 열이 secondary coolant로 전달되어 증기발생과 연결됩니다."
+    },
+    {
+      "id": 29,
+      "page": "Page 20",
+      "priority": "상",
+      "question": "Two phase convective heat transfer implies “(          ) Heat Transfer”.",
+      "answer": "Boiling",
+      "explanation": "Two-phase convection은 곧 boiling heat transfer입니다. CHF로 넘어가는 핵심 연결문장입니다."
+    },
+    {
+      "id": 30,
+      "page": "Page 20",
+      "priority": "상",
+      "question": "Boiling means water-to-steam transition through the formation of bubbles and the bubble formation requires “(          )”.",
+      "answer": "nucleation",
+      "explanation": "Boiling은 bubble 형성을 통한 water-to-steam transition이고, bubble formation에는 nucleation이 필요합니다."
+    },
+    {
+      "id": 31,
+      "page": "Page 20",
+      "priority": "상",
+      "question": "Two types of bubble nucleation are (          ) nucleation and (          ) nucleation.",
+      "answer": "Homogeneous / Heterogeneous",
+      "explanation": "Homogeneous는 bulk fluid에서, heterogeneous는 solid surface에서 발생합니다."
+    },
+    {
+      "id": 32,
+      "page": "Page 27",
+      "priority": "상",
+      "question": "Nucleate Boiling Regime includes (          ) Nucleate Boiling and (          ) Nucleate Boiling (= Bulk Boiling).",
+      "answer": "Subcooled / Saturated",
+      "explanation": "Nucleate boiling은 subcooled와 saturated로 구분됩니다. Reactor core와 steam generator 연결도 기억하세요."
+    },
+    {
+      "id": 33,
+      "page": "Page 27",
+      "priority": "상",
+      "question": "Film Boiling Regime means heat transfer surface is covered with (          ) and heat transfer coefficient decreases (          ).",
+      "answer": "steam / rapidly",
+      "explanation": "Film boiling은 표면이 steam/vapor film으로 덮여 열전달계수가 급격히 감소하는 영역입니다."
+    },
+    {
+      "id": 34,
+      "page": "Page 29",
+      "priority": "상",
+      "question": "Pool boiling is boiling of a fluid macroscopically (          ), and flow boiling is boiling of a (          ) fluid.",
+      "answer": "stagnant / flowing",
+      "explanation": "Pool boiling과 flow boiling의 정의 차이입니다. kettle은 pool boiling, NPP steam generation은 flow boiling 예시입니다."
+    },
+    {
+      "id": 35,
+      "page": "Page 29",
+      "priority": "상",
+      "question": "Nucleate boiling is boiling of a fluid via formation of bubbles at the (          ) surface, and film boiling is boiling of a fluid through a stable (          ) film.",
+      "answer": "heater / vapor",
+      "explanation": "Nucleate boiling은 heater surface의 bubble 형성, film boiling은 stable vapor film을 통한 boiling입니다."
+    },
+    {
+      "id": 36,
+      "page": "Page 35",
+      "priority": "최상",
+      "question": "DNBR is defined by the ratio of ((          )) to ((          ) of the Heated Surface) at a particular (          ).",
+      "answer": "CHF / Applied Heat Flux / location",
+      "explanation": "DNBR 정의는 반드시 원문 그대로 외워야 합니다. 특정 위치에서 CHF를 applied heat flux로 나눈 값입니다."
+    },
+    {
+      "id": 37,
+      "page": "Page 35",
+      "priority": "최상",
+      "question": "CHF @location x is (          )kw/ft, Applied Heat Flux of Heated Surface @location x is (          )kw/ft, Then, DNBR is (          ).",
+      "answer": "27 / 9 / 27/9 = 3.0",
+      "explanation": "원문 계산 예시입니다. 숫자 27, 9, 3.0은 그대로 나올 수 있습니다."
+    },
+    {
+      "id": 38,
+      "page": "Page 35",
+      "priority": "최상",
+      "question": "If DNBR is less than (          ), we assume the applied heat flux reaches to CHF or bigger than CHF and the boiling crisis (          ).",
+      "answer": "1.0 / happens",
+      "explanation": "DNBR 기준값입니다. DNBR < 1.0이면 applied heat flux가 CHF 이상이므로 boiling crisis로 판단합니다."
+    },
+    {
+      "id": 39,
+      "page": "Page 35",
+      "priority": "최상",
+      "question": "MDNBR (Minimum DNBR): Minimum DNBR value along the (          ) surface.",
+      "answer": "heated",
+      "explanation": "MDNBR은 heated surface를 따라 계산한 DNBR 중 최소값입니다. M은 Minimum입니다."
+    },
+    {
+      "id": 40,
+      "page": "Page 35",
+      "priority": "최상",
+      "question": "MDNBR represents how high minimum thermal (          ) is.",
+      "answer": "margin",
+      "explanation": "MDNBR은 최소 열적 여유를 대표합니다. 숫자 하나로 가장 불리한 위치의 margin을 보는 것입니다."
+    },
+    {
+      "id": 41,
+      "page": "Page 35",
+      "priority": "최상",
+      "question": "Thermal Margin: Distance between the applied Heat Flux and (          ).",
+      "answer": "CHF",
+      "explanation": "Thermal margin은 applied heat flux와 CHF 사이의 거리입니다. 두 값이 가까울수록 위험합니다."
+    },
+    {
+      "id": 42,
+      "page": "Page 35",
+      "priority": "최상",
+      "question": "In a real plant, MDNBR shall be maintained above (for example) (          ) considering all uncertainties in determining MDNBR for (          ) and (          ) conditions.",
+      "answer": "1.3 / NO / AOO",
+      "explanation": "실제 원전에서는 불확실성을 고려해 MDNBR을 1.0보다 충분히 높게 유지합니다. 예시 값은 1.3입니다."
+    },
+    {
+      "id": 43,
+      "page": "Page 36",
+      "priority": "최상",
+      "question": "CHF is typically calculated from (          ) correlations (based on (          )) and lookup tables.",
+      "answer": "empirical / tests",
+      "explanation": "CHF correlation은 이론식보다 실험 기반 empirical correlation이라는 점이 핵심입니다."
+    },
+    {
+      "id": 44,
+      "page": "Page 36",
+      "priority": "최상",
+      "question": "Empirical correlations and lookup tables can be accurate within a (          ) range of the governing parameters but cannot be (          ).",
+      "answer": "narrow / extrapolated",
+      "explanation": "valid range 밖 extrapolation 금지가 규제심사 핵심입니다. narrow range와 cannot be extrapolated를 세트로 외우세요."
+    },
+    {
+      "id": 45,
+      "page": "Page 36",
+      "priority": "상",
+      "question": "Examples include proprietary CHF correlations for (          ) type in PWRs and Film (          ) type in BWRs.",
+      "answer": "DNB / Dryout",
+      "explanation": "PWR은 DNB type, BWR은 film dryout type입니다. reactor type과 boiling crisis type을 연결합니다."
+    },
+    {
+      "id": 46,
+      "page": "Page 36",
+      "priority": "상",
+      "question": "All correlations were submitted to regulatory bodies as (          ) applications.",
+      "answer": "TR",
+      "explanation": "CHF correlation도 TR application으로 규제기관에 제출됩니다. Lecture 09의 TR 파트와 CHF 파트가 연결되는 문장입니다."
+    },
+    {
+      "id": 47,
+      "page": "Page 36",
+      "priority": "상",
+      "question": "CHF correlation based on (          ) models provides richer physical insight and may be applicable more broadly.",
+      "answer": "mechanistic",
+      "explanation": "Mechanistic model은 물리적 통찰은 크지만 아직 합의가 부족하다는 흐름으로 이어집니다."
+    },
+    {
+      "id": 48,
+      "page": "Page 36",
+      "priority": "상",
+      "question": "There is currently no (          ) regarding which mechanism(s) are physically accurate.",
+      "answer": "consensus",
+      "explanation": "CHF mechanism에 대한 물리적 consensus가 없기 때문에 empirical/experimental approach가 중요해집니다."
+    },
+    {
+      "id": 49,
+      "page": "Page 36",
+      "priority": "최상",
+      "question": "Experimental approach to obtain the CHF correlation is (          ).",
+      "answer": "required",
+      "explanation": "Page 36의 결론입니다. CHF correlation은 결국 실험적 접근이 필요하다는 뜻입니다."
+    },
+    {
+      "id": 50,
+      "page": "Page 33",
+      "priority": "상",
+      "question": "Qualitative Trend of CHF: As the power of heated surface increase, CHF (          ).",
+      "answer": "decreases",
+      "explanation": "원문상 power/heated surface increase에 따른 CHF decrease가 제시됩니다. 일반 경향 그래프와 연결해 이해합니다."
+    },
+    {
+      "id": 51,
+      "page": "Page 33",
+      "priority": "상",
+      "question": "Qualitative trend of CHF includes effects of (          ), (          ), heated length, hydraulic diameter, and (          ).",
+      "answer": "pressure / mass flux / quality",
+      "explanation": "그림에서 CHF 영향인자를 묻는 문제로 나올 수 있습니다. pressure, mass flux, heated length, hydraulic diameter, quality를 같이 기억하세요."
+    },
+    {
+      "id": 52,
+      "page": "Page 40",
+      "priority": "상",
+      "question": "Experimental data trends include (         ), inlet (         ), and mass (         ) effects on CHF/critical power.",
+      "answer": "pressure / subcooling / flux",
+      "explanation": "Page 40 그래프의 축과 해석입니다. pressure, inlet subcooling, mass flux가 실험 경향의 핵심입니다."
+    },
+    {
+      "id": 53,
+      "page": "Page 40",
+      "priority": "상",
+      "question": "As inlet subcooling increases, critical power generally (          ).",
+      "answer": "increases",
+      "explanation": "subcooling이 클수록 냉각재가 더 많은 열을 흡수할 수 있어 critical power가 증가합니다."
+    },
+    {
+      "id": 54,
+      "page": "Page 40",
+      "priority": "상",
+      "question": "As mass flux increases, critical power generally (          ).",
+      "answer": "increases",
+      "explanation": "mass flux가 증가하면 더 많은 냉각재가 공급되어 CHF/critical power가 증가하는 경향입니다."
+    },
+    {
+      "id": 55,
+      "page": "Page 41",
+      "priority": "상",
+      "question": "As exit quality increases, average critical heat flux generally (          ).",
+      "answer": "decreases",
+      "explanation": "quality가 증가하면 vapor fraction이 커져 액체 냉각능력이 떨어지므로 CHF가 감소합니다."
+    },
+    {
+      "id": 56,
+      "page": "Page 42",
+      "priority": "상",
+      "question": "Measured CHF and (          ) CHF are compared to validate an empirical CHF correlation.",
+      "answer": "predicted",
+      "explanation": "Measured vs predicted 비교는 correlation validation의 핵심입니다. 1:1 line과 overprediction 판단으로 연결됩니다."
+    },
+    {
+      "id": 57,
+      "page": "Page 42",
+      "priority": "상",
+      "question": "If predicted CHF is greater than measured CHF, CHF is (          )predicted and the safety analysis can be (          )conservative.",
+      "answer": "over / non",
+      "explanation": "predicted > measured이면 실제보다 CHF를 크게 보는 것이므로 DNBR도 크게 나와 비보수적입니다."
+    },
+    {
+      "id": 58,
+      "page": "Page 42",
+      "priority": "상",
+      "question": "A good CHF correlation should have small error, standard deviation, and (          ).",
+      "answer": "RMS",
+      "explanation": "그래프 비교에서 평균오차만 보지 않고 scatter, standard deviation, RMS도 봐야 합니다."
+    },
+    {
+      "id": 59,
+      "page": "Page 44",
+      "priority": "상",
+      "question": "Critical Heat Flux in flow boiling is generally calculated using empirical (          ) or lookup (          ).",
+      "answer": "correlations / tables",
+      "explanation": "Page 36의 empirical correlation 문장이 Page 44의 LUT/Biasi 예시로 구체화됩니다."
+    },
+    {
+      "id": 60,
+      "page": "Page 44",
+      "priority": "상",
+      "question": "Groeneveld (          )-2006 is a representative CHF lookup table.",
+      "answer": "LUT",
+      "explanation": "LUT는 Look-Up Table입니다. Groeneveld LUT-2006은 대표적인 CHF lookup table입니다."
+    },
+    {
+      "id": 61,
+      "page": "Page 44",
+      "priority": "상",
+      "question": "Biasi correlation is related to critical (          ).",
+      "answer": "quality",
+      "explanation": "Biasi는 critical quality correlation으로 기억하면 됩니다."
+    },
+    {
+      "id": 62,
+      "page": "Page 44",
+      "priority": "상",
+      "question": "In Biasi correlation, D represents hydraulic (          ), G represents mass (          ), p represents pressure, and x(z) represents local (          ).",
+      "answer": "diameter / flux / quality",
+      "explanation": "Biasi 변수 의미입니다. D/G/p/x(z)를 각각 diameter/flux/pressure/quality로 매칭하세요."
+    },
+    {
+      "id": 63,
+      "page": "Page 44",
+      "priority": "상",
+      "question": "Empirical CHF correlations should be used only within their valid (          ).",
+      "answer": "range",
+      "explanation": "valid range는 규제심사에서 매우 중요한 포인트입니다."
+    },
+    {
+      "id": 64,
+      "page": "Page 44",
+      "priority": "상",
+      "question": "Using an empirical CHF correlation outside its valid range is called (          ).",
+      "answer": "extrapolation",
+      "explanation": "valid range 밖 사용은 extrapolation이며 CHF overprediction으로 이어질 수 있습니다."
+    },
+    {
+      "id": 65,
+      "page": "Page 44",
+      "priority": "상",
+      "question": "Extrapolation of CHF correlation may lead to non-conservative CHF (          )prediction.",
+      "answer": "over",
+      "explanation": "extrapolation은 CHF를 실제보다 크게 예측할 수 있어 비보수적입니다."
+    },
+    {
+      "id": 66,
+      "page": "Page 45",
+      "priority": "상",
+      "question": "In general, flow mixing by mixing vanes increase local (          ).",
+      "answer": "CHF",
+      "explanation": "Mixing vane은 flow mixing을 증가시켜 local CHF를 높입니다. 그 결과 DNBR/MDNBR 개선과 연결됩니다."
+    },
+    {
+      "id": 67,
+      "page": "Page 45",
+      "priority": "상",
+      "question": "Intermediate Flow Mixing Spacer Grid means (          ).",
+      "answer": "IFMSG",
+      "explanation": "IFMSG 약어 문제입니다. Intermediate Flow Mixing Spacer Grid를 정확히 기억하세요."
+    },
+    {
+      "id": 68,
+      "page": "Page 45",
+      "priority": "상",
+      "question": "IFMSG locations are need to be optimized to increase (          ).",
+      "answer": "MDNBR",
+      "explanation": "IFMSG 위치 최적화의 목적은 MDNBR 증가입니다. fuel design과 specific CHF correlation으로 연결됩니다."
+    },
+    {
+      "id": 69,
+      "page": "Page 45",
+      "priority": "상",
+      "question": "Based on new IFMSG optimized arrangement, the fuel vendor applied a new (          ) heat flux correlation.",
+      "answer": "critical",
+      "explanation": "Fuel vendor가 새로운 IFMSG arrangement에 맞추어 new critical heat flux correlation을 적용한다는 흐름입니다."
+    },
+    {
+      "id": 70,
+      "page": "Page 46",
+      "priority": "상",
+      "question": "Fuel designs and CHF distribution include (          ), (          ), and (          ) grid/IFM arrangement.",
+      "answer": "17ACE7 / HIPER17 / 17RFA",
+      "explanation": "fuel design별 grid/IFM arrangement와 axial CHF distribution이 달라질 수 있습니다."
+    },
+    {
+      "id": 71,
+      "page": "Page 46",
+      "priority": "상",
+      "question": "Different grid/IFM arrangements can change axial local CHF (          ).",
+      "answer": "distribution",
+      "explanation": "grid/IFM arrangement가 바뀌면 CHF가 축방향으로 강화되는 위치도 바뀝니다."
+    },
+    {
+      "id": 72,
+      "page": "Page 47",
+      "priority": "상",
+      "question": "OMEGA vs. (          ) test facilities are compared for CHF test facility capability and experiment uncertainties.",
+      "answer": "HTRF",
+      "explanation": "OMEGA-2와 HTRF는 CHF test facility 비교 사례입니다."
+    },
+    {
+      "id": 73,
+      "page": "Page 47",
+      "priority": "상",
+      "question": "Test facility capability includes (          ), flow, temperature, and (          ).",
+      "answer": "pressure / power",
+      "explanation": "facility capability는 pressure, flow, temperature, power로 보는 것이 핵심입니다."
+    },
+    {
+      "id": 74,
+      "page": "Page 47",
+      "priority": "상",
+      "question": "If the test facility cannot cover actual plant conditions, the CHF correlation valid range may be (          ).",
+      "answer": "limited",
+      "explanation": "실험시설이 실제 조건을 충분히 커버하지 못하면 correlation 적용범위가 제한됩니다."
+    },
+    {
+      "id": 75,
+      "page": "Page 48",
+      "priority": "상",
+      "question": "Flow Path & (          ).",
+      "answer": "Instrument",
+      "explanation": "Page 48 제목입니다. flow path와 instrumentation은 CHF 실험자료 신뢰도를 결정합니다."
+    },
+    {
+      "id": 76,
+      "page": "Page 51",
+      "priority": "최상",
+      "question": "A (          ) code is used to decide thermal-hydraulic conditions of the test assemblies.",
+      "answer": "subchannel",
+      "explanation": "Page 51 핵심문장입니다. 실험으로 직접 알기 어려운 local condition을 subchannel code로 계산합니다."
+    },
+    {
+      "id": 77,
+      "page": "Page 51",
+      "priority": "최상",
+      "question": "A subchannel code, such as (          )/Westinghouse and (          )/CE, is used to decide thermal-hydraulic conditions of the test assemblies.",
+      "answer": "THINC / CETOP",
+      "explanation": "THINC/Westinghouse와 CETOP/CE를 코드명-개발사 세트로 외우세요."
+    },
+    {
+      "id": 78,
+      "page": "Page 51",
+      "priority": "최상",
+      "question": "Local (          ), (          ), (          ), mass flowrate at the (          ) spot shall be decided by THINC/CETOP code calculation.",
+      "answer": "pressure / temperature / quality / CHFP",
+      "explanation": "CHFP spot의 local P/T/X/G를 code calculation으로 결정한다는 문장입니다. Page 51의 최중요문장입니다."
+    },
+    {
+      "id": 79,
+      "page": "Page 51",
+      "priority": "최상",
+      "question": "Data set: (          ), (          ), (          ), (          ), (          ).",
+      "answer": "CHF / P / T / X / G",
+      "explanation": "최종 CHF correlation dataset입니다. CHF 실험값 + local P/T/X/G 계산값의 조합입니다."
+    },
+    {
+      "id": 80,
+      "page": "Page 51",
+      "priority": "최상",
+      "question": "The vertical axis of the three graphs is Bundle Average Heat (          ).",
+      "answer": "Flux",
+      "explanation": "Page 51 오른쪽 그래프의 공통 y축입니다. 그래프 해석형 빈칸으로 가능성이 있습니다."
+    },
+    {
+      "id": 81,
+      "page": "Page 51",
+      "priority": "상",
+      "question": "The three graphs show Bundle Average Heat Flux versus (          ), Inlet (          ), and Inlet Mass (          ).",
+      "answer": "Pressure / Temperature / Velocity",
+      "explanation": "그래프 축을 묻는 문제입니다. Pressure, Inlet Temperature, Inlet Mass Velocity를 세트로 기억하세요."
+    },
+    {
+      "id": 82,
+      "page": "Page 51",
+      "priority": "상",
+      "question": "The experimental data should cover the important thermal-hydraulic parameter (          ).",
+      "answer": "range",
+      "explanation": "CHF test data가 필요한 parameter range를 커버해야 한다는 의미입니다."
+    },
+    {
+      "id": 83,
+      "page": "Page 51",
+      "priority": "상",
+      "question": "CHF correlation cannot be developed only from the measured CHF value; local thermal-hydraulic (          ) are also required.",
+      "answer": "conditions",
+      "explanation": "CHF 값만으로 correlation을 만들 수 없고, CHFP 위치의 local condition이 필요합니다."
+    },
+    {
+      "id": 84,
+      "page": "Page 51",
+      "priority": "상",
+      "question": "The local P, T, X, G at the CHFP spot are not easily measured in the experiment, so they are calculated by a (          ) code.",
+      "answer": "subchannel",
+      "explanation": "실험과 코드가 결합되어 dataset을 만든다는 핵심 설명입니다."
+    },
+    {
+      "id": 85,
+      "page": "Page 52",
+      "priority": "최상",
+      "question": "This fluid is not effective in cooling the (          ) surface.",
+      "answer": "heated",
+      "explanation": "cold wall 쪽 liquid film은 heated surface를 효과적으로 냉각하지 못합니다."
+    },
+    {
+      "id": 86,
+      "page": "Page 52",
+      "priority": "최상",
+      "question": "The fluid cooling the hot surface is effectively at a higher (          ) than calculated by an energy balance.",
+      "answer": "enthalpy",
+      "explanation": "channel-average energy balance보다 hot surface 근처 유체의 실제 enthalpy가 높게 작용할 수 있다는 의미입니다."
+    },
+    {
+      "id": 87,
+      "page": "Page 52",
+      "priority": "최상",
+      "question": "Therefore, CHF may (          ) at such a channel with some cold walls.",
+      "answer": "reduce",
+      "explanation": "Cold Wall Effect의 결과입니다. 냉각이 덜 되므로 CHF가 감소할 수 있습니다."
+    },
+    {
+      "id": 88,
+      "page": "Page 52",
+      "priority": "최상",
+      "question": "This is called Cold Wall Effect and it is reflected in the CHF (          ).",
+      "answer": "correlation",
+      "explanation": "Cold Wall Effect는 specific CHF correlation에 보정인자로 반영되어야 합니다."
+    },
+    {
+      "id": 89,
+      "page": "Page 53",
+      "priority": "최상",
+      "question": "For axially non-uniform heating, local CHF is affected by upstream (          ).",
+      "answer": "history",
+      "explanation": "upstream history는 현재 위치 이전에 냉각재가 어떻게 가열되었는가의 이력입니다."
+    },
+    {
+      "id": 90,
+      "page": "Page 53",
+      "priority": "최상",
+      "question": "The effect of heat flux profile on local CHF can be considered by the (          ) method.",
+      "answer": "Tong",
+      "explanation": "Tong method는 axial heat flux profile, 즉 비균일 축방향 가열 효과를 보정합니다."
+    },
+    {
+      "id": 91,
+      "page": "Page 53",
+      "priority": "최상",
+      "question": "F_Tong = Q_CHF,U / Q_CHF,(          ).",
+      "answer": "NU",
+      "explanation": "Tong factor 정의입니다. U는 uniform, NU는 non-uniform입니다."
+    },
+    {
+      "id": 92,
+      "page": "Page 53",
+      "priority": "최상",
+      "question": "Q_CHF,U means CHF for (          ) heating, and Q_CHF,NU means CHF for (          )-uniform heating.",
+      "answer": "uniform / non",
+      "explanation": "U와 NU의 의미를 정확히 구분해야 합니다."
+    },
+    {
+      "id": 93,
+      "page": "Page 53",
+      "priority": "상",
+      "question": "Local CHF is not determined only by the local condition, but also by upstream heat flux (          ).",
+      "answer": "history",
+      "explanation": "Tong factor를 이해하는 핵심입니다. 같은 local condition이라도 이전 가열 이력에 따라 CHF가 달라질 수 있습니다."
+    },
+    {
+      "id": 94,
+      "page": "Page 54",
+      "priority": "최상",
+      "question": "The final KNF-X CHF correlation is obtained from the uniform CHF correlation divided by F_(          ).",
+      "answer": "Tong",
+      "explanation": "final CHF는 uniform CHF에 F_Tong 보정을 적용합니다."
+    },
+    {
+      "id": 95,
+      "page": "Page 55",
+      "priority": "최상",
+      "question": "Data group (          ) for development of a CHF correlation and verification of the CHF correlation are done correctly?",
+      "answer": "selection",
+      "explanation": "어떤 data group을 개발용/검증용으로 나눌지의 적절성을 보는 항목입니다."
+    },
+    {
+      "id": 96,
+      "page": "Page 55",
+      "priority": "상",
+      "question": "Subchannel code’s (          ) is reflected appropriately?",
+      "answer": "uncertainty",
+      "explanation": "Page 51의 subchannel code 계산값도 불확실성이 있으므로 review focus에 포함됩니다."
+    },
+    {
+      "id": 97,
+      "page": "Page 55",
+      "priority": "상",
+      "question": "Geometrical effects such as space grid span, (          ) wall, and heating length are considered appropriately?",
+      "answer": "cold",
+      "explanation": "geometry effect에는 spacer grid span, cold wall, heated length 등이 들어갑니다."
+    },
+    {
+      "id": 98,
+      "page": "Page 35",
+      "priority": "최상-계산",
+      "question": "CHF @location x is 27 kW/ft. Applied Heat Flux of Heated Surface @location x is 9 kW/ft. Then, DNBR is (          ).",
+      "answer": "3.0",
+      "explanation": "DNBR = CHF / Applied Heat Flux = 27 / 9 = 3.0입니다. 원문 예시 그대로 숫자를 기억하세요."
+    },
+    {
+      "id": 99,
+      "page": "Page 35",
+      "priority": "상-계산",
+      "question": "If CHF = 24 kW/ft and Applied Heat Flux = 12 kW/ft, DNBR is (          ), so boiling crisis does not happen because DNBR is greater than 1.0.",
+      "answer": "2.0",
+      "explanation": "DNBR = 24 / 12 = 2.0입니다. 1.0보다 크므로 boiling crisis 기준에는 도달하지 않습니다."
+    },
+    {
+      "id": 100,
+      "page": "Page 35",
+      "priority": "상-계산",
+      "question": "If CHF = 10 kW/ft and Applied Heat Flux = 12 kW/ft, DNBR is (          ), so boiling crisis may happen because DNBR is less than 1.0.",
+      "answer": "0.83",
+      "explanation": "DNBR = 10 / 12 = 0.83입니다. 1.0보다 작으므로 applied heat flux가 CHF보다 큰 상태로 볼 수 있습니다."
+    }
+  ]
+}
