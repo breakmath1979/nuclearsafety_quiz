@@ -12,5 +12,11 @@
       "file": "lecture11_p1_54_questions_v3_format.json",
       "progressFile": "lecture11_p1_54_progress_v3.json"
     }
+    {
+      "label": "Lecture11 핵심 60문제",
+      "datasetId": "lecture11_core60",
+      "file": "lecture11_core60_questions_v3_format.json",
+      "progressFile": "lecture11_core60_progress_v3.json"
+    }
   ]
 }
