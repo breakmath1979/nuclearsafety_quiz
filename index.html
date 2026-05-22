@@ -145,13 +145,28 @@
     <div class="progressOuter" style="margin-top:8px;"><div class="progressInner" id="aiMemoryBar"></div></div>
   </div>
 
+
+  <div class="card">
+    <div class="meta">
+      <span class="pill" id="cloudPill">클라우드: Firebase 설정 필요</span>
+      <span class="pill" id="userPill">Google 로그인 전</span>
+    </div>
+    <div class="row">
+      <button class="secondary small" id="googleLoginBtn">Google 로그인</button>
+      <button class="secondary small" id="googleLogoutBtn">로그아웃</button>
+      <button class="secondary small" id="cloudLoadBtn">클라우드 진도 불러오기</button>
+      <button class="secondary small" id="cloudSaveBtn">클라우드 진도 저장하기</button>
+    </div>
+    <div class="hint">로그인하지 않으면 현재 브라우저에 저장됩니다. Google 로그인 후에는 Firestore에 자동 저장되어 PC/핸드폰에서 같은 진도를 사용할 수 있습니다.</div>
+  </div>
+
   <div class="card">
     <div class="meta">
       <span class="pill" id="summarySolved">풀이 0</span>
       <span class="pill good" id="summaryRight">총 맞음 0</span>
       <span class="pill bad" id="summaryWrong">총 틀림 0</span>
       <span class="pill" id="summaryBlanks">추가 빈칸 0</span>
-      <span class="pill" id="progressPill">진도: 자동 읽기/생성</span>
+      <span class="pill" id="progressPill">진도: 브라우저 저장 + Firestore 동기화</span>
     </div>
     <div class="dangerZone">
       <button class="secondary small" id="resetCurrentBtn">현재 문제 기록 초기화</button>
@@ -166,6 +181,62 @@
     <button id="nextBtn">다음</button>
   </div>
 </div>
+
+
+<script type="module">
+  const firebaseConfig = {
+  apiKey: "AIzaSyCQB85xcAlDfmPAWhUHhbEM3DMkHonAvH8",
+  authDomain: "nuclearsafety-ac56e.firebaseapp.com",
+  projectId: "nuclearsafety-ac56e",
+  storageBucket: "nuclearsafety-ac56e.firebasestorage.app",
+  messagingSenderId: "921007613542",
+  appId: "1:921007613542:web:8baa1f96ea5067c98c2fa7",
+  measurementId: "G-0BHV09WZ4Y"
+};
+
+  const configured =
+    firebaseConfig.apiKey &&
+    !firebaseConfig.apiKey.includes("여기에_") &&
+    firebaseConfig.projectId &&
+    !firebaseConfig.projectId.includes("여기에_");
+
+  window.__LQ_FIREBASE__ = {
+    ready: false,
+    user: null,
+    api: null,
+    db: null
+  };
+
+  if (configured) {
+    const appMod = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js");
+    const authMod = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js");
+    const fsMod = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js");
+
+    const app = appMod.initializeApp(firebaseConfig);
+    const auth = authMod.getAuth(app);
+    const db = fsMod.getFirestore(app);
+    const provider = new authMod.GoogleAuthProvider();
+
+    window.__LQ_FIREBASE__.ready = true;
+    window.__LQ_FIREBASE__.db = db;
+    window.__LQ_FIREBASE__.api = {
+      signIn: () => authMod.signInWithPopup(auth, provider),
+      signOut: () => authMod.signOut(auth),
+      onAuthStateChanged: (cb) => authMod.onAuthStateChanged(auth, cb),
+      doc: fsMod.doc,
+      getDoc: fsMod.getDoc,
+      setDoc: fsMod.setDoc,
+      serverTimestamp: fsMod.serverTimestamp
+    };
+
+    authMod.onAuthStateChanged(auth, user => {
+      window.__LQ_FIREBASE__.user = user || null;
+      window.dispatchEvent(new CustomEvent("lectureQuizAuthChanged"));
+    });
+  }
+
+  window.dispatchEvent(new CustomEvent("lectureQuizFirebaseReady"));
+</script>
 
 <script>
 (function() {
@@ -199,6 +270,7 @@
     summarySolved:$('summarySolved'), summaryRight:$('summaryRight'), summaryWrong:$('summaryWrong'),
     summaryBlanks:$('summaryBlanks'), progressPill:$('progressPill'),
     resetCurrentBtn:$('resetCurrentBtn'), resetAllBtn:$('resetAllBtn'),
+    cloudPill:$('cloudPill'), userPill:$('userPill'), googleLoginBtn:$('googleLoginBtn'), googleLogoutBtn:$('googleLogoutBtn'), cloudLoadBtn:$('cloudLoadBtn'), cloudSaveBtn:$('cloudSaveBtn'),
     prevBtn:$('prevBtn'), nextBtn:$('nextBtn')
   };
 
@@ -293,6 +365,134 @@
     } catch(e) {
       console.warn('localStorage save failed', e);
     }
+  }
+
+  let cloudSaveTimer = null;
+
+  function firebaseReady() {
+    return !!(window.__LQ_FIREBASE__ && window.__LQ_FIREBASE__.ready && window.__LQ_FIREBASE__.api);
+  }
+
+  function cloudUser() {
+    return window.__LQ_FIREBASE__ ? window.__LQ_FIREBASE__.user : null;
+  }
+
+  function setCloudStatus(text, good=false) {
+    if (!els.cloudPill) return;
+    els.cloudPill.textContent = "클라우드: " + text;
+    els.cloudPill.className = good ? "pill good" : "pill";
+  }
+
+  function setUserPill() {
+    const user = cloudUser();
+    if (!els.userPill) return;
+    if (user) {
+      els.userPill.textContent = user.email || user.displayName || "로그인됨";
+      els.userPill.className = "pill blue";
+    } else {
+      els.userPill.textContent = "Google 로그인 전";
+      els.userPill.className = "pill";
+    }
+  }
+
+  async function cloudLoad(showAlert=false) {
+    if (!firebaseReady()) {
+      setCloudStatus("Firebase 설정 필요");
+      if (showAlert) alert("index.html의 firebaseConfig를 먼저 입력하세요.");
+      return false;
+    }
+    const user = cloudUser();
+    if (!user) {
+      setCloudStatus("로그인 필요");
+      if (showAlert) alert("Google 로그인을 먼저 하세요.");
+      return false;
+    }
+    if (!dataset || !dataset.datasetId || !QUESTIONS.length) return false;
+
+    try {
+      setCloudStatus("불러오는 중...");
+      const api = window.__LQ_FIREBASE__.api;
+      const ref = api.doc(window.__LQ_FIREBASE__.db, "lectureQuizUsers", user.uid, "progress", safeId(dataset.datasetId));
+      const snap = await api.getDoc(ref);
+      if (snap.exists()) {
+        const data = snap.data();
+        state = normalizeState(data.progress || data);
+        saveState();
+        rebuildOrder();
+        render();
+        setCloudStatus("Firestore 진도 읽음", true);
+        if (showAlert) alert("클라우드 진도를 불러왔습니다.");
+        return true;
+      }
+      setCloudStatus("클라우드 진도 없음");
+      if (showAlert) alert("클라우드에 저장된 진도가 아직 없습니다. 현재 진도를 저장합니다.");
+      await cloudSave(true);
+      return true;
+    } catch(e) {
+      console.error(e);
+      setCloudStatus("불러오기 실패");
+      if (showAlert) alert("클라우드 진도 불러오기 실패: " + e.message);
+      return false;
+    }
+  }
+
+  async function cloudSave(silent=false) {
+    saveState();
+    if (!firebaseReady()) {
+      setCloudStatus("Firebase 설정 필요");
+      return false;
+    }
+    const user = cloudUser();
+    if (!user) {
+      setCloudStatus("브라우저 저장 중");
+      return false;
+    }
+    if (!dataset || !dataset.datasetId || !QUESTIONS.length) return false;
+
+    try {
+      setCloudStatus("저장 중...");
+      const api = window.__LQ_FIREBASE__.api;
+      const ref = api.doc(window.__LQ_FIREBASE__.db, "lectureQuizUsers", user.uid, "progress", safeId(dataset.datasetId));
+      await api.setDoc(ref, {
+        datasetId: safeId(dataset.datasetId),
+        title: dataset.title || "",
+        progress: state,
+        updatedAt: api.serverTimestamp()
+      }, { merge:true });
+      setCloudStatus("Firestore 자동저장 완료", true);
+      if (!silent) alert("클라우드 진도를 저장했습니다.");
+      return true;
+    } catch(e) {
+      console.error(e);
+      setCloudStatus("저장 실패");
+      if (!silent) alert("클라우드 저장 실패: " + e.message);
+      return false;
+    }
+  }
+
+  function saveStateEverywhere() {
+    saveState();
+    clearTimeout(cloudSaveTimer);
+    cloudSaveTimer = setTimeout(() => cloudSave(true), 700);
+  }
+
+  function initCloudAuth() {
+    function update() {
+      setUserPill();
+      if (!firebaseReady()) {
+        setCloudStatus("Firebase 설정 필요");
+        return;
+      }
+      if (cloudUser()) {
+        setCloudStatus("로그인됨");
+        cloudLoad(false);
+      } else {
+        setCloudStatus("브라우저 저장 중");
+      }
+    }
+    window.addEventListener("lectureQuizFirebaseReady", update);
+    window.addEventListener("lectureQuizAuthChanged", update);
+    setTimeout(update, 500);
   }
 
   async function loadProgressState() {
@@ -520,7 +720,7 @@
       btn.textContent = '복원';
       btn.addEventListener('click', () => {
         state.extraBlanks[String(q.id)].splice(idx, 1);
-        saveState();
+        saveStateEverywhere();
         render();
       });
       chip.append(label, btn);
@@ -568,7 +768,7 @@
     const k = String(q.id);
     state.extraBlanks[k] = uniqueArray([...(state.extraBlanks[k] || []), term]);
     els.blankInput.value = '';
-    saveState();
+    saveStateEverywhere();
     render();
   }
 
@@ -584,7 +784,7 @@
     if (which === 'right') st.right++;
     if (which === 'wrong') st.wrong++;
     state.stats[String(q.id)] = st;
-    saveState();
+    saveStateEverywhere();
     render();
   }
 
@@ -654,7 +854,7 @@
   els.datasetSelect.addEventListener('change', () => switchDataset(els.datasetSelect.value));
   els.modeSelect.addEventListener('change', () => {
     state.mode = els.modeSelect.value;
-    saveState();
+    saveStateEverywhere();
     rebuildOrder();
     render();
   });
@@ -678,7 +878,7 @@
     const q = currentQ();
     const k = String(q.id);
     state.favorites[k] = !state.favorites[k];
-    saveState();
+    saveStateEverywhere();
     render();
   });
   els.addBlankBtn.addEventListener('click', () => addBlank(els.blankInput.value.trim() || selectedTextInQuestion()));
@@ -692,16 +892,32 @@
     if (!confirm('현재 문제의 맞음/틀림 기록과 추가 빈칸을 초기화할까요?')) return;
     state.stats[String(q.id)] = { right:0, wrong:0 };
     state.extraBlanks[String(q.id)] = [];
-    saveState();
+    saveStateEverywhere();
     render();
   });
   els.resetAllBtn.addEventListener('click', () => {
     if (!confirm('현재 강의의 전체 기록을 초기화할까요?')) return;
     localStorage.removeItem(stateKey());
     state = normalizeState({});
+    saveStateEverywhere();
     rebuildOrder();
     render();
   });
+
+
+  if (els.googleLoginBtn) els.googleLoginBtn.addEventListener('click', async () => {
+    if (!firebaseReady()) return alert("index.html의 firebaseConfig를 먼저 입력하세요.");
+    try {
+      await window.__LQ_FIREBASE__.api.signIn();
+    } catch(e) {
+      alert("Google 로그인 실패: " + e.message);
+    }
+  });
+  if (els.googleLogoutBtn) els.googleLogoutBtn.addEventListener('click', async () => {
+    if (firebaseReady()) await window.__LQ_FIREBASE__.api.signOut();
+  });
+  if (els.cloudLoadBtn) els.cloudLoadBtn.addEventListener('click', () => cloudLoad(true));
+  if (els.cloudSaveBtn) els.cloudSaveBtn.addEventListener('click', () => cloudSave(false));
 
   document.addEventListener('keydown', e => {
     if (['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return;
@@ -712,6 +928,7 @@
     if (e.key === 'x' || e.key === 'X') mark('wrong');
   });
 
+  initCloudAuth();
   init();
 })();
 </script>
