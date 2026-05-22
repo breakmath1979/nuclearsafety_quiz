@@ -1,0 +1,910 @@
+{
+  "title": "Lecture 12 핵심 100문제 원문연결형 암기앱 v1",
+  "datasetId": "lecture12_core100_sda_ismr_pirt_codeadequacy",
+  "source": "Lecture 12 포트폴리오.pdf 원문 기반; 원전규제12-1/12-2 강의복원 흐름 참고; 중간 발표자료 Page 24-50 제외",
+  "excludedPages": "Page 24-50: Specific Example: Passive Safety System Review Focus (PIRT) / 2011 KNS Spring Meeting 중간 발표자료 성격으로 제외",
+  "questionStyle": "원문 문장을 최대한 유지하고, 연결되는 문장은 하나의 문제로 묶었으며, 괄호형 blank를 최대한 많이 배치함",
+  "questions": [
+    {
+      "id": 1,
+      "page": "Page 2",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Topics for discussion include What is \"Standard Design Approval ((          ))\"?, Reactor Designs Granted by (          )/(          ), Reactor Designs to be Submitted for SDA/SDC, and Potential Standard Design Approval ((          )) Application on i-SMR ((          )).",
+      "answer": "SDA / SDA / SDC / SDA / innovative-Small Modular Reactor",
+      "explanation": "Lecture 12의 전체 목차입니다. SDA 정의, 승인/인증 사례, 제출 예정 설계, i-SMR 적용이 큰 흐름입니다."
+    },
+    {
+      "id": 2,
+      "page": "Page 2",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Potential Standard Design Approval ((          )) Application on i-SMR includes i-SMR (          ), i-SMR SDA Application (          ), and Passive Safety System Review (          ).",
+      "answer": "SDA / Concept / Timeline / Focuses",
+      "explanation": "i-SMR 파트의 하위 구조입니다. 개념, 일정, 수동안전계통 심사초점 순서로 이어집니다."
+    },
+    {
+      "id": 3,
+      "page": "Page 3",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Standard Design Approval ((          )) is just one of many different kinds of license (          ).",
+      "answer": "SDA / applications",
+      "explanation": "SDA의 정의형 첫 문장입니다. 기출 스타일상 license applications가 빈칸으로 매우 잘 나옵니다."
+    },
+    {
+      "id": 4,
+      "page": "Page 3",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Any person who intends to repeatedly (          ) the nuclear power reactor of the same (          ) and install related facilities may apply for \"Standard Design Approval\" from the (          ).",
+      "answer": "construct / design / NSSC",
+      "explanation": "SDA 신청 주체와 조건입니다. 같은 설계의 원자로를 반복 건설하려는 경우 NSSC에 신청합니다."
+    },
+    {
+      "id": 5,
+      "page": "Page 3",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Like (          ) Report, SDA increases the efficiency of the licensing (          ) and reduce the burden on (          ) by minimizing the time and resources that both industry and the regulatory body staff expend on multiple reviews of the same (          ).",
+      "answer": "Topical / process / licensees / design",
+      "explanation": "SDA와 TR의 공통 목적은 licensing process efficiency입니다. 같은 design 반복심사 감소가 핵심입니다."
+    },
+    {
+      "id": 6,
+      "page": "Page 3",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The regulatory body is able to more focus on plant specific design (          ) while reviewing construction (          ) and operating (          ) applications.",
+      "answer": "features / permit / license",
+      "explanation": "SDA를 받으면 CP/OL 단계에서 표준설계 반복심사보다 plant-specific features에 집중할 수 있습니다."
+    },
+    {
+      "id": 7,
+      "page": "Page 3",
+      "priority": "상",
+      "type": "blank",
+      "question": "There are some matters that may be (          ) from granting approval for the standard design, including matters that need continuous reflection of new (          ) to enhance safety.",
+      "answer": "excluded / technology",
+      "explanation": "SDA 승인범위에서 제외될 수 있는 사항입니다. 안전성 향상을 위해 계속 신기술 반영이 필요한 사항은 제외될 수 있습니다."
+    },
+    {
+      "id": 8,
+      "page": "Page 3",
+      "priority": "상",
+      "type": "blank",
+      "question": "There are matters for which the confirmation of (          ) is impossible before purchase, installation and completion are (          ).",
+      "answer": "safety / finished",
+      "explanation": "구매, 설치, 완성 전에는 안전성 확인이 불가능한 사항도 표준설계 승인범위에서 제외될 수 있습니다."
+    },
+    {
+      "id": 9,
+      "page": "Page 4",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The valid period of the SDA shall be (          ) years, and the NSSC may order any person who has been granted the approval for the standard design to correct or (          ) the approved matters when a serious impact on the safety of the design still exists.",
+      "answer": "ten(10) / supplement",
+      "explanation": "한국 SDA 유효기간과 NSSC 보완명령 권한을 묶은 핵심 문장입니다."
+    },
+    {
+      "id": 10,
+      "page": "Page 4",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The Standard Design Certifications are valid for (          ) years from the date issued and can be renewed for an additional (          ) years in the US under 10CFR Part (          ).",
+      "answer": "15 / 15 / 52",
+      "explanation": "미국 SDC 유효기간은 15년이며 추가 15년 갱신 가능합니다."
+    },
+    {
+      "id": 11,
+      "page": "Page 4",
+      "priority": "최상",
+      "type": "blank",
+      "question": "US NRC issues (          ) through rulemaking for reactor designs that meet basic requirements for ensuring safe (          ).",
+      "answer": "SDCs / operation",
+      "explanation": "미국 SDC는 rulemaking으로 발급되며 safe operation 기본요건 충족이 핵심입니다."
+    },
+    {
+      "id": 12,
+      "page": "Page 4",
+      "priority": "상",
+      "type": "blank",
+      "question": "Utilities ((          )) can cite a certified design when applying for a nuclear power plant construction permit, (          ), ESP, or manufacturing (          ).",
+      "answer": "Licensees / COL / license",
+      "explanation": "인증된 설계는 CP, COL, ESP, manufacturing license 신청에 인용될 수 있습니다."
+    },
+    {
+      "id": 13,
+      "page": "Page 5",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Examples of SDCs from 10CFR Part 52 include Appendix (          ) to Part 52—Design Certification Rule for the APR1400 Design and Appendix (          ) to Part 52—Design Certification Rule for (          ).",
+      "answer": "F / G / NuScale",
+      "explanation": "10CFR Part 52 Appendix F와 G를 APR1400/NuScale과 연결해야 합니다."
+    },
+    {
+      "id": 14,
+      "page": "Page 6",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The detailed list of documents to be submitted for SDA review includes a specification of the standard (          ), explanatory statement on the use of the nuclear (          ), and explanatory statement on technical capabilities in respect to the design of the nuclear (          ).",
+      "answer": "design / reactor / reactor",
+      "explanation": "SDA 제출문서 앞부분입니다. 표준설계 명세서, 원자로 사용 설명서, 설계 기술능력 설명서가 포함됩니다."
+    },
+    {
+      "id": 15,
+      "page": "Page 6",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The detailed list of documents to be submitted for SDA review includes safety analysis report on the standard (          ) and plans for the drafting of accident management (          ).",
+      "answer": "design / program",
+      "explanation": "Safety Analysis Report와 Accident Management Program 작성계획은 SDA 제출문서에서 매우 중요합니다."
+    },
+    {
+      "id": 16,
+      "page": "Page 6",
+      "priority": "최상",
+      "type": "blank",
+      "question": "A safety analysis report shall specify technical information in such (          ) that would allow the verification of the (          ) of such standard design.",
+      "answer": "details / safety",
+      "explanation": "교수님이 강조한 문장입니다. SAR은 표준설계 안전성을 검증할 수 있을 만큼 상세해야 합니다."
+    },
+    {
+      "id": 17,
+      "page": "Page 6",
+      "priority": "상",
+      "type": "blank",
+      "question": "A standard processing period of a SDA review is (          ) months but usually, the period becomes (          ), even much longer than 24 months.",
+      "answer": "24 / extended",
+      "explanation": "표준 처리기간은 24개월이지만 실제로는 더 길어질 수 있습니다."
+    },
+    {
+      "id": 18,
+      "page": "Page 7",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Reactor Designs Granted by Standard Design Approval in Korea include (          ), SMART, APR+, and (          ).",
+      "answer": "APR1400 / SMART100",
+      "explanation": "한국 SDA 사례 4개를 한 세트로 암기합니다."
+    },
+    {
+      "id": 19,
+      "page": "Page 7",
+      "priority": "최상",
+      "type": "blank",
+      "question": "APR1400 Standard Design Approval had Pre-safety review from January (          ) to July (          ) and Standard design approval review from August (          ) to July (          ).",
+      "answer": "2000 / 2001 / 2001 / 2002",
+      "explanation": "APR1400 SDA 일정입니다. 날짜 암기형으로 나올 수 있습니다."
+    },
+    {
+      "id": 20,
+      "page": "Page 7",
+      "priority": "상",
+      "type": "blank",
+      "question": "SMART Standard Design Approval had Pre-safety review from February (          ) to December (          ) and Standard design approval review from December (          ) to July (          ).",
+      "answer": "2010 / 2010 / 2010 / 2012",
+      "explanation": "SMART SDA 일정입니다."
+    },
+    {
+      "id": 21,
+      "page": "Page 7",
+      "priority": "상",
+      "type": "blank",
+      "question": "APR+ Standard Design Approval had Pre-safety review from August (          ) to November (          ) and Standard design approval review from December (          ) to August (          ).",
+      "answer": "2010 / 2011 / 2011 / 2014",
+      "explanation": "APR+ SDA 일정입니다."
+    },
+    {
+      "id": 22,
+      "page": "Page 7",
+      "priority": "최상",
+      "type": "blank",
+      "question": "SMART100 Standard Design Approval had Pre-safety review from April (          ) to January (          ) and Standard design approval review from January (          ) to September (          ).",
+      "answer": "2019 / 2020 / 2020 / 2024",
+      "explanation": "SMART100은 최근 사례라 중요합니다. 2024년 9월까지의 SDA review를 기억합니다."
+    },
+    {
+      "id": 23,
+      "page": "Page 8",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Reactor Designs Granted by Standard Design Certification in the US include GE-Hitachi Nuclear Energy’s Advanced Boiling-Water Reactor ((          )), Westinghouse Electric Company’s System (          ), AP600, and AP1000.",
+      "answer": "ABWR / 80+",
+      "explanation": "미국 SDC 사례의 전반부입니다. ABWR, System 80+, AP600, AP1000을 묶습니다."
+    },
+    {
+      "id": 24,
+      "page": "Page 8",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Westinghouse Electric Company’s AP600 had Submission: June (          ), SDA issue: September (          ), and SDC issue: December (          ).",
+      "answer": "1992 / 1998 / 1999",
+      "explanation": "AP600의 Submission -> SDA issue -> SDC issue 일정입니다."
+    },
+    {
+      "id": 25,
+      "page": "Page 8",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Westinghouse Electric Company’s AP1000 had Submission: March (          ), SDA issue: September (          ), and SDC issue: December (          ).",
+      "answer": "2002 / 2011 / 2011",
+      "explanation": "AP1000의 Submission -> SDA issue -> SDC issue 일정입니다."
+    },
+    {
+      "id": 26,
+      "page": "Page 9",
+      "priority": "최상",
+      "type": "blank",
+      "question": "US SDC cases continued include GE-Hitachi Economic Simplified Boiling-Water Reactor ((          )), Korean Electric Power Corporation (          ) ((          )), and NuScale US600 Small Modular Reactor.",
+      "answer": "ESBWR / APR1400 / Advanced Power Reactor",
+      "explanation": "미국 SDC 사례 후반부입니다. ESBWR, APR1400, NuScale을 묶습니다."
+    },
+    {
+      "id": 27,
+      "page": "Page 9",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Korean Electric Power Corporation APR1400 had Submission: December (          ), SDA issue: September (          ), and SDC issue: August (          ).",
+      "answer": "2014 / 2018 / 2019",
+      "explanation": "APR1400은 한국 SDA 사례이면서 미국 SDC 사례입니다."
+    },
+    {
+      "id": 28,
+      "page": "Page 9",
+      "priority": "최상",
+      "type": "blank",
+      "question": "NuScale US600 Small Modular Reactor had Pre-Application Review ((          )~(          )), Submission: January (          ), SDA issue: September (          ), and SDC issue: January (          ).",
+      "answer": "2008 / 2016 / 2017 / 2020 / 2023",
+      "explanation": "NuScale은 미국 SDC를 받은 SMR 사례입니다. Pre-Application Review 기간까지 연결해 외웁니다."
+    },
+    {
+      "id": 29,
+      "page": "Page 9",
+      "priority": "상",
+      "type": "blank",
+      "question": "US NRC approved renewal of GE-Hitachi’s (          ) design certification in (          ).",
+      "answer": "ABWR / 2021",
+      "explanation": "SDC renewal 사례입니다. ABWR 갱신 승인 연도를 기억합니다."
+    },
+    {
+      "id": 30,
+      "page": "Page 10",
+      "priority": "최상",
+      "type": "blank",
+      "question": "In Korea, Standard design approval leads to (          ) and (          ), a (          )-stage application to build NPPs.",
+      "answer": "CP / OL / 2",
+      "explanation": "한국 제도는 SDA 이후 CP와 OL로 이어지는 2-stage application입니다."
+    },
+    {
+      "id": 31,
+      "page": "Page 10",
+      "priority": "최상",
+      "type": "blank",
+      "question": "In Korea, there is no restriction on repetition of review during (          ) and (          ) stages, and applicants may take standard design approval as a pre-stage before CP and OL.",
+      "answer": "CP / OL",
+      "explanation": "한국 SDA는 pre-stage 성격이며 CP/OL에서 반복심사가 제한되지 않습니다."
+    },
+    {
+      "id": 32,
+      "page": "Page 10",
+      "priority": "상",
+      "type": "blank",
+      "question": "In Korea, level of depth of standard design application may not be (         ), and the system is a mixture of (          ) and (          ) of the US.",
+      "answer": "complete / 10CFR50 / 10CRF52",
+      "explanation": "슬라이드 원문은 10CRF52로 표기되어 있습니다. 의미상 10CFR52이지만 원문 보존을 위해 그대로 반영했습니다."
+    },
+    {
+      "id": 33,
+      "page": "Page 10",
+      "priority": "최상",
+      "type": "blank",
+      "question": "In the US, standard design approval leads to standard design (          ), which registers a specific design on (          ), and then to (         ), a 1-stage application to build NPPs under 10 CFR 52.",
+      "answer": "certificate / law / COL",
+      "explanation": "미국은 SDA -> SDC -> COL 구조이며 SDC는 법규 등록 성격입니다."
+    },
+    {
+      "id": 34,
+      "page": "Page 10",
+      "priority": "최상",
+      "type": "blank",
+      "question": "In the US, there is rare repetition of review during (          ) stage, applicant take the most of (          ) when apply the COL, and level of depth of standard design application may be very (          ).",
+      "answer": "COL / SDC / deep",
+      "explanation": "미국 제도의 핵심은 COL 단계 반복심사가 드물고 SDC 활용성이 크다는 점입니다."
+    },
+    {
+      "id": 35,
+      "page": "Page 12",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Reactor Designs to be submitted for Standard Design Approval/Standard Design Certification include i-SMR by Korea Hydro & Nuclear Power ((          )) and TerraPower’s advanced power reactor ((          )) application.",
+      "answer": "KHNP / SFR",
+      "explanation": "향후 SDA/SDC 제출 대상입니다. i-SMR=KHNP, TerraPower=SFR을 연결합니다."
+    },
+    {
+      "id": 36,
+      "page": "Page 12",
+      "priority": "최상",
+      "type": "blank",
+      "question": "US NRC is reviewing TerraPower’s advanced power reactor ((          )) application, not (          ) but (          ).",
+      "answer": "SFR / 10CFR52 / 10CFR50",
+      "explanation": "TerraPower SFR은 10CFR52가 아니라 10CFR50로 언급됩니다."
+    },
+    {
+      "id": 37,
+      "page": "Page 12",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Several advanced reactor designs are conducting preapplication activities with the US NRC; advanced reactors are cooled by liquid (          ), molten salt mixtures, or inert (          ).",
+      "answer": "metals / gases",
+      "explanation": "advanced reactor 냉각재 예시입니다. liquid metals, molten salt mixtures, inert gases를 그대로 외웁니다."
+    },
+    {
+      "id": 38,
+      "page": "Page 12",
+      "priority": "상",
+      "type": "blank",
+      "question": "Advanced reactors also consider fuel materials and designs that differ radically from enriched uranium dioxide ((          )) pellets with zirconium (          ).",
+      "answer": "UO2 / cladding",
+      "explanation": "advanced reactor는 기존 UO2 pellet/Zr cladding과 다른 연료 설계를 고려할 수 있습니다."
+    },
+    {
+      "id": 39,
+      "page": "Page 12",
+      "priority": "최상",
+      "type": "blank",
+      "question": "US NRC is developing the regulatory framework for advanced reactor licensing, 10CFR Part (          ).",
+      "answer": "53",
+      "explanation": "10CFR Part 53은 advanced reactor licensing과 연결됩니다."
+    },
+    {
+      "id": 40,
+      "page": "Page 12",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Each SMR module generates (          ) MWe ((          ) MWt) or less, compared to large designs that can generate (          ) MWe ((          ) MWt).",
+      "answer": "300 / 1,000 / 1,000 / 3,300",
+      "explanation": "SMR과 대형 원전의 출력 기준 숫자입니다."
+    },
+    {
+      "id": 41,
+      "page": "Page 13",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Potential SDA Application on i-SMR: i-SMR Concept includes modular manufacturing and (          ), land transportation (          ), integrated reactor, canned motor pump, in-vessel CEDM, helical type steam generator, and boron-free reactor (          ).",
+      "answer": "installation / available / core",
+      "explanation": "Page 13 그림의 i-SMR 주요 개념 전체를 한 문장으로 연결했습니다."
+    },
+    {
+      "id": 42,
+      "page": "Page 13",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Integrated reactor eliminates the possibility of a large break loss-of-(          ) accident; canned motor pump removes the possibility of a RCP seal (          ); and in-vessel CEDM removes the possibility of a control rod (          ) accident.",
+      "answer": "coolant / LOCA / ejection",
+      "explanation": "i-SMR 설계특징과 제거되는 사고 가능성을 연결하는 최중요 문제입니다."
+    },
+    {
+      "id": 43,
+      "page": "Page 13",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Helical type steam generator is an integrated steam generator within reactor vessel, reducing (          ) and increasing modular fabrication (          ); boron-free reactor core enables system simplification and reducing burdens on (          ).",
+      "answer": "space / benefits / maintenance",
+      "explanation": "helical SG와 boron-free core의 효과를 원문 흐름으로 연결했습니다."
+    },
+    {
+      "id": 44,
+      "page": "Page 13",
+      "priority": "최상",
+      "type": "blank",
+      "question": "i-SMR specifications include Electrical power (          ) MWe per Module, Total power (          ) MWe with 4 Modules, Fuel assembly UO2 (          ) x (          ), and Core damage frequency <= (          ) / MY.",
+      "answer": "170 / 680 / 17 / 17 / 1.0e-9",
+      "explanation": "i-SMR 기본 사양 숫자입니다. 170, 680, 17x17, 1.0e-9를 묶습니다."
+    },
+    {
+      "id": 45,
+      "page": "Page 13",
+      "priority": "최상",
+      "type": "blank",
+      "question": "i-SMR specifications include Construction cost <= $(          ) / kWe, Neutron absorber (          )-free, CEDM in-vessel type, Steam generator (          ) type, and Reactor coolant pump (          ) per Module.",
+      "answer": "3,500 / boron / Helical / 8",
+      "explanation": "i-SMR 표 사양 중 숫자와 설계명칭을 묶었습니다."
+    },
+    {
+      "id": 46,
+      "page": "Page 13",
+      "priority": "최상",
+      "type": "blank",
+      "question": "i-SMR specifications include Safety system Fully (          ), DC power Non-(          ), Design life (          ) years, Seismic design (          )g, and Construction time (          ) months for a Single Module.",
+      "answer": "passive / safety / 80 / 0.5 / 24",
+      "explanation": "i-SMR 표 사양 후반부입니다. fully passive, 80 years, 0.5g, 24 months를 암기합니다."
+    },
+    {
+      "id": 47,
+      "page": "Page 14",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The 10 key technologies of the i-SMR include Infinite cooling, In-vessel (          ), Innovative nuclear fuel, Modularization, Predictive diagnosis, Integrated control room, Innovative manufacturing technology, Boron-free operation, Automation, and Connection with renewable (          ).",
+      "answer": "CEDM / energy",
+      "explanation": "Page 14의 10대 핵심기술 전체를 한 문제로 묶었습니다."
+    },
+    {
+      "id": 48,
+      "page": "Page 14",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Infinite cooling is a passive safety system that does not require operator (          ) and power (          ); In-vessel CEDM design eliminates the possibilities of a control rod ejection (          ).",
+      "answer": "action / supply / accident",
+      "explanation": "Infinite cooling과 In-vessel CEDM의 효과를 연결합니다."
+    },
+    {
+      "id": 49,
+      "page": "Page 14",
+      "priority": "상",
+      "type": "blank",
+      "question": "Innovative nuclear fuel means nuclear fuel and burnable (          ) for boron-free operation; Modularization means modular technology to reduce construction (          ) and increase economics.",
+      "answer": "absorber / time",
+      "explanation": "innovative fuel과 modularization의 원문 정의입니다."
+    },
+    {
+      "id": 50,
+      "page": "Page 14",
+      "priority": "상",
+      "type": "blank",
+      "question": "Predictive diagnosis means plant availability increase through O&M performance (          ); Integrated control room can reduce operating costs through multi-module integrated control (          ).",
+      "answer": "improvement / technology",
+      "explanation": "예측진단과 통합제어실의 효과입니다."
+    },
+    {
+      "id": 51,
+      "page": "Page 14",
+      "priority": "상",
+      "type": "blank",
+      "question": "Innovative manufacturing technology reduces manufacturing time through the introduction of innovative manufacturing technologies such as (          ); Boron-free operation simplifies the nuclear system by eliminating the boron control (          ) and reducing burdens on maintenance.",
+      "answer": "EBW / system",
+      "explanation": "EBW와 boron control system 제거를 묶은 문제입니다."
+    },
+    {
+      "id": 52,
+      "page": "Page 14",
+      "priority": "상",
+      "type": "blank",
+      "question": "Automation improves the automation level of (          ); Connection with renewable energy enables flexible operation for compatibility with renewable (          ).",
+      "answer": "operation / energy",
+      "explanation": "자동화와 재생에너지 연계의 원문 효과입니다."
+    },
+    {
+      "id": 53,
+      "page": "Page 15",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Nuclear reactor with fully passive safety system: The i-SMR has secured inherent safety with a simpler (          ) than before by applying passive safety systems using natural (          ).",
+      "answer": "design / circulation",
+      "explanation": "fully passive safety system의 핵심 원문입니다."
+    },
+    {
+      "id": 54,
+      "page": "Page 15",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Under all accident conditions including severe (          ), the reactor can be safely shut down and indefinitely maintain long-term (          ) without operator action, power supply, or additional coolant (          ).",
+      "answer": "accidents / cooling / supply",
+      "explanation": "Page 15에서 가장 중요한 문장입니다. 세 가지 없이 장기냉각을 유지한다는 점을 외웁니다."
+    },
+    {
+      "id": 55,
+      "page": "Page 15",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Passive Containment Cooling System ((          )) and Passive Auxiliary Feedwater System ((          )) were applied to the safety system, and the heat removal performance was validated through testing conducted at test (          ).",
+      "answer": "PCCS / PAFS / facilities",
+      "explanation": "PCCS와 PAFS, test facilities 검증을 한 문장으로 묶었습니다."
+    },
+    {
+      "id": 56,
+      "page": "Page 16",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Containment vessel to facilitate maintenance: The i-SMR reactor module is installed and maintained in a (          ) reactor building, thus removing problems associated with systems (          ) during long-term power plant operation.",
+      "answer": "dry / submersed",
+      "explanation": "dry reactor building과 submerged system 문제 제거를 묶은 핵심 문장입니다."
+    },
+    {
+      "id": 57,
+      "page": "Page 16",
+      "priority": "상",
+      "type": "blank",
+      "question": "The reactor building where the integrated reactor is located and the coolant tank for the safety system are designed to be (          ).",
+      "answer": "separated",
+      "explanation": "원자로건물과 안전계통 냉각수 탱크 분리 설계입니다."
+    },
+    {
+      "id": 58,
+      "page": "Page 16",
+      "priority": "상",
+      "type": "blank",
+      "question": "Dry reactor building can reduce operating delays and (          ) by eliminating time consuming charging and draining water for (          ).",
+      "answer": "cost / maintenance",
+      "explanation": "건식 원자로건물의 유지보수성 장점입니다."
+    },
+    {
+      "id": 59,
+      "page": "Page 16",
+      "priority": "상",
+      "type": "blank",
+      "question": "The production cost of the containment vessel can be reduced since material (          ) will not occur due to cooling water, meaning that the stainless steel (          ) of the containment vessel can be removed.",
+      "answer": "corrosion / cladding",
+      "explanation": "냉각수 부식 감소와 stainless steel cladding 제거 가능성을 연결합니다."
+    },
+    {
+      "id": 60,
+      "page": "Page 17",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Boron-free operation simplifies the system and improves O&M (          ); boron-free operation employed in the i-SMR can simplify chemical volume and control systems ((          )) and improve O&M performance.",
+      "answer": "performance / CVCS",
+      "explanation": "boron-free operation의 목적과 CVCS 단순화입니다."
+    },
+    {
+      "id": 61,
+      "page": "Page 17",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The i-SMR can simplify CVCS by removing the existing boron control (          ), which leads to reduced system volume and (          ).",
+      "answer": "system / components",
+      "explanation": "boron control system 제거 -> system volume/components 감소 흐름입니다."
+    },
+    {
+      "id": 62,
+      "page": "Page 17",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Boron-free operation enables prompt and safe load-following operation by controlling the (          ) without boron, and maintenance burden can be reduced since corrosion of the equipment by (          ) does not occur.",
+      "answer": "reactivity / boron",
+      "explanation": "load-following과 부식 감소를 연결한 원문 문장입니다."
+    },
+    {
+      "id": 63,
+      "page": "Page 18",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Integrated reactor modules manufactured at the (          ) are readily assembled and installed at the construction site through land transportation such as trucks and (          ).",
+      "answer": "factory / railroads",
+      "explanation": "공장제작, 육상운송, 현장조립을 연결합니다."
+    },
+    {
+      "id": 64,
+      "page": "Page 18",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The construction time of i-SMR is (          ) months, shorter than that of a conventional nuclear power plant, possible by applying modulization of the components/structures and innovative manufacturing (          ).",
+      "answer": "24 / technology",
+      "explanation": "건설기간 24개월과 모듈화/혁신제조기술을 묶은 중요 문장입니다."
+    },
+    {
+      "id": 65,
+      "page": "Page 18",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Through the deployment of multiple modules and simplification of design, the unit cost for construction is less than $(          )/kWe, and the levelized cost estimate ((          )) is estimated at $(          )/MWh.",
+      "answer": "3,500 / LCOE / 65",
+      "explanation": "경제성 숫자입니다. $3,500/kWe와 $65/MWh를 암기합니다."
+    },
+    {
+      "id": 66,
+      "page": "Page 19",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Excellent compatibility with renewable energy and hybrid systems: The load following capabilities of i-SMR ensures stable supply of electricity by supplementing the (          ) of renewable energy such as (          ), wind, and hydropower.",
+      "answer": "intermittency / solar",
+      "explanation": "재생에너지 간헐성 보완과 부하추종 능력의 연결입니다."
+    },
+    {
+      "id": 67,
+      "page": "Page 19",
+      "priority": "최상",
+      "type": "blank",
+      "question": "In addition to power generation, i-SMR can be used for multiple purposes such as district (          ), desalination, and hydrogen (          ) near the demand site.",
+      "answer": "heating / production",
+      "explanation": "다목적 활용 3종: 지역난방, 담수화, 수소생산입니다."
+    },
+    {
+      "id": 68,
+      "page": "Page 19",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The i-SMR can produce (          ) MWe with 4 Modules and provide flexible power options from (          ) MWe with 1 Module to (          ) MWe with 8 Modules.",
+      "answer": "680 / 170 / 1,360",
+      "explanation": "모듈 수별 출력 계산형으로도 나올 수 있습니다."
+    },
+    {
+      "id": 69,
+      "page": "Page 20",
+      "priority": "최상",
+      "type": "blank",
+      "question": "i-SMR SDA Application Milestone shows Preliminary Design led by (          ) and National R&D Projects Supported by the (          ).",
+      "answer": "KHNP / Government",
+      "explanation": "i-SMR 개발 주체와 정부 R&D 지원을 묶은 문제입니다."
+    },
+    {
+      "id": 70,
+      "page": "Page 20",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The i-SMR milestone includes Basic requirements and conceptual design, Basic design (          ) year, Standard design (          ) year, and SDA Approval (          ) year.",
+      "answer": "2.5 / 2.5 / 3",
+      "explanation": "i-SMR SDA milestone에서 가장 중요한 기간입니다."
+    },
+    {
+      "id": 71,
+      "page": "Page 20",
+      "priority": "상",
+      "type": "blank",
+      "question": "After SDA Approval, the milestone shows (          ) Construction ((          )) and Continuous Construction.",
+      "answer": "FOAK / Commercialization",
+      "explanation": "FOAK Construction은 상용화와 연결됩니다."
+    },
+    {
+      "id": 72,
+      "page": "Page 21",
+      "priority": "최상",
+      "type": "blank",
+      "question": "PIRT means Phenomena Identification and Ranking (          ).",
+      "answer": "Table",
+      "explanation": "PIRT 정의 약어입니다."
+    },
+    {
+      "id": 73,
+      "page": "Page 21",
+      "priority": "최상",
+      "type": "blank",
+      "question": "In order to design a nuclear power plant or to review the design appropriateness, it is prime important to have a reliable computer (          ) to analysis of thermal-hydraulic (          ) of a nuclear power plant.",
+      "answer": "code / behaviors",
+      "explanation": "PIRT 도입 이유입니다. reliable computer code와 thermal-hydraulic behaviors가 핵심입니다."
+    },
+    {
+      "id": 74,
+      "page": "Page 21",
+      "priority": "최상",
+      "type": "blank",
+      "question": "A start of the systematic process to secure, develop or update a reliable thermal-hydraulic computer code suitable to a nuclear power plant being developed is called a (          ).",
+      "answer": "PIRT",
+      "explanation": "PIRT는 신뢰성 있는 열수력 코드 확보/개발/갱신의 체계적 과정 출발점입니다."
+    },
+    {
+      "id": 75,
+      "page": "Page 21",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Through a PIRT, important thermal-hydraulic phenomena of the reactor during accidents and (          ) conditions are identified and their importance to acceptance criteria and knowledge (          ) are evaluated.",
+      "answer": "AOOs / levels",
+      "explanation": "PIRT의 기능입니다. 중요현상 식별, importance와 knowledge level 평가가 핵심입니다."
+    },
+    {
+      "id": 76,
+      "page": "Page 22",
+      "priority": "최상",
+      "type": "blank",
+      "question": "For a completely new type of reactor, a PIRT should be carefully determined from (          ).",
+      "answer": "scratch",
+      "explanation": "완전히 새로운 원자로의 PIRT는 from scratch로 신중하게 만들어야 합니다."
+    },
+    {
+      "id": 77,
+      "page": "Page 22",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Most of time, a PIRT may be developed based on previous (          ) considering similarities between the reactors which the previous PIRTs cover and a new reactor; this is the consolidation (          ).",
+      "answer": "PIRTs / approach",
+      "explanation": "기존 PIRT를 활용하는 consolidation approach입니다."
+    },
+    {
+      "id": 78,
+      "page": "Page 22",
+      "priority": "최상",
+      "type": "blank",
+      "question": "A PIRT is used to establish thermal-hydraulic experimental (          ) for verification and validation a thermal-hydraulic computer (          ).",
+      "answer": "database / code",
+      "explanation": "PIRT의 첫 번째 활용: 실험 DB 구축과 코드 V&V입니다."
+    },
+    {
+      "id": 79,
+      "page": "Page 22",
+      "priority": "최상",
+      "type": "blank",
+      "question": "A PIRT also directs the directions to improvement or new (          ) of a thermal-hydraulic computer code.",
+      "answer": "development",
+      "explanation": "PIRT는 코드 개선 또는 신규개발 방향을 제시합니다."
+    },
+    {
+      "id": 80,
+      "page": "Page 23",
+      "priority": "최상",
+      "type": "blank",
+      "question": "PIRT procedure starts with Form an expert (          ) -> Define purpose for the (          ) -> Review Design Specifics of a new (          ) -> Review existing experiments and analysis (          ).",
+      "answer": "panel / PIRT / NPP / DB",
+      "explanation": "PIRT 작성 절차 앞부분입니다."
+    },
+    {
+      "id": 81,
+      "page": "Page 23",
+      "priority": "최상",
+      "type": "blank",
+      "question": "PIRT procedure continues with Selection of accidents for (          ) -> Selection of (          ) relevant to the accidents -> Classification of systems and (          ) -> Identification of important thermal-hydraulic (          ).",
+      "answer": "PIRT / FoMs / components / phenomena",
+      "explanation": "PIRT 작성 절차 중간 부분입니다. FoM, system/component, T-H phenomena가 연결됩니다."
+    },
+    {
+      "id": 82,
+      "page": "Page 23",
+      "priority": "최상",
+      "type": "blank",
+      "question": "PIRT procedure ends with Determine importance & knowledge (          ) -> Determine (          ) matrix -> Draft PIRT (          ).",
+      "answer": "levels / V/V / report",
+      "explanation": "PIRT 작성 절차 후반부입니다."
+    },
+    {
+      "id": 83,
+      "page": "Page 23",
+      "priority": "상",
+      "type": "blank",
+      "question": "FoMs relevant to the accidents means Figures of (          ) that are selected before classifying systems and components and identifying important thermal-hydraulic (          ).",
+      "answer": "Merit / phenomena",
+      "explanation": "FoM은 안전판단 기준 성능지표이며 PIRT 절차에서 사고 선정 다음에 나옵니다."
+    },
+    {
+      "id": 84,
+      "page": "Page 51",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Code Adequacy is a systematic process to confirm that a specific thermal-hydraulic computer code in use is suitable to application for a new reactor safety (          ).",
+      "answer": "analysis",
+      "explanation": "Code Adequacy의 정의형 문장입니다."
+    },
+    {
+      "id": 85,
+      "page": "Page 51",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Specified conditions for Code Adequacy include a thermal-hydraulic computer code to be (          ), a reactor type under (          ), specific accidents or (          ) under consideration, and (          ).",
+      "answer": "used / consideration / AOOs / PIRT",
+      "explanation": "Code Adequacy의 specified conditions 4개를 묶은 최중요 문제입니다."
+    },
+    {
+      "id": 86,
+      "page": "Page 51",
+      "priority": "상",
+      "type": "blank",
+      "question": "US NRC published code adequacy reports for RELAP5/Mod3 for AP600 (          ) and TRACE for ESBWR (          ).",
+      "answer": "SBLOCA / LOCAs",
+      "explanation": "US NRC code adequacy report 사례입니다."
+    },
+    {
+      "id": 87,
+      "page": "Page 51",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Implication of code adequacy evaluation includes good source of (          ) for regulatory review and guideline for securing appropriate thermal-hydraulic computer (          ) for designing a new reactor.",
+      "answer": "RAIs / codes",
+      "explanation": "Code adequacy evaluation의 규제 활용입니다. RAI source와 code 확보 지침입니다."
+    },
+    {
+      "id": 88,
+      "page": "Page 52",
+      "priority": "최상",
+      "type": "blank",
+      "question": "PIRT and code adequacy should be renewed/revisited all the time depending on reactor (          ) or revealing new (          ).",
+      "answer": "types / knowledge",
+      "explanation": "Lecture 12 후반 결론형 문장입니다. 한 번 하고 끝나는 것이 아닙니다."
+    },
+    {
+      "id": 89,
+      "page": "Page 52",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Lesson learnt from OECD/NEA (          ) benchmark study: In-tube condensation (          ) model important to passive safety system needs to be improved.",
+      "answer": "PERSEO / HT",
+      "explanation": "PERSEO benchmark와 in-tube condensation HT model 개선 필요성을 연결합니다."
+    },
+    {
+      "id": 90,
+      "page": "Page 52",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Code adequacy should be re-evaluated before/after against special accidents where the condensation HT model plays an important (          ).",
+      "answer": "role",
+      "explanation": "condensation HT model이 중요한 사고에서는 code adequacy 재평가가 필요합니다."
+    },
+    {
+      "id": 91,
+      "page": "Page 3-6",
+      "priority": "최상",
+      "type": "blank",
+      "question": "SDA is broader than Topical Report because TR reviews a specific technical (          ), while SDA reviews the standard reactor (          ) itself; both increase licensing process (          ).",
+      "answer": "topic / design / efficiency",
+      "explanation": "교수님 설명 기반의 전체 연결 문제입니다. TR과 SDA의 공통점/차이점을 잡아야 합니다."
+    },
+    {
+      "id": 92,
+      "page": "Page 7-9",
+      "priority": "최상",
+      "type": "blank",
+      "question": "APR1400 appears both as a Korea Standard Design (          ) case and as a US Standard Design (          ) case, while NuScale US600 is important as a US SDC case for a Small Modular (          ).",
+      "answer": "Approval / Certification / Reactor",
+      "explanation": "APR1400과 NuScale을 사례 비교형으로 묶은 문제입니다."
+    },
+    {
+      "id": 93,
+      "page": "Page 10-12",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The key comparison is Korea: SDA -> (          ) -> (          ), with possible repeated review; US: SDA -> (          ) -> (          ), with rare repeated review during COL.",
+      "answer": "CP / OL / SDC / COL",
+      "explanation": "한국/미국 규제체계 비교를 한 줄로 정리한 핵심 문제입니다."
+    },
+    {
+      "id": 94,
+      "page": "Page 13-19",
+      "priority": "최상",
+      "type": "blank",
+      "question": "i-SMR concept connects integrated reactor, canned motor pump, in-vessel CEDM, helical steam generator, boron-free core, and fully (          ) safety system to improve safety, maintenance, economics, and renewable energy (          ).",
+      "answer": "passive / compatibility",
+      "explanation": "i-SMR 설계특징 전체를 한 문장으로 연결한 문제입니다."
+    },
+    {
+      "id": 95,
+      "page": "Page 15-17",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The i-SMR fully passive safety concept depends on natural (          ), while boron-free operation simplifies (          ) and enables prompt and safe load-following by controlling (          ) without boron.",
+      "answer": "circulation / CVCS / reactivity",
+      "explanation": "수동안전계통과 boron-free 운전의 연결형 문제입니다."
+    },
+    {
+      "id": 96,
+      "page": "Page 18-20",
+      "priority": "상",
+      "type": "blank",
+      "question": "i-SMR economics and deployment are supported by factory manufacturing, land transportation by trucks and (          ), construction time (          ) months, unit cost less than $(          )/kWe, and SDA Approval (          ) year in the milestone.",
+      "answer": "railroads / 24 / 3,500 / 3",
+      "explanation": "i-SMR 경제성/일정 숫자를 한 문제로 묶었습니다."
+    },
+    {
+      "id": 97,
+      "page": "Page 21-23",
+      "priority": "최상",
+      "type": "blank",
+      "question": "PIRT identifies important thermal-hydraulic (          ), evaluates importance and knowledge (          ), establishes experimental database for V&V, and leads to code improvement or new (          ).",
+      "answer": "phenomena / levels / development",
+      "explanation": "PIRT의 역할을 압축한 연결형 문제입니다."
+    },
+    {
+      "id": 98,
+      "page": "Page 21-23, 51-52",
+      "priority": "최상",
+      "type": "blank",
+      "question": "The review logic for new SMR passive safety systems is PIRT -> important T-H phenomena -> V/V matrix -> Code (          ) -> RAIs -> renewed/revisited when new (          ) is revealed.",
+      "answer": "Adequacy / knowledge",
+      "explanation": "Lecture 12의 최종 규제심사 논리를 한 문장으로 정리했습니다."
+    },
+    {
+      "id": 99,
+      "page": "Page 12-52",
+      "priority": "최상",
+      "type": "blank",
+      "question": "For advanced reactors and i-SMR, differences in coolant, fuel, passive safety systems, natural circulation, and condensation heat transfer require 10CFR Part (          ), PIRT, and Code (          ) to support reliable safety review.",
+      "answer": "53 / Adequacy",
+      "explanation": "advanced reactor 규제체계와 PIRT/code adequacy를 연결한 고득점용 문제입니다."
+    },
+    {
+      "id": 100,
+      "page": "Page 2-23, 51-52",
+      "priority": "최상",
+      "type": "blank",
+      "question": "Lecture 12 connects Standard Design Approval, Korean and US standard design systems, future i-SMR SDA application, passive safety system review focuses, (          ), and Code (          ).",
+      "answer": "PIRT / Adequacy",
+      "explanation": "Lecture 12 전체 구조를 가장 압축한 문제입니다."
+    }
+  ],
+  "questionCount": 100
+}
