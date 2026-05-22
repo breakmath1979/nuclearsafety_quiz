@@ -98,16 +98,19 @@
       <span class="pill" id="priorityPill">우선순위</span>
       <span class="pill good" id="rightPill">맞음 0</span>
       <span class="pill bad" id="wrongPill">틀림 0</span>
-      <span class="pill" id="favPill">☆</span>
+      <span class="pill" id="favPill">☆중요</span>
+      <span class="pill" id="excludePill">제외 안 함</span>
     </div>
     <div class="progressOuter"><div class="progressInner" id="progressInner"></div></div>
     <div id="questionText" class="question" aria-label="문제 문장">문제 데이터를 불러오는 중입니다.</div>
+    <div class="hint">문장 안에서 더 외우고 싶은 단어를 드래그한 뒤 “선택 단어 빈칸”을 누르면, 이 문제 문장 자체가 바로 업데이트됩니다.</div>
     <textarea id="userAnswer" placeholder="여기에 답을 써보세요. 예: efficiency / licensing / licensees"></textarea>
     <div class="row">
       <button id="showAnswerBtn">정답 보기</button>
       <button class="good" id="markRightBtn">맞음</button>
       <button class="bad" id="markWrongBtn">틀림</button>
-      <button class="secondary" id="favBtn">☆ 표시</button>
+      <button class="secondary" id="favBtn">☆중요</button>
+      <button class="secondary" id="excludeBtn">수동 제외</button>
     </div>
     <div id="answerBox" class="answer">
       <h3>정답</h3>
@@ -151,7 +154,11 @@
     </div>
     <div class="row">
       <button class="secondary small" id="googleLoginBtn">Google 로그인</button>
+      <button class="secondary small" id="googleLogoutBtn">로그아웃</button>
+      <button class="secondary small" id="cloudLoadBtn">클라우드 진도 불러오기</button>
+      <button class="secondary small" id="cloudSaveBtn">클라우드 진도 저장하기</button>
     </div>
+    <div class="hint">GitHub Pages 주소와 문제 JSON은 그대로 사용합니다. 진도와 수동 제외 상태를 Firebase Firestore에 저장합니다.</div>
   </div>
 
   <div class="card">
@@ -160,7 +167,7 @@
       <span class="pill good" id="summaryRight">총 맞음 0</span>
       <span class="pill bad" id="summaryWrong">총 틀림 0</span>
       <span class="pill" id="summaryBlanks">추가 빈칸 0</span>
-      <span class="pill" id="progressPill">진도: 브라우저 저장 + Firestore 동기화</span>
+      <span class="pill" id="progressPill">진도: 브라우저 저장 + Firestore 동기화 + 수동 제외</span>
     </div>
     <div class="dangerZone">
       <button class="secondary small" id="resetCurrentBtn">현재 문제 기록 초기화</button>
@@ -178,14 +185,14 @@
 
 <script type="module">
   const firebaseConfig = {
-  apiKey: "AIzaSyCQB85xcAlDfmPAWhUHhbEM3DMkHonAvH8",
-  authDomain: "nuclearsafety-ac56e.firebaseapp.com",
-  projectId: "nuclearsafety-ac56e",
-  storageBucket: "nuclearsafety-ac56e.firebasestorage.app",
-  messagingSenderId: "921007613542",
-  appId: "1:921007613542:web:8baa1f96ea5067c98c2fa7",
-  measurementId: "G-0BHV09WZ4Y"
-};
+    apiKey: "AIzaSyCQB85xcAlDfmPAWhUHhbEM3DMkHonAvH8",
+    authDomain: "nuclearsafety-ac56e.firebaseapp.com",
+    projectId: "nuclearsafety-ac56e",
+    storageBucket: "nuclearsafety-ac56e.firebasestorage.app",
+    messagingSenderId: "921007613542",
+    appId: "1:921007613542:web:8baa1f96ea5067c98c2fa7",
+    measurementId: "G-0BHV09WZ4Y"
+  };
 
   const configured = firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("여기에_");
   window.__LQ_FIREBASE__ = { ready:false, user:null, db:null, api:null };
@@ -227,7 +234,7 @@
   let dataSets = [];
   let dataset = { title:'', datasetId:'none', questions:[], progressFile:'' };
   let QUESTIONS = [];
-  let state = { stats:{}, extraBlanks:{}, favorites:{}, mode:'all' };
+  let state = { stats:{}, extraBlanks:{}, favorites:{}, excluded:{}, mode:'all' };
   let order = [];
   let pos = 0;
   let showAnswer = false;
@@ -237,9 +244,9 @@
     appTitle:$('appTitle'), datasetSelect:$('datasetSelect'), modeSelect:$('modeSelect'),
     shuffleBtn:$('shuffleBtn'), listBtn:$('listBtn'), examBtn:$('examBtn'),
     numPill:$('numPill'), pagePill:$('pagePill'), priorityPill:$('priorityPill'),
-    rightPill:$('rightPill'), wrongPill:$('wrongPill'), favPill:$('favPill'), progressInner:$('progressInner'),
+    rightPill:$('rightPill'), wrongPill:$('wrongPill'), favPill:$('favPill'), excludePill:$('excludePill'), progressInner:$('progressInner'),
     questionText:$('questionText'), userAnswer:$('userAnswer'), showAnswerBtn:$('showAnswerBtn'),
-    markRightBtn:$('markRightBtn'), markWrongBtn:$('markWrongBtn'), favBtn:$('favBtn'),
+    markRightBtn:$('markRightBtn'), markWrongBtn:$('markWrongBtn'), favBtn:$('favBtn'), excludeBtn:$('excludeBtn'),
     answerBox:$('answerBox'), answerText:$('answerText'), explainText:$('explainText'),
     blankInput:$('blankInput'), addBlankBtn:$('addBlankBtn'), extraBlankChips:$('extraBlankChips'),
     listCard:$('listCard'), searchInput:$('searchInput'), closeListBtn:$('closeListBtn'), questionList:$('questionList'),
@@ -301,7 +308,7 @@
       stats[k] = { right:0, wrong:0 };
       extraBlanks[k] = [];
     });
-    return { stats, extraBlanks, favorites:{}, mode:'all' };
+    return { stats, extraBlanks, favorites:{}, excluded:{}, mode:'all' };
   }
 
   function normalizeState(s) {
@@ -324,6 +331,10 @@
 
     Object.keys(s.favorites || {}).forEach(k => {
       if (s.favorites[k]) base.favorites[k] = true;
+    });
+
+    Object.keys(s.excluded || {}).forEach(k => {
+      if (s.excluded[k]) base.excluded[k] = true;
     });
 
     return base;
@@ -531,6 +542,13 @@
 
   function makeOrder(mode) {
     let arr = QUESTIONS.slice();
+
+    // 수동 제외 문제는 전체 문제(all)에는 나오지만,
+    // 오답/취약, 미풀이, 표시한문제, AI추천에서는 제외합니다.
+    if (mode !== 'all') {
+      arr = arr.filter(q => !(state.excluded && state.excluded[String(q.id)]));
+    }
+
     if (mode === 'weak') arr = arr.filter(q => {
       const st = statOf(q.id);
       return st.wrong > 0 || (st.right + st.wrong > 0 && st.wrong >= st.right);
@@ -541,7 +559,11 @@
     });
     if (mode === 'favorite') arr = arr.filter(q => !!state.favorites[String(q.id)]);
     if (mode === 'ai') arr = arr.slice().sort((a,b) => weaknessScore(b) - weaknessScore(a));
-    if (!arr.length) arr = QUESTIONS.slice();
+
+    if (!arr.length) {
+      if (mode === 'all') return QUESTIONS.map(q => q.id);
+      return [];
+    }
     return arr.map(q => q.id);
   }
 
@@ -610,6 +632,21 @@
 
   function render() {
     if (!QUESTIONS.length) return;
+
+    if (!order.length) {
+      els.questionText.textContent = "현재 선택한 학습 범위에 표시할 문제가 없습니다.\n수동 제외 문제는 전체 문제에서만 보입니다.\n학습 범위를 전체 문제로 바꾸거나 제외를 해제하세요.";
+      els.numPill.textContent = `문제 0 / ${QUESTIONS.length}`;
+      els.pagePill.textContent = 'Page';
+      els.priorityPill.textContent = '우선순위';
+      els.rightPill.textContent = '맞음 0';
+      els.wrongPill.textContent = '틀림 0';
+      if (els.favPill) els.favPill.textContent = '☆중요';
+      if (els.excludePill) els.excludePill.textContent = '표시 문제 없음';
+      if (els.progressInner) els.progressInner.style.width = '0%';
+      renderSummary();
+      return;
+    }
+
     const q = currentQ();
     const st = statOf(q.id);
     const extras = extraOf(q.id);
@@ -625,8 +662,17 @@
     els.priorityPill.textContent = q.priority ? '우선순위 ' + q.priority : '우선순위';
     els.rightPill.textContent = '맞음 ' + st.right;
     els.wrongPill.textContent = '틀림 ' + st.wrong;
-    els.favPill.textContent = state.favorites[String(q.id)] ? '★ 표시됨' : '☆ 미표시';
-    els.favBtn.textContent = state.favorites[String(q.id)] ? '★ 표시 해제' : '☆ 표시';
+    els.favPill.textContent = state.favorites[String(q.id)] ? '★중요' : '☆중요';
+    els.favBtn.textContent = state.favorites[String(q.id)] ? '★중요 해제' : '☆중요';
+
+    const isExcluded = !!(state.excluded && state.excluded[String(q.id)]);
+    if (els.excludePill) {
+      els.excludePill.textContent = isExcluded ? '수동 제외됨' : '제외 안 함';
+      els.excludePill.className = isExcluded ? 'pill bad' : 'pill';
+    }
+    if (els.excludeBtn) {
+      els.excludeBtn.textContent = isExcluded ? '제외 해제' : '수동 제외';
+    }
     els.progressInner.style.width = ((pos + 1) / Math.max(order.length, 1) * 100).toFixed(1) + '%';
     els.questionText.textContent = applyExtraBlanks(q.question, extras);
     els.answerText.textContent = answerByBlankOrder(q);
@@ -666,7 +712,7 @@
   }
 
   function renderSummary() {
-    let solved=0, right=0, wrong=0, blanks=0, mastered=0, risk=0, weak=0;
+    let solved=0, right=0, wrong=0, blanks=0, excludedCount=0, mastered=0, risk=0, weak=0;
     QUESTIONS.forEach(q => {
       const st = statOf(q.id);
       const total = st.right + st.wrong;
@@ -675,6 +721,7 @@
       right += st.right;
       wrong += st.wrong;
       blanks += extraOf(q.id).length;
+      if (state.excluded && state.excluded[String(q.id)]) excludedCount++;
       if (st.right >= 2 && st.wrong === 0) mastered++;
       if (st.wrong >= 2 || score >= 5) risk++;
       if (st.wrong > 0 || score >= 2.5) weak++;
@@ -683,14 +730,14 @@
     els.summarySolved.textContent = `풀이 ${solved}/${QUESTIONS.length}`;
     els.summaryRight.textContent = '총 맞음 ' + right;
     els.summaryWrong.textContent = '총 틀림 ' + wrong;
-    els.summaryBlanks.textContent = '추가 빈칸 ' + blanks;
+    els.summaryBlanks.textContent = '추가 빈칸 ' + blanks + ' / 수동 제외 ' + excludedCount;
     els.aiMemoryRate.textContent = '암기율 ' + memoryRate + '%';
     els.aiRiskCount.textContent = '위험 ' + risk;
     els.aiWeakCount.textContent = '취약 ' + weak;
     els.aiMasterCount.textContent = '완전암기 ' + mastered;
     els.aiMemoryBar.style.width = memoryRate + '%';
 
-    const top = QUESTIONS.slice().sort((a,b) => weaknessScore(b) - weaknessScore(a)).slice(0, 3);
+    const top = QUESTIONS.slice().filter(q => !(state.excluded && state.excluded[String(q.id)])).sort((a,b) => weaknessScore(b) - weaknessScore(a)).slice(0, 3);
     els.aiCoachText.textContent = top.length
       ? 'AI 추천: ' + top.map(q => '#' + q.id + '(' + q.page + ')').join(', ') + ' 순서로 복습하세요.'
       : 'AI 추천은 학습 기록을 기준으로 생성됩니다.';
@@ -741,7 +788,7 @@
       const st = statOf(q.id);
       const div = document.createElement('div');
       div.className = 'item';
-      div.innerHTML = `<div class="itemTitle">문제 ${q.id} · ${escapeHtml(q.page)} · ${escapeHtml(q.priority)} · 맞음 ${st.right} / 틀림 ${st.wrong}</div><div class="itemQ">${escapeHtml(applyExtraBlanks(q.question, extraOf(q.id)))}</div>`;
+      div.innerHTML = `<div class="itemTitle">문제 ${q.id} · ${escapeHtml(q.page)} · ${escapeHtml(q.priority)} · 맞음 ${st.right} / 틀림 ${st.wrong}${state.excluded && state.excluded[String(q.id)] ? ' · 수동 제외' : ''}</div><div class="itemQ">${escapeHtml(applyExtraBlanks(q.question, extraOf(q.id)))}</div>`;
       div.addEventListener('click', () => {
         state.mode = 'all';
         els.modeSelect.value = 'all';
@@ -754,7 +801,7 @@
   }
 
   function makeExamText() {
-    const selected = QUESTIONS.slice().sort((a,b) => weaknessScore(b) - weaknessScore(a)).slice(0, Math.min(25, QUESTIONS.length));
+    const selected = QUESTIONS.slice().filter(q => !(state.excluded && state.excluded[String(q.id)])).sort((a,b) => weaknessScore(b) - weaknessScore(a)).slice(0, Math.min(25, QUESTIONS.length));
     const lines = [];
     lines.push(dataset.title + ' - AI 맞춤 실전시험');
     lines.push('생성일: ' + new Date().toLocaleString());
@@ -818,6 +865,21 @@
     saveStateEverywhere();
     render();
   });
+
+  if (els.excludeBtn) els.excludeBtn.addEventListener('click', () => {
+    const q = currentQ();
+    if (!q) return;
+    const k = String(q.id);
+    state.excluded = state.excluded || {};
+    state.excluded[k] = !state.excluded[k];
+    saveStateEverywhere();
+
+    if ((state.mode || 'all') !== 'all' && state.excluded[k]) {
+      rebuildOrder();
+    }
+    render();
+  });
+
   els.addBlankBtn.addEventListener('click', () => addBlank(els.blankInput.value.trim() || selectedTextInQuestion()));
   els.blankInput.addEventListener('keydown', e => {
     if (e.key === 'Enter') addBlank(els.blankInput.value);
@@ -846,7 +908,13 @@
     try { await window.__LQ_FIREBASE__.api.signIn(); }
     catch(e) { alert('Google 로그인 실패: ' + e.message); }
   });
-document.addEventListener('keydown', e => {
+  if (els.googleLogoutBtn) els.googleLogoutBtn.addEventListener('click', async () => {
+    if (firebaseReady()) await window.__LQ_FIREBASE__.api.signOut();
+  });
+  if (els.cloudLoadBtn) els.cloudLoadBtn.addEventListener('click', () => cloudLoad(true));
+  if (els.cloudSaveBtn) els.cloudSaveBtn.addEventListener('click', () => cloudSave(false));
+
+  document.addEventListener('keydown', e => {
     if (['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return;
     if (e.key === 'ArrowLeft') move(-1);
     if (e.key === 'ArrowRight') move(1);
