@@ -3,9 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lecture 암기앱 v3 AI맞춤형 GitHub 진도공유형</title>
+<title>Lecture 암기앱 v3 AI맞춤형 완전분리형</title>
 <style>
-
   :root {
     --bg:#f6f7fb; --card:#ffffff; --ink:#111827; --muted:#6b7280; --line:#e5e7eb;
     --primary:#2563eb; --primary2:#1d4ed8; --good:#059669; --bad:#dc2626; --warn:#d97706;
@@ -69,9 +68,6 @@
     .card { border-radius:17px; padding:13px; }
     .footerNav .inner { gap:6px; }
   }
-
-.syncPanel{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.syncPanel input{width:100%}.statusLine{font-size:13px;color:#374151;margin-top:8px;white-space:pre-wrap}.syncWarn{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:10px;color:#7c2d12;margin-top:8px}@media(max-width:700px){.syncPanel{grid-template-columns:1fr}}
-
 </style>
 </head>
 <body>
@@ -79,9 +75,15 @@
   <div class="top">
     <h1 class="title" id="appTitle">Lecture 암기앱 v3 AI맞춤형</h1>
     <div class="bar">
-      <select id="datasetSelect" title="문제 데이터 선택"><option value="">문제데이터 로딩 중</option></select>
+      <select id="datasetSelect" title="문제 데이터 선택">
+        <option value="">문제데이터 로딩 중</option>
+      </select>
       <select id="modeSelect" title="학습 범위">
-        <option value="all">전체 문제</option><option value="weak">오답/취약 문제</option><option value="unseen">미풀이 문제</option><option value="favorite">표시한 문제</option><option value="ai">AI 추천 문제</option>
+        <option value="all">전체 문제</option>
+        <option value="weak">오답/취약 문제</option>
+        <option value="unseen">미풀이 문제</option>
+        <option value="favorite">표시한 문제</option>
+        <option value="ai">AI 추천 문제</option>
       </select>
       <button class="secondary small" id="shuffleBtn">섞기</button>
       <button class="secondary small" id="listBtn">목록</button>
@@ -91,117 +93,626 @@
 
   <div class="card">
     <div class="meta">
-      <span class="pill blue" id="numPill">문제 0</span><span class="pill" id="pagePill">Page</span><span class="pill" id="priorityPill">우선순위</span><span class="pill good" id="rightPill">맞음 0</span><span class="pill bad" id="wrongPill">틀림 0</span><span class="pill" id="favPill">☆</span>
+      <span class="pill blue" id="numPill">문제 0</span>
+      <span class="pill" id="pagePill">Page</span>
+      <span class="pill" id="priorityPill">우선순위</span>
+      <span class="pill good" id="rightPill">맞음 0</span>
+      <span class="pill bad" id="wrongPill">틀림 0</span>
+      <span class="pill" id="favPill">☆</span>
     </div>
     <div class="progressOuter"><div class="progressInner" id="progressInner"></div></div>
-    <div id="questionText" class="question">문제 데이터를 불러오는 중입니다.</div>
+    <div id="questionText" class="question" aria-label="문제 문장">문제 데이터를 불러오는 중입니다.</div>
     <div class="hint">문장 안에서 더 외우고 싶은 단어를 드래그한 뒤 “선택 단어 빈칸”을 누르면, 이 문제 문장 자체가 바로 업데이트됩니다.</div>
     <textarea id="userAnswer" placeholder="여기에 답을 써보세요. 예: efficiency / licensing / licensees"></textarea>
-    <div class="row"><button id="showAnswerBtn">정답 보기</button><button class="good" id="markRightBtn">맞음</button><button class="bad" id="markWrongBtn">틀림</button><button class="secondary" id="favBtn">☆ 표시</button></div>
-    <div id="answerBox" class="answer"><h3>정답</h3><div id="answerText" class="answerText"></div><div id="explainText" class="explain"></div></div>
+    <div class="row">
+      <button id="showAnswerBtn">정답 보기</button>
+      <button class="good" id="markRightBtn">맞음</button>
+      <button class="bad" id="markWrongBtn">틀림</button>
+      <button class="secondary" id="favBtn">☆ 표시</button>
+    </div>
+    <div id="answerBox" class="answer">
+      <h3>정답</h3>
+      <div id="answerText" class="answerText"></div>
+      <div id="explainText" class="explain"></div>
+    </div>
   </div>
 
   <div class="card">
-    <div class="row"><input id="blankInput" class="grow" type="text" placeholder="추가로 빈칸 처리할 단어/문구 입력 또는 문장에서 드래그"><button id="addBlankBtn" class="warn">선택 단어 빈칸</button></div>
+    <div class="row">
+      <input id="blankInput" class="grow" type="text" placeholder="추가로 빈칸 처리할 단어/문구 입력 또는 문장에서 드래그">
+      <button id="addBlankBtn" class="warn">선택 단어 빈칸</button>
+    </div>
     <div class="hint">예: nuclear reactor, multiple, pressure처럼 입력하면 현재 문제 문장 안의 해당 표현이 (          )로 바뀝니다.</div>
     <div id="extraBlankChips" class="chips"></div>
   </div>
 
   <div id="listCard" class="card hidden">
-    <div class="row"><input id="searchInput" class="grow" type="text" placeholder="검색: DNBR, TR, Tong, Page 35 등"><button id="closeListBtn" class="secondary">닫기</button></div>
+    <div class="row">
+      <input id="searchInput" class="grow" type="text" placeholder="검색: DNBR, TR, Tong, Page 35 등">
+      <button id="closeListBtn" class="secondary">닫기</button>
+    </div>
     <div id="questionList" class="list"></div>
   </div>
 
   <div class="card">
-    <div class="meta"><span class="pill blue" id="aiMemoryRate">암기율 0%</span><span class="pill bad" id="aiRiskCount">위험 0</span><span class="pill" id="aiWeakCount">취약 0</span><span class="pill good" id="aiMasterCount">완전암기 0</span></div>
+    <div class="meta">
+      <span class="pill blue" id="aiMemoryRate">암기율 0%</span>
+      <span class="pill bad" id="aiRiskCount">위험 0</span>
+      <span class="pill" id="aiWeakCount">취약 0</span>
+      <span class="pill good" id="aiMasterCount">완전암기 0</span>
+    </div>
     <div class="hint" id="aiCoachText">AI 추천은 맞음/틀림/추가괄호/즐겨찾기를 기준으로 취약한 문제를 먼저 보여줍니다.</div>
     <div class="progressOuter" style="margin-top:8px;"><div class="progressInner" id="aiMemoryBar"></div></div>
   </div>
 
   <div class="card">
-    <div class="meta"><span class="pill" id="summarySolved">풀이 0</span><span class="pill good" id="summaryRight">총 맞음 0</span><span class="pill bad" id="summaryWrong">총 틀림 0</span><span class="pill" id="summaryBlanks">추가 빈칸 0</span><span class="pill" id="progressPill">진도: GitHub JSON 동기화</span></div>
-    <div class="dangerZone"><button class="secondary small" id="resetCurrentBtn">현재 문제 기록 초기화</button><button class="secondary small" id="resetAllBtn">전체 기록 초기화</button></div>
-  </div>
-
-  <div class="card">
-    <h3 style="margin:0 0 8px;">GitHub 진도 JSON 동기화 설정</h3>
-    <div class="hint">노트북과 핸드폰이 같은 GitHub 저장소의 progress JSON을 읽고 저장하도록 설정합니다.</div>
-    <div class="syncWarn">공용 PC에서는 토큰을 저장하지 마세요. 토큰 권한은 이 저장소의 Contents Read/Write로만 제한하는 것을 권장합니다.</div>
-    <div class="syncPanel">
-      <input id="ghOwner" placeholder="GitHub 아이디 또는 조직명 예: myname">
-      <input id="ghRepo" placeholder="저장소 이름 예: lecture-quiz-app">
-      <input id="ghBranch" placeholder="브랜치 예: main">
-      <input id="ghBasePath" placeholder="폴더 경로, 루트면 비움 예: data">
-      <input id="ghToken" placeholder="GitHub Fine-grained token, Contents Read/Write">
+    <div class="meta">
+      <span class="pill" id="summarySolved">풀이 0</span>
+      <span class="pill good" id="summaryRight">총 맞음 0</span>
+      <span class="pill bad" id="summaryWrong">총 틀림 0</span>
+      <span class="pill" id="summaryBlanks">추가 빈칸 0</span>
+      <span class="pill" id="progressPill">진도: 자동 읽기/생성</span>
     </div>
-    <div class="row" style="margin-top:8px;"><button class="secondary small" id="saveSyncBtn">동기화 설정 저장</button><button class="secondary small" id="pullSyncBtn">GitHub 진도 불러오기</button><button class="secondary small" id="pushSyncBtn">GitHub 진도 저장하기</button><button class="secondary small" id="clearSyncBtn">동기화 설정 삭제</button></div>
-    <div class="statusLine" id="syncStatus">동기화 상태: 설정 필요</div>
+    <div class="dangerZone">
+      <button class="secondary small" id="resetCurrentBtn">현재 문제 기록 초기화</button>
+      <button class="secondary small" id="resetAllBtn">전체 기록 초기화</button>
+    </div>
   </div>
 </div>
-<div class="footerNav"><div class="inner"><button class="secondary" id="prevBtn">이전</button><button id="nextBtn">다음</button></div></div>
+
+<div class="footerNav">
+  <div class="inner">
+    <button class="secondary" id="prevBtn">이전</button>
+    <button id="nextBtn">다음</button>
+  </div>
+</div>
 
 <script>
-(function(){
-'use strict';
-const APP_KEY='lecture_quiz_v3_remote_progress_json';
-const SYNC_KEY=APP_KEY+'_github_sync_config';
-const MANIFEST_URL='./quiz_manifest.json';
-const blank='(          )';
-let dataSets=[],dataset={title:'',datasetId:'none',questions:[],progressFile:''},QUESTIONS=[],state={stats:{},extraBlanks:{},favorites:{},mode:'all'},order=[],pos=0,showAnswer=false,currentSha=null,saveTimer=null,syncConfig=loadSyncConfig();
-const $=id=>document.getElementById(id);
-const els={appTitle:$('appTitle'),datasetSelect:$('datasetSelect'),modeSelect:$('modeSelect'),shuffleBtn:$('shuffleBtn'),listBtn:$('listBtn'),examBtn:$('examBtn'),numPill:$('numPill'),pagePill:$('pagePill'),priorityPill:$('priorityPill'),rightPill:$('rightPill'),wrongPill:$('wrongPill'),favPill:$('favPill'),progressInner:$('progressInner'),questionText:$('questionText'),userAnswer:$('userAnswer'),showAnswerBtn:$('showAnswerBtn'),markRightBtn:$('markRightBtn'),markWrongBtn:$('markWrongBtn'),favBtn:$('favBtn'),answerBox:$('answerBox'),answerText:$('answerText'),explainText:$('explainText'),blankInput:$('blankInput'),addBlankBtn:$('addBlankBtn'),extraBlankChips:$('extraBlankChips'),listCard:$('listCard'),searchInput:$('searchInput'),closeListBtn:$('closeListBtn'),questionList:$('questionList'),aiMemoryRate:$('aiMemoryRate'),aiRiskCount:$('aiRiskCount'),aiWeakCount:$('aiWeakCount'),aiMasterCount:$('aiMasterCount'),aiCoachText:$('aiCoachText'),aiMemoryBar:$('aiMemoryBar'),summarySolved:$('summarySolved'),summaryRight:$('summaryRight'),summaryWrong:$('summaryWrong'),summaryBlanks:$('summaryBlanks'),progressPill:$('progressPill'),resetCurrentBtn:$('resetCurrentBtn'),resetAllBtn:$('resetAllBtn'),prevBtn:$('prevBtn'),nextBtn:$('nextBtn'),ghOwner:$('ghOwner'),ghRepo:$('ghRepo'),ghBranch:$('ghBranch'),ghBasePath:$('ghBasePath'),ghToken:$('ghToken'),saveSyncBtn:$('saveSyncBtn'),pullSyncBtn:$('pullSyncBtn'),pushSyncBtn:$('pushSyncBtn'),clearSyncBtn:$('clearSyncBtn'),syncStatus:$('syncStatus')};
-function safeId(s){return String(s||'custom').replace(/[^a-zA-Z0-9_-]/g,'_')}
-function stateKey(){return APP_KEY+'_state_'+safeId(dataset.datasetId)}
-function progressFilename(){return dataset.progressFile||safeId(dataset.datasetId)+'_progress_v3.json'}
-function setSyncStatus(msg){if(els.syncStatus)els.syncStatus.textContent='동기화 상태: '+msg;if(els.progressPill)els.progressPill.textContent='진도: '+msg}
-async function fetchJson(url){const res=await fetch(url+(url.includes('?')?'&':'?')+'_='+Date.now(),{cache:'no-store'});if(!res.ok)throw new Error(url+' HTTP '+res.status);return await res.json()}
-function normalizeQuestion(q,idx){return{id:Number(q.id||idx+1),page:String(q.page||''),priority:String(q.priority||''),question:String(q.question||q.prompt||''),answer:String(q.answer||''),explanation:String(q.explanation||q.explain||''),type:String(q.type||'')}}
-function normalizeDataset(raw,meta){const questions=(raw.questions||raw.data||[]).map(normalizeQuestion).filter(q=>q.question&&q.answer).map((q,i)=>({...q,id:i+1}));const dsId=meta.datasetId||raw.datasetId||raw.id||'custom';return{title:meta.label||raw.title||dsId,datasetId:dsId,file:meta.file||'',progressFile:meta.progressFile||raw.progressFile||safeId(dsId)+'_progress_v3.json',questions}}
-function makeEmptyState(){const stats={},extraBlanks={};QUESTIONS.forEach(q=>{const k=String(q.id);stats[k]={right:0,wrong:0};extraBlanks[k]=[]});return{stats,extraBlanks,favorites:{},mode:'all'}}
-function normalizeState(s){const base=makeEmptyState();s=s||{};base.mode=s.mode||'all';Object.keys(s.stats||{}).forEach(k=>{base.stats[k]={right:Number((s.stats[k]||{}).right||0),wrong:Number((s.stats[k]||{}).wrong||0)}});Object.keys(s.extraBlanks||{}).forEach(k=>{base.extraBlanks[k]=Array.isArray(s.extraBlanks[k])?Array.from(new Set(s.extraBlanks[k].map(String).filter(Boolean))):[]});Object.keys(s.favorites||{}).forEach(k=>{if(s.favorites[k])base.favorites[k]=true});return base}
-function loadSyncConfig(){try{return JSON.parse(localStorage.getItem(SYNC_KEY)||'{}')}catch(e){return {}}}
-function hasSyncConfig(){return syncConfig&&syncConfig.owner&&syncConfig.repo&&syncConfig.branch&&syncConfig.token}
-function fillSyncInputs(){syncConfig=loadSyncConfig();els.ghOwner.value=syncConfig.owner||'';els.ghRepo.value=syncConfig.repo||'';els.ghBranch.value=syncConfig.branch||'main';els.ghBasePath.value=syncConfig.basePath||'';els.ghToken.value=syncConfig.token||'';setSyncStatus(hasSyncConfig()?'GitHub JSON 동기화 준비됨':'설정 필요')}
-function saveSyncInputs(){syncConfig={owner:els.ghOwner.value.trim(),repo:els.ghRepo.value.trim(),branch:els.ghBranch.value.trim()||'main',basePath:els.ghBasePath.value.trim().replace(/^\/|\/$/g,''),token:els.ghToken.value.trim()};localStorage.setItem(SYNC_KEY,JSON.stringify(syncConfig));setSyncStatus(hasSyncConfig()?'GitHub JSON 동기화 설정 저장됨':'설정 부족')}
-function githubFilePath(){const file=progressFilename();return syncConfig.basePath?syncConfig.basePath+'/'+file:file}
-function githubApiUrl(){return 'https://api.github.com/repos/'+encodeURIComponent(syncConfig.owner)+'/'+encodeURIComponent(syncConfig.repo)+'/contents/'+githubFilePath().split('/').map(encodeURIComponent).join('/')}
-function b64Enc(str){return btoa(unescape(encodeURIComponent(str)))}
-function b64Dec(str){return decodeURIComponent(escape(atob(String(str||'').replace(/\n/g,''))))}
-function saveStateLocalBackup(){try{localStorage.setItem(stateKey(),JSON.stringify(state))}catch(e){}}
-function loadLocalBackup(){try{const raw=localStorage.getItem(stateKey());return raw?normalizeState(JSON.parse(raw)):null}catch(e){return null}}
-function scheduleRemoteSave(){saveStateLocalBackup();if(!hasSyncConfig())return;clearTimeout(saveTimer);saveTimer=setTimeout(()=>pushProgressToGitHub(true),1000)}
-async function pullProgressFromGitHub(showAlert=true){if(!hasSyncConfig()){setSyncStatus('GitHub 설정 필요');if(showAlert)alert('GitHub 동기화 설정을 먼저 입력하세요.');return false}try{setSyncStatus('GitHub에서 진도 읽는 중...');const res=await fetch(githubApiUrl()+'?ref='+encodeURIComponent(syncConfig.branch)+'&_='+Date.now(),{headers:{Authorization:'Bearer '+syncConfig.token,Accept:'application/vnd.github+json'},cache:'no-store'});if(res.status===404){currentSha=null;state=normalizeState({});saveStateLocalBackup();rebuildOrder();render();setSyncStatus('GitHub progress JSON 없음 → 새 진도 생성');await pushProgressToGitHub(true);return true}if(!res.ok)throw new Error('GitHub read HTTP '+res.status);const data=await res.json();currentSha=data.sha||null;state=normalizeState(JSON.parse(b64Dec(data.content||'')));saveStateLocalBackup();rebuildOrder();render();setSyncStatus('GitHub progress JSON 읽음: '+progressFilename());if(showAlert)alert('GitHub 진도를 불러왔습니다.');return true}catch(e){console.error(e);setSyncStatus('GitHub 진도 읽기 실패: '+e.message);if(showAlert)alert('GitHub 진도 읽기 실패: '+e.message);return false}}
-async function pushProgressToGitHub(silent=false){if(!hasSyncConfig()){setSyncStatus('GitHub 설정 필요');if(!silent)alert('GitHub 동기화 설정을 먼저 입력하세요.');return false}try{setSyncStatus('GitHub에 진도 저장 중...');let latestSha=currentSha;const getRes=await fetch(githubApiUrl()+'?ref='+encodeURIComponent(syncConfig.branch)+'&_='+Date.now(),{headers:{Authorization:'Bearer '+syncConfig.token,Accept:'application/vnd.github+json'},cache:'no-store'});if(getRes.ok){const data=await getRes.json();latestSha=data.sha||latestSha}else if(getRes.status!==404){throw new Error('GitHub sha check HTTP '+getRes.status)}const body={message:'Update progress '+progressFilename(),content:b64Enc(JSON.stringify(state,null,2)),branch:syncConfig.branch};if(latestSha)body.sha=latestSha;const putRes=await fetch(githubApiUrl(),{method:'PUT',headers:{Authorization:'Bearer '+syncConfig.token,Accept:'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify(body)});if(!putRes.ok){const txt=await putRes.text();throw new Error('GitHub save HTTP '+putRes.status+' '+txt.slice(0,160))}const saved=await putRes.json();currentSha=saved.content&&saved.content.sha?saved.content.sha:latestSha;setSyncStatus('GitHub progress JSON 저장 완료: '+progressFilename());if(!silent)alert('GitHub 진도를 저장했습니다.');return true}catch(e){console.error(e);setSyncStatus('GitHub 진도 저장 실패: '+e.message);if(!silent)alert('GitHub 진도 저장 실패: '+e.message);return false}}
-async function loadProgressState(){if(hasSyncConfig()){const ok=await pullProgressFromGitHub(false);if(ok)return 'GitHub JSON'}try{const progress=await fetchJson('./'+progressFilename());state=normalizeState(progress);saveStateLocalBackup();return 'progress JSON 읽음'}catch(e){const local=loadLocalBackup();if(local){state=local;return '브라우저 백업'}state=normalizeState({});saveStateLocalBackup();return '새로 생성'}}
-async function init(){try{fillSyncInputs();const manifest=await fetchJson(MANIFEST_URL);const list=Array.isArray(manifest)?manifest:(manifest.datasets||[]);dataSets=[];for(const meta of list){if(!meta.file)continue;try{const raw=await fetchJson('./'+meta.file);const ds=normalizeDataset(raw,meta);if(ds.questions.length)dataSets.push(ds)}catch(e){console.warn('question json load failed',meta.file,e)}}if(!dataSets.length)throw new Error('No valid question JSON loaded.');renderDatasetOptions();const lastId=localStorage.getItem(APP_KEY+'_last_dataset');const selected=dataSets.find(d=>d.datasetId===lastId)||dataSets[0];await switchDataset(selected.datasetId,false)}catch(e){showFatalError(e)}}
-function showFatalError(e){els.datasetSelect.innerHTML='<option>데이터 로드 실패</option>';els.questionText.textContent='문제 데이터가 표시되지 않습니다.\n\n필수 파일이 같은 폴더에 있어야 합니다.\n- index.html\n- quiz_manifest.json\n- questions JSON\n- progress JSON\n\n오류: '+(e&&e.message?e.message:e);els.aiCoachText.textContent='GitHub Pages에 올려 실행하거나 로컬테스트_실행.bat로 확인하세요.'}
-function renderDatasetOptions(){els.datasetSelect.innerHTML='';dataSets.forEach(ds=>{const opt=document.createElement('option');opt.value=ds.datasetId;opt.textContent=ds.title;els.datasetSelect.appendChild(opt)})}
-async function switchDataset(datasetId,savePrev=true){if(savePrev){saveStateLocalBackup();if(hasSyncConfig())await pushProgressToGitHub(true)}const found=dataSets.find(d=>d.datasetId===datasetId)||dataSets[0];dataset=found;QUESTIONS=dataset.questions;currentSha=null;localStorage.setItem(APP_KEY+'_last_dataset',dataset.datasetId);const source=await loadProgressState();state.mode=state.mode||'all';els.modeSelect.value=state.mode;rebuildOrder();render();if(els.progressPill)els.progressPill.textContent='진도: '+source}
-function currentQ(){return QUESTIONS.find(q=>q.id===order[pos])||QUESTIONS[0]}
-function statOf(id){return state.stats[String(id)]||{right:0,wrong:0}}
-function extraOf(id){return state.extraBlanks[String(id)]||[]}
-function uniqueArray(arr){return Array.from(new Set(arr.map(x=>String(x).trim()).filter(Boolean)))}
-function makeOrder(mode){let arr=QUESTIONS.slice();if(mode==='weak')arr=arr.filter(q=>{const st=statOf(q.id);return st.wrong>0||(st.right+st.wrong>0&&st.wrong>=st.right)});if(mode==='unseen')arr=arr.filter(q=>{const st=statOf(q.id);return st.right+st.wrong===0});if(mode==='favorite')arr=arr.filter(q=>!!state.favorites[String(q.id)]);if(mode==='ai')arr=arr.slice().sort((a,b)=>weaknessScore(b)-weaknessScore(a));if(!arr.length)arr=QUESTIONS.slice();return arr.map(q=>q.id)}
-function rebuildOrder(keepId){order=makeOrder(state.mode||'all');const idx=keepId?order.indexOf(keepId):-1;pos=idx>=0?idx:0}
-function shuffleOrder(){for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}pos=0;render()}
-function escapeRegExp(s){return String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function applyExtraBlanks(text,terms){let out=String(text||'');terms.forEach(term=>{const t=String(term).trim();if(!t)return;try{out=out.replace(new RegExp(escapeRegExp(t),'g'),blank)}catch(e){}});return out}
-function answerByBlankOrder(q){const events=[];const baseAnswers=String(q.answer||'').split('/').map(s=>s.trim()).filter(Boolean);let i=0,m;const reBlank=/\(\s{3,}\)/g;while((m=reBlank.exec(q.question))!==null){events.push({pos:m.index,ans:baseAnswers[i]||''});i++}extraOf(q.id).forEach(term=>{const t=String(term).trim();if(!t)return;const re=new RegExp(escapeRegExp(t),'g');let mm;while((mm=re.exec(q.question))!==null)events.push({pos:mm.index,ans:t})});const ordered=events.filter(e=>e.ans).sort((a,b)=>a.pos-b.pos).map(e=>e.ans);return ordered.length?ordered.join(' / '):String(q.answer||'')}
-function weaknessScore(q){const st=statOf(q.id);const attempts=st.right+st.wrong;const unseen=attempts===0?1.2:0;const extra=extraOf(q.id).length*1.5;const fav=state.favorites[String(q.id)]?1.2:0;const p=String(q.priority||'');const pBoost=p.includes('최상')?1.0:p.includes('계산')?0.8:p.includes('상')?0.4:0;return st.wrong*3.2+unseen+extra+fav+pBoost-st.right*0.75}
-function render(){if(!QUESTIONS.length)return;const q=currentQ();const st=statOf(q.id);const extras=extraOf(q.id);showAnswer=false;els.answerBox.classList.remove('show');els.showAnswerBtn.textContent='정답 보기';els.userAnswer.value='';els.appTitle.textContent=dataset.title+' ['+dataset.datasetId+']';els.datasetSelect.value=dataset.datasetId;els.numPill.textContent=`문제 ${q.id} / ${QUESTIONS.length} · 현재 ${pos+1}/${order.length}`;els.pagePill.textContent=q.page||'Page';els.priorityPill.textContent=q.priority?'우선순위 '+q.priority:'우선순위';els.rightPill.textContent='맞음 '+st.right;els.wrongPill.textContent='틀림 '+st.wrong;els.favPill.textContent=state.favorites[String(q.id)]?'★ 표시됨':'☆ 미표시';els.favBtn.textContent=state.favorites[String(q.id)]?'★ 표시 해제':'☆ 표시';els.progressInner.style.width=((pos+1)/Math.max(order.length,1)*100).toFixed(1)+'%';els.questionText.textContent=applyExtraBlanks(q.question,extras);els.answerText.textContent=answerByBlankOrder(q);els.explainText.textContent=q.explanation||'';renderChips();renderSummary()}
-function renderChips(){const q=currentQ();els.extraBlankChips.innerHTML='';const extras=extraOf(q.id);if(!extras.length){const span=document.createElement('span');span.className='hint';span.textContent='추가 빈칸 없음';els.extraBlankChips.appendChild(span);return}extras.forEach((term,idx)=>{const chip=document.createElement('span');chip.className='chip';const label=document.createElement('span');label.textContent=term;const btn=document.createElement('button');btn.type='button';btn.textContent='복원';btn.addEventListener('click',()=>{state.extraBlanks[String(q.id)].splice(idx,1);scheduleRemoteSave();render()});chip.append(label,btn);els.extraBlankChips.appendChild(chip)})}
-function renderSummary(){let solved=0,right=0,wrong=0,blanks=0,mastered=0,risk=0,weak=0;QUESTIONS.forEach(q=>{const st=statOf(q.id);const total=st.right+st.wrong;const score=weaknessScore(q);if(total>0)solved++;right+=st.right;wrong+=st.wrong;blanks+=extraOf(q.id).length;if(st.right>=2&&st.wrong===0)mastered++;if(st.wrong>=2||score>=5)risk++;if(st.wrong>0||score>=2.5)weak++});const memoryRate=QUESTIONS.length?Math.round(mastered/QUESTIONS.length*100):0;els.summarySolved.textContent=`풀이 ${solved}/${QUESTIONS.length}`;els.summaryRight.textContent='총 맞음 '+right;els.summaryWrong.textContent='총 틀림 '+wrong;els.summaryBlanks.textContent='추가 빈칸 '+blanks;els.aiMemoryRate.textContent='암기율 '+memoryRate+'%';els.aiRiskCount.textContent='위험 '+risk;els.aiWeakCount.textContent='취약 '+weak;els.aiMasterCount.textContent='완전암기 '+mastered;els.aiMemoryBar.style.width=memoryRate+'%';const top=QUESTIONS.slice().sort((a,b)=>weaknessScore(b)-weaknessScore(a)).slice(0,3);els.aiCoachText.textContent=top.length?'AI 추천: '+top.map(q=>'#'+q.id+'('+q.page+')').join(', ')+' 순서로 복습하세요.':'AI 추천은 학습 기록을 기준으로 생성됩니다.'}
-function addBlank(term){const q=currentQ();term=String(term||'').trim();if(!term)return alert('빈칸으로 만들 단어를 선택하거나 입력하세요.');if(term.length>80||term.includes(blank))return alert('너무 길거나 이미 빈칸인 표현은 추가하지 않았습니다.');if(!q.question.includes(term))return alert('현재 문제 문장 안에서 정확히 같은 단어/문구를 찾지 못했습니다.');const k=String(q.id);state.extraBlanks[k]=uniqueArray([...(state.extraBlanks[k]||[]),term]);els.blankInput.value='';scheduleRemoteSave();render()}
-function selectedTextInQuestion(){const sel=window.getSelection();if(!sel||sel.rangeCount===0)return '';return String(sel.toString()||'').trim()}
-function mark(which){const q=currentQ();const st=statOf(q.id);if(which==='right')st.right++;if(which==='wrong')st.wrong++;state.stats[String(q.id)]=st;scheduleRemoteSave();render()}
-function move(delta){if(!order.length)return;pos=(pos+delta+order.length)%order.length;render()}
-function renderList(){const kw=els.searchInput.value.trim().toLowerCase();els.questionList.innerHTML='';QUESTIONS.filter(q=>{const hay=`${q.id} ${q.page} ${q.priority} ${q.question} ${q.answer} ${q.explanation}`.toLowerCase();return !kw||hay.includes(kw)}).forEach(q=>{const st=statOf(q.id);const div=document.createElement('div');div.className='item';div.innerHTML=`<div class="itemTitle">문제 ${q.id} · ${escapeHtml(q.page)} · ${escapeHtml(q.priority)} · 맞음 ${st.right} / 틀림 ${st.wrong}</div><div class="itemQ">${escapeHtml(applyExtraBlanks(q.question,extraOf(q.id)))}</div>`;div.addEventListener('click',()=>{state.mode='all';els.modeSelect.value='all';rebuildOrder(q.id);els.listCard.classList.add('hidden');render()});els.questionList.appendChild(div)})}
-function makeExamText(){const selected=QUESTIONS.slice().sort((a,b)=>weaknessScore(b)-weaknessScore(a)).slice(0,Math.min(25,QUESTIONS.length));const lines=[];lines.push(dataset.title+' - AI 맞춤 실전시험');lines.push('생성일: '+new Date().toLocaleString());lines.push('='.repeat(70));lines.push('[문제]');selected.forEach((q,i)=>{lines.push('');lines.push(`${i+1}. ${q.page} / 우선순위 ${q.priority} / 취약도 ${weaknessScore(q).toFixed(1)}`);lines.push(applyExtraBlanks(q.question,extraOf(q.id)))});lines.push('');lines.push('='.repeat(70));lines.push('[정답 및 해설]');selected.forEach((q,i)=>{lines.push('');lines.push(`${i+1}. 정답: ${answerByBlankOrder(q)}`);lines.push('해설: '+(q.explanation||''))});return lines.join('\n')}
-function exportExamText(){const blob=new Blob([makeExamText()],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=safeId(dataset.datasetId)+'_AI맞춤실전시험_'+new Date().toISOString().slice(0,10)+'.txt';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url)}
-els.datasetSelect.addEventListener('change',()=>switchDataset(els.datasetSelect.value));els.modeSelect.addEventListener('change',()=>{state.mode=els.modeSelect.value;scheduleRemoteSave();rebuildOrder();render()});els.shuffleBtn.addEventListener('click',shuffleOrder);els.listBtn.addEventListener('click',()=>{els.listCard.classList.remove('hidden');renderList();els.searchInput.focus()});els.closeListBtn.addEventListener('click',()=>els.listCard.classList.add('hidden'));els.searchInput.addEventListener('input',renderList);els.examBtn.addEventListener('click',exportExamText);els.showAnswerBtn.addEventListener('click',()=>{showAnswer=!showAnswer;els.answerBox.classList.toggle('show',showAnswer);els.showAnswerBtn.textContent=showAnswer?'정답 숨기기':'정답 보기'});els.markRightBtn.addEventListener('click',()=>mark('right'));els.markWrongBtn.addEventListener('click',()=>mark('wrong'));els.favBtn.addEventListener('click',()=>{const q=currentQ();const k=String(q.id);state.favorites[k]=!state.favorites[k];scheduleRemoteSave();render()});els.addBlankBtn.addEventListener('click',()=>addBlank(els.blankInput.value.trim()||selectedTextInQuestion()));els.blankInput.addEventListener('keydown',e=>{if(e.key==='Enter')addBlank(els.blankInput.value)});els.prevBtn.addEventListener('click',()=>move(-1));els.nextBtn.addEventListener('click',()=>move(1));els.resetCurrentBtn.addEventListener('click',()=>{const q=currentQ();if(!confirm('현재 문제의 맞음/틀림 기록과 추가 빈칸을 초기화할까요?'))return;state.stats[String(q.id)]={right:0,wrong:0};state.extraBlanks[String(q.id)]=[];scheduleRemoteSave();render()});els.resetAllBtn.addEventListener('click',()=>{if(!confirm('현재 강의의 전체 기록을 초기화할까요?'))return;state=normalizeState({});scheduleRemoteSave();rebuildOrder();render()});
-els.saveSyncBtn.addEventListener('click',saveSyncInputs);els.pullSyncBtn.addEventListener('click',()=>pullProgressFromGitHub(true));els.pushSyncBtn.addEventListener('click',()=>pushProgressToGitHub(false));els.clearSyncBtn.addEventListener('click',()=>{if(!confirm('GitHub 동기화 설정을 삭제할까요? 진도 백업은 브라우저에 남아 있을 수 있습니다.'))return;localStorage.removeItem(SYNC_KEY);syncConfig={};fillSyncInputs()});document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1);if(e.key===' '){e.preventDefault();els.showAnswerBtn.click()}if(e.key==='o'||e.key==='O')mark('right');if(e.key==='x'||e.key==='X')mark('wrong')});
-init();
+(function() {
+  'use strict';
+
+  const APP_KEY = 'lecture_quiz_v3_full_separated_final';
+  const MANIFEST_URL = './quiz_manifest.json';
+  const blank = '(          )';
+
+  let dataSets = [];
+  let dataset = { title:'', datasetId:'none', questions:[], progressFile:'' };
+  let QUESTIONS = [];
+  let state = { stats:{}, extraBlanks:{}, favorites:{}, mode:'all' };
+  let order = [];
+  let pos = 0;
+  let showAnswer = false;
+
+  const $ = id => document.getElementById(id);
+  const els = {
+    appTitle:$('appTitle'), datasetSelect:$('datasetSelect'), modeSelect:$('modeSelect'),
+    shuffleBtn:$('shuffleBtn'), listBtn:$('listBtn'), examBtn:$('examBtn'),
+    numPill:$('numPill'), pagePill:$('pagePill'), priorityPill:$('priorityPill'),
+    rightPill:$('rightPill'), wrongPill:$('wrongPill'), favPill:$('favPill'), progressInner:$('progressInner'),
+    questionText:$('questionText'), userAnswer:$('userAnswer'), showAnswerBtn:$('showAnswerBtn'),
+    markRightBtn:$('markRightBtn'), markWrongBtn:$('markWrongBtn'), favBtn:$('favBtn'),
+    answerBox:$('answerBox'), answerText:$('answerText'), explainText:$('explainText'),
+    blankInput:$('blankInput'), addBlankBtn:$('addBlankBtn'), extraBlankChips:$('extraBlankChips'),
+    listCard:$('listCard'), searchInput:$('searchInput'), closeListBtn:$('closeListBtn'), questionList:$('questionList'),
+    aiMemoryRate:$('aiMemoryRate'), aiRiskCount:$('aiRiskCount'), aiWeakCount:$('aiWeakCount'),
+    aiMasterCount:$('aiMasterCount'), aiCoachText:$('aiCoachText'), aiMemoryBar:$('aiMemoryBar'),
+    summarySolved:$('summarySolved'), summaryRight:$('summaryRight'), summaryWrong:$('summaryWrong'),
+    summaryBlanks:$('summaryBlanks'), progressPill:$('progressPill'),
+    resetCurrentBtn:$('resetCurrentBtn'), resetAllBtn:$('resetAllBtn'),
+    prevBtn:$('prevBtn'), nextBtn:$('nextBtn')
+  };
+
+  function safeId(s) {
+    return String(s || 'custom').replace(/[^a-zA-Z0-9_-]/g, '_');
+  }
+
+  function stateKey() {
+    return APP_KEY + '_state_' + safeId(dataset.datasetId);
+  }
+
+  async function fetchJson(url) {
+    const res = await fetch(url + (url.includes('?') ? '&' : '?') + '_=' + Date.now(), { cache:'no-store' });
+    if (!res.ok) throw new Error(url + ' HTTP ' + res.status);
+    return await res.json();
+  }
+
+  function normalizeQuestion(q, idx) {
+    return {
+      id: Number(q.id || idx + 1),
+      page: String(q.page || ''),
+      priority: String(q.priority || ''),
+      question: String(q.question || q.prompt || ''),
+      answer: String(q.answer || ''),
+      explanation: String(q.explanation || q.explain || ''),
+      type: String(q.type || '')
+    };
+  }
+
+  function normalizeDataset(raw, meta) {
+    const questions = (raw.questions || raw.data || [])
+      .map(normalizeQuestion)
+      .filter(q => q.question && q.answer)
+      .map((q, i) => ({...q, id:i+1}));
+
+    const dsId = meta.datasetId || raw.datasetId || raw.id || 'custom';
+    return {
+      title: meta.label || raw.title || dsId,
+      datasetId: dsId,
+      file: meta.file || '',
+      progressFile: meta.progressFile || raw.progressFile || (safeId(dsId) + '_progress_v3.json'),
+      questions
+    };
+  }
+
+  function makeEmptyState() {
+    const stats = {}, extraBlanks = {};
+    QUESTIONS.forEach(q => {
+      const k = String(q.id);
+      stats[k] = { right:0, wrong:0 };
+      extraBlanks[k] = [];
+    });
+    return { stats, extraBlanks, favorites:{}, mode:'all' };
+  }
+
+  function normalizeState(s) {
+    const base = makeEmptyState();
+    s = s || {};
+    base.mode = s.mode || 'all';
+
+    Object.keys(s.stats || {}).forEach(k => {
+      base.stats[k] = {
+        right: Number((s.stats[k] || {}).right || 0),
+        wrong: Number((s.stats[k] || {}).wrong || 0)
+      };
+    });
+
+    Object.keys(s.extraBlanks || {}).forEach(k => {
+      base.extraBlanks[k] = Array.isArray(s.extraBlanks[k])
+        ? Array.from(new Set(s.extraBlanks[k].map(String).filter(Boolean)))
+        : [];
+    });
+
+    Object.keys(s.favorites || {}).forEach(k => {
+      if (s.favorites[k]) base.favorites[k] = true;
+    });
+
+    return base;
+  }
+
+  function loadLocalState() {
+    try {
+      const raw = localStorage.getItem(stateKey());
+      if (raw) return normalizeState(JSON.parse(raw));
+    } catch(e) {}
+    return null;
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(stateKey(), JSON.stringify(state));
+    } catch(e) {
+      console.warn('localStorage save failed', e);
+    }
+  }
+
+  async function loadProgressState() {
+    const local = loadLocalState();
+    if (local) {
+      state = local;
+      return '브라우저 저장';
+    }
+
+    if (dataset.progressFile) {
+      try {
+        const progress = await fetchJson('./' + dataset.progressFile);
+        state = normalizeState(progress);
+        saveState();
+        return 'JSON 읽음';
+      } catch(e) {
+        console.warn('progress JSON not found. empty state created.', e);
+      }
+    }
+
+    state = normalizeState({});
+    saveState();
+    return '새로 생성';
+  }
+
+  async function init() {
+    try {
+      const manifest = await fetchJson(MANIFEST_URL);
+      const list = Array.isArray(manifest) ? manifest : (manifest.datasets || []);
+      dataSets = [];
+
+      for (const meta of list) {
+        if (!meta.file) continue;
+        try {
+          const raw = await fetchJson('./' + meta.file);
+          const ds = normalizeDataset(raw, meta);
+          if (ds.questions.length) dataSets.push(ds);
+        } catch(e) {
+          console.warn('question json load failed', meta.file, e);
+        }
+      }
+
+      if (!dataSets.length) throw new Error('No valid question JSON loaded.');
+
+      renderDatasetOptions();
+      const lastId = localStorage.getItem(APP_KEY + '_last_dataset');
+      const selected = dataSets.find(d => d.datasetId === lastId) || dataSets[0];
+      await switchDataset(selected.datasetId, false);
+    } catch(e) {
+      showFatalError(e);
+    }
+  }
+
+  function showFatalError(e) {
+    els.appTitle.textContent = 'Lecture 암기앱 v3 AI맞춤형';
+    els.datasetSelect.innerHTML = '<option>데이터 로드 실패</option>';
+    els.questionText.textContent =
+      '문제 데이터가 표시되지 않습니다.\n\n' +
+      '필수 파일이 같은 폴더에 있어야 합니다.\n' +
+      '- index.html\n' +
+      '- quiz_manifest.json\n' +
+      '- lecture09_questions_v3_format.json\n' +
+      '- lecture09_progress_v3.json\n\n' +
+      'GitHub Pages에 올리면 정상적으로 읽힙니다.\n' +
+      'PC에서 더블클릭으로 열면 브라우저가 JSON 읽기를 막을 수 있습니다.\n\n' +
+      '오류: ' + (e && e.message ? e.message : e);
+    els.aiCoachText.textContent = '로컬 테스트는 로컬테스트_실행.bat 실행 후 http://localhost:8000 으로 접속하세요.';
+  }
+
+  function renderDatasetOptions() {
+    els.datasetSelect.innerHTML = '';
+    dataSets.forEach(ds => {
+      const opt = document.createElement('option');
+      opt.value = ds.datasetId;
+      opt.textContent = ds.title;
+      els.datasetSelect.appendChild(opt);
+    });
+  }
+
+  async function switchDataset(datasetId, savePrev=true) {
+    if (savePrev) saveState();
+    const found = dataSets.find(d => d.datasetId === datasetId) || dataSets[0];
+    dataset = found;
+    QUESTIONS = dataset.questions;
+    localStorage.setItem(APP_KEY + '_last_dataset', dataset.datasetId);
+
+    const progressSource = await loadProgressState();
+    state.mode = state.mode || 'all';
+    els.modeSelect.value = state.mode;
+    rebuildOrder();
+    render();
+    if (els.progressPill) els.progressPill.textContent = '진도: ' + progressSource;
+  }
+
+  function currentQ() { return QUESTIONS.find(q => q.id === order[pos]) || QUESTIONS[0]; }
+  function statOf(id) { return state.stats[String(id)] || { right:0, wrong:0 }; }
+  function extraOf(id) { return state.extraBlanks[String(id)] || []; }
+  function uniqueArray(arr) { return Array.from(new Set(arr.map(x => String(x).trim()).filter(Boolean))); }
+
+  function makeOrder(mode) {
+    let arr = QUESTIONS.slice();
+    if (mode === 'weak') arr = arr.filter(q => {
+      const st = statOf(q.id);
+      return st.wrong > 0 || (st.right + st.wrong > 0 && st.wrong >= st.right);
+    });
+    if (mode === 'unseen') arr = arr.filter(q => {
+      const st = statOf(q.id);
+      return st.right + st.wrong === 0;
+    });
+    if (mode === 'favorite') arr = arr.filter(q => !!state.favorites[String(q.id)]);
+    if (mode === 'ai') arr = arr.slice().sort((a,b) => weaknessScore(b) - weaknessScore(a));
+    if (!arr.length) arr = QUESTIONS.slice();
+    return arr.map(q => q.id);
+  }
+
+  function rebuildOrder(keepId) {
+    order = makeOrder(state.mode || 'all');
+    const idx = keepId ? order.indexOf(keepId) : -1;
+    pos = idx >= 0 ? idx : 0;
+  }
+
+  function shuffleOrder() {
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    pos = 0;
+    render();
+  }
+
+  function escapeRegExp(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function applyExtraBlanks(text, terms) {
+    let out = String(text || '');
+    terms.forEach(term => {
+      const t = String(term).trim();
+      if (!t) return;
+      try { out = out.replace(new RegExp(escapeRegExp(t), 'g'), blank); } catch(e) {}
+    });
+    return out;
+  }
+
+  function answerByBlankOrder(q) {
+    const events = [];
+    const baseAnswers = String(q.answer || '').split('/').map(s => s.trim()).filter(Boolean);
+    let i = 0, m;
+    const reBlank = /\(\s{3,}\)/g;
+    while ((m = reBlank.exec(q.question)) !== null) {
+      events.push({ pos:m.index, ans:baseAnswers[i] || '' });
+      i++;
+    }
+
+    extraOf(q.id).forEach(term => {
+      const t = String(term).trim();
+      if (!t) return;
+      const re = new RegExp(escapeRegExp(t), 'g');
+      let mm;
+      while ((mm = re.exec(q.question)) !== null) {
+        events.push({ pos:mm.index, ans:t });
+      }
+    });
+
+    const ordered = events.filter(e => e.ans).sort((a,b) => a.pos - b.pos).map(e => e.ans);
+    return ordered.length ? ordered.join(' / ') : String(q.answer || '');
+  }
+
+  function weaknessScore(q) {
+    const st = statOf(q.id);
+    const attempts = st.right + st.wrong;
+    const unseen = attempts === 0 ? 1.2 : 0;
+    const extra = extraOf(q.id).length * 1.5;
+    const fav = state.favorites[String(q.id)] ? 1.2 : 0;
+    const p = String(q.priority || '');
+    const pBoost = p.includes('최상') ? 1.0 : p.includes('계산') ? 0.8 : p.includes('상') ? 0.4 : 0;
+    return st.wrong * 3.2 + unseen + extra + fav + pBoost - st.right * 0.75;
+  }
+
+  function render() {
+    if (!QUESTIONS.length) return;
+    const q = currentQ();
+    const st = statOf(q.id);
+    const extras = extraOf(q.id);
+    showAnswer = false;
+    els.answerBox.classList.remove('show');
+    els.showAnswerBtn.textContent = '정답 보기';
+    els.userAnswer.value = '';
+
+    els.appTitle.textContent = dataset.title + ' [' + dataset.datasetId + ']';
+    els.datasetSelect.value = dataset.datasetId;
+    els.numPill.textContent = `문제 ${q.id} / ${QUESTIONS.length} · 현재 ${pos+1}/${order.length}`;
+    els.pagePill.textContent = q.page || 'Page';
+    els.priorityPill.textContent = q.priority ? '우선순위 ' + q.priority : '우선순위';
+    els.rightPill.textContent = '맞음 ' + st.right;
+    els.wrongPill.textContent = '틀림 ' + st.wrong;
+    els.favPill.textContent = state.favorites[String(q.id)] ? '★ 표시됨' : '☆ 미표시';
+    els.favBtn.textContent = state.favorites[String(q.id)] ? '★ 표시 해제' : '☆ 표시';
+    els.progressInner.style.width = ((pos + 1) / Math.max(order.length, 1) * 100).toFixed(1) + '%';
+    els.questionText.textContent = applyExtraBlanks(q.question, extras);
+    els.answerText.textContent = answerByBlankOrder(q);
+    els.explainText.textContent = q.explanation || '';
+    renderChips();
+    renderSummary();
+  }
+
+  function renderChips() {
+    const q = currentQ();
+    els.extraBlankChips.innerHTML = '';
+    const extras = extraOf(q.id);
+    if (!extras.length) {
+      const span = document.createElement('span');
+      span.className = 'hint';
+      span.textContent = '추가 빈칸 없음';
+      els.extraBlankChips.appendChild(span);
+      return;
+    }
+
+    extras.forEach((term, idx) => {
+      const chip = document.createElement('span');
+      chip.className = 'chip';
+      const label = document.createElement('span');
+      label.textContent = term;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = '복원';
+      btn.addEventListener('click', () => {
+        state.extraBlanks[String(q.id)].splice(idx, 1);
+        saveState();
+        render();
+      });
+      chip.append(label, btn);
+      els.extraBlankChips.appendChild(chip);
+    });
+  }
+
+  function renderSummary() {
+    let solved=0, right=0, wrong=0, blanks=0, mastered=0, risk=0, weak=0;
+    QUESTIONS.forEach(q => {
+      const st = statOf(q.id);
+      const total = st.right + st.wrong;
+      const score = weaknessScore(q);
+      if (total > 0) solved++;
+      right += st.right;
+      wrong += st.wrong;
+      blanks += extraOf(q.id).length;
+      if (st.right >= 2 && st.wrong === 0) mastered++;
+      if (st.wrong >= 2 || score >= 5) risk++;
+      if (st.wrong > 0 || score >= 2.5) weak++;
+    });
+    const memoryRate = QUESTIONS.length ? Math.round(mastered / QUESTIONS.length * 100) : 0;
+    els.summarySolved.textContent = `풀이 ${solved}/${QUESTIONS.length}`;
+    els.summaryRight.textContent = '총 맞음 ' + right;
+    els.summaryWrong.textContent = '총 틀림 ' + wrong;
+    els.summaryBlanks.textContent = '추가 빈칸 ' + blanks;
+    els.aiMemoryRate.textContent = '암기율 ' + memoryRate + '%';
+    els.aiRiskCount.textContent = '위험 ' + risk;
+    els.aiWeakCount.textContent = '취약 ' + weak;
+    els.aiMasterCount.textContent = '완전암기 ' + mastered;
+    els.aiMemoryBar.style.width = memoryRate + '%';
+
+    const top = QUESTIONS.slice().sort((a,b) => weaknessScore(b) - weaknessScore(a)).slice(0, 3);
+    els.aiCoachText.textContent = top.length
+      ? 'AI 추천: ' + top.map(q => '#' + q.id + '(' + q.page + ')').join(', ') + ' 순서로 복습하세요.'
+      : 'AI 추천은 학습 기록을 기준으로 생성됩니다.';
+  }
+
+  function addBlank(term) {
+    const q = currentQ();
+    term = String(term || '').trim();
+    if (!term) return alert('빈칸으로 만들 단어를 선택하거나 입력하세요.');
+    if (term.length > 80 || term.includes(blank)) return alert('너무 길거나 이미 빈칸인 표현은 추가하지 않았습니다.');
+    if (!q.question.includes(term)) return alert('현재 문제 문장 안에서 정확히 같은 단어/문구를 찾지 못했습니다.');
+    const k = String(q.id);
+    state.extraBlanks[k] = uniqueArray([...(state.extraBlanks[k] || []), term]);
+    els.blankInput.value = '';
+    saveState();
+    render();
+  }
+
+  function selectedTextInQuestion() {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0) return '';
+    return String(sel.toString() || '').trim();
+  }
+
+  function mark(which) {
+    const q = currentQ();
+    const st = statOf(q.id);
+    if (which === 'right') st.right++;
+    if (which === 'wrong') st.wrong++;
+    state.stats[String(q.id)] = st;
+    saveState();
+    render();
+  }
+
+  function move(delta) {
+    if (!order.length) return;
+    pos = (pos + delta + order.length) % order.length;
+    render();
+  }
+
+  function renderList() {
+    const kw = els.searchInput.value.trim().toLowerCase();
+    els.questionList.innerHTML = '';
+    QUESTIONS.filter(q => {
+      const hay = `${q.id} ${q.page} ${q.priority} ${q.question} ${q.answer} ${q.explanation}`.toLowerCase();
+      return !kw || hay.includes(kw);
+    }).forEach(q => {
+      const st = statOf(q.id);
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.innerHTML = `<div class="itemTitle">문제 ${q.id} · ${escapeHtml(q.page)} · ${escapeHtml(q.priority)} · 맞음 ${st.right} / 틀림 ${st.wrong}</div><div class="itemQ">${escapeHtml(applyExtraBlanks(q.question, extraOf(q.id)))}</div>`;
+      div.addEventListener('click', () => {
+        state.mode = 'all';
+        els.modeSelect.value = 'all';
+        rebuildOrder(q.id);
+        els.listCard.classList.add('hidden');
+        render();
+      });
+      els.questionList.appendChild(div);
+    });
+  }
+
+  function makeExamText() {
+    const selected = QUESTIONS.slice().sort((a,b) => weaknessScore(b) - weaknessScore(a)).slice(0, Math.min(25, QUESTIONS.length));
+    const lines = [];
+    lines.push(dataset.title + ' - AI 맞춤 실전시험');
+    lines.push('생성일: ' + new Date().toLocaleString());
+    lines.push('='.repeat(70));
+    lines.push('[문제]');
+    selected.forEach((q, i) => {
+      lines.push('');
+      lines.push(`${i+1}. ${q.page} / 우선순위 ${q.priority} / 취약도 ${weaknessScore(q).toFixed(1)}`);
+      lines.push(applyExtraBlanks(q.question, extraOf(q.id)));
+    });
+    lines.push('');
+    lines.push('='.repeat(70));
+    lines.push('[정답 및 해설]');
+    selected.forEach((q, i) => {
+      lines.push('');
+      lines.push(`${i+1}. 정답: ${answerByBlankOrder(q)}`);
+      lines.push('해설: ' + (q.explanation || ''));
+    });
+    return lines.join('\n');
+  }
+
+  function exportExamText() {
+    const blob = new Blob([makeExamText()], { type:'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = safeId(dataset.datasetId) + '_AI맞춤실전시험_' + new Date().toISOString().slice(0,10) + '.txt';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  els.datasetSelect.addEventListener('change', () => switchDataset(els.datasetSelect.value));
+  els.modeSelect.addEventListener('change', () => {
+    state.mode = els.modeSelect.value;
+    saveState();
+    rebuildOrder();
+    render();
+  });
+  els.shuffleBtn.addEventListener('click', shuffleOrder);
+  els.listBtn.addEventListener('click', () => {
+    els.listCard.classList.remove('hidden');
+    renderList();
+    els.searchInput.focus();
+  });
+  els.closeListBtn.addEventListener('click', () => els.listCard.classList.add('hidden'));
+  els.searchInput.addEventListener('input', renderList);
+  els.examBtn.addEventListener('click', exportExamText);
+  els.showAnswerBtn.addEventListener('click', () => {
+    showAnswer = !showAnswer;
+    els.answerBox.classList.toggle('show', showAnswer);
+    els.showAnswerBtn.textContent = showAnswer ? '정답 숨기기' : '정답 보기';
+  });
+  els.markRightBtn.addEventListener('click', () => mark('right'));
+  els.markWrongBtn.addEventListener('click', () => mark('wrong'));
+  els.favBtn.addEventListener('click', () => {
+    const q = currentQ();
+    const k = String(q.id);
+    state.favorites[k] = !state.favorites[k];
+    saveState();
+    render();
+  });
+  els.addBlankBtn.addEventListener('click', () => addBlank(els.blankInput.value.trim() || selectedTextInQuestion()));
+  els.blankInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') addBlank(els.blankInput.value);
+  });
+  els.prevBtn.addEventListener('click', () => move(-1));
+  els.nextBtn.addEventListener('click', () => move(1));
+  els.resetCurrentBtn.addEventListener('click', () => {
+    const q = currentQ();
+    if (!confirm('현재 문제의 맞음/틀림 기록과 추가 빈칸을 초기화할까요?')) return;
+    state.stats[String(q.id)] = { right:0, wrong:0 };
+    state.extraBlanks[String(q.id)] = [];
+    saveState();
+    render();
+  });
+  els.resetAllBtn.addEventListener('click', () => {
+    if (!confirm('현재 강의의 전체 기록을 초기화할까요?')) return;
+    localStorage.removeItem(stateKey());
+    state = normalizeState({});
+    rebuildOrder();
+    render();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return;
+    if (e.key === 'ArrowLeft') move(-1);
+    if (e.key === 'ArrowRight') move(1);
+    if (e.key === ' ') { e.preventDefault(); els.showAnswerBtn.click(); }
+    if (e.key === 'o' || e.key === 'O') mark('right');
+    if (e.key === 'x' || e.key === 'X') mark('wrong');
+  });
+
+  init();
 })();
 </script>
 </body>
