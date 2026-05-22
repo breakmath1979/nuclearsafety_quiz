@@ -102,7 +102,6 @@
     </div>
     <div class="progressOuter"><div class="progressInner" id="progressInner"></div></div>
     <div id="questionText" class="question" aria-label="문제 문장">문제 데이터를 불러오는 중입니다.</div>
-    <div class="hint">문장 안에서 더 외우고 싶은 단어를 드래그한 뒤 “선택 단어 빈칸”을 누르면, 이 문제 문장 자체가 바로 업데이트됩니다.</div>
     <textarea id="userAnswer" placeholder="여기에 답을 써보세요. 예: efficiency / licensing / licensees"></textarea>
     <div class="row">
       <button id="showAnswerBtn">정답 보기</button>
@@ -152,11 +151,7 @@
     </div>
     <div class="row">
       <button class="secondary small" id="googleLoginBtn">Google 로그인</button>
-      <button class="secondary small" id="googleLogoutBtn">로그아웃</button>
-      <button class="secondary small" id="cloudLoadBtn">클라우드 진도 불러오기</button>
-      <button class="secondary small" id="cloudSaveBtn">클라우드 진도 저장하기</button>
     </div>
-    <div class="hint">GitHub Pages 주소와 문제 JSON은 그대로 사용합니다. 진도만 Firebase Firestore에 저장합니다.</div>
   </div>
 
   <div class="card">
@@ -183,14 +178,13 @@
 
 <script type="module">
   const firebaseConfig = {
-  apiKey: "AIzaSyCQB85xcAlDfmPAWhUHhbEM3DMkHonAvH8",
-  authDomain: "nuclearsafety-ac56e.firebaseapp.com",
-  projectId: "nuclearsafety-ac56e",
-  storageBucket: "nuclearsafety-ac56e.firebasestorage.app",
-  messagingSenderId: "921007613542",
-  appId: "1:921007613542:web:8baa1f96ea5067c98c2fa7",
-  measurementId: "G-0BHV09WZ4Y"
-};
+    apiKey: "여기에_apiKey",
+    authDomain: "여기에_authDomain",
+    projectId: "여기에_projectId",
+    storageBucket: "여기에_storageBucket",
+    messagingSenderId: "여기에_messagingSenderId",
+    appId: "여기에_appId"
+  };
 
   const configured = firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("여기에_");
   window.__LQ_FIREBASE__ = { ready:false, user:null, db:null, api:null };
@@ -851,13 +845,7 @@
     try { await window.__LQ_FIREBASE__.api.signIn(); }
     catch(e) { alert('Google 로그인 실패: ' + e.message); }
   });
-  if (els.googleLogoutBtn) els.googleLogoutBtn.addEventListener('click', async () => {
-    if (firebaseReady()) await window.__LQ_FIREBASE__.api.signOut();
-  });
-  if (els.cloudLoadBtn) els.cloudLoadBtn.addEventListener('click', () => cloudLoad(true));
-  if (els.cloudSaveBtn) els.cloudSaveBtn.addEventListener('click', () => cloudSave(false));
-
-  document.addEventListener('keydown', e => {
+document.addEventListener('keydown', e => {
     if (['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return;
     if (e.key === 'ArrowLeft') move(-1);
     if (e.key === 'ArrowRight') move(1);
