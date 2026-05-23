@@ -1,6 +1,6 @@
 {
   "title": "Lecture 12",
-  "datasetId": "lecture12_core100_sda_ismr_pirt_codeadequacy",
+  "datasetId": "lecture12",
   "source": "Lecture 12 포트폴리오.pdf 원문 기반; 원전규제12-1/12-2 강의복원 흐름 참고; 중간 발표자료 Page 24-50 제외",
   "excludedPages": "Page 24-50: Specific Example: Passive Safety System Review Focus (PIRT) / 2011 KNS Spring Meeting 중간 발표자료 성격으로 제외",
   "questionStyle": "원문 문장을 최대한 유지하고, 연결되는 문장은 하나의 문제로 묶었으며, 괄호형 blank를 최대한 많이 배치함",
