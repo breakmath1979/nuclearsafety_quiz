@@ -8,13 +8,13 @@
     },
     {
       "label": "Lecture 11",
-      "datasetId": "lecture11_core60",
+      "datasetId": "lecture11",
       "file": "lecture11_core60_questions_v3_format.json",
       "progressFile": "lecture11_core60_progress_v3.json"
     },
     {
       "label": "Lecture 12",
-      "datasetId": "lecture12_core100",
+      "datasetId": "lecture12",
       "file": "Lecture12_core100_questions_v1_format.json",
       "progressFile": "lecture12_core100_progress_v1.json"
     }
