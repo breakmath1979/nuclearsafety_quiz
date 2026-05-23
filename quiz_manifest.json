@@ -1,25 +1,19 @@
 {
   "datasets": [
     {
-      "label": "Lecture 09 우선순위 100문제 암기앱 v3",
+      "label": "Lecture 09",
       "datasetId": "lecture09",
       "file": "lecture09_questions_v3_format.json",
       "progressFile": "lecture09_progress_v3.json"
     },
     {
-      "label": "Lecture 11 Page 1-54 우선순위 100문제 암기앱 v3",
-      "datasetId": "lecture11_p1_54",
-      "file": "lecture11_p1_54_questions_v3_format.json",
-      "progressFile": "lecture11_p1_54_progress_v3.json"
-    },
-    {
-      "label": "Lecture11 핵심 60문제",
+      "label": "Lecture 11",
       "datasetId": "lecture11_core60",
       "file": "lecture11_core60_questions_v3_format.json",
       "progressFile": "lecture11_core60_progress_v3.json"
     },
     {
-      "label": "Lecture12 핵심 100문제",
+      "label": "Lecture 12",
       "datasetId": "lecture12_core100",
       "file": "Lecture12_core100_questions_v1_format.json",
       "progressFile": "lecture12_core100_progress_v1.json"
