@@ -153,7 +153,7 @@
       <span class="pill good" id="summaryRight">총 맞음 0</span>
       <span class="pill bad" id="summaryWrong">총 틀림 0</span>
       <span class="pill" id="summaryBlanks">추가 빈칸 0</span>
-      <span class="pill" id="progressPill">진도: 브라우저 저장 + Firestore 동기화 + 수동 제외</span>
+      <span class="pill" id="progressPill">진도: 브라우저 저장</span>
     </div>
     <div class="dangerZone">
       <button class="secondary small" id="resetCurrentBtn">현재 문제 기록 초기화</button>
@@ -340,6 +340,10 @@
   function saveState() {
     try {
       localStorage.setItem(stateKey(), JSON.stringify(state));
+      if (els.progressPill && !String(els.progressPill.textContent || '').includes('firestore 저장')) {
+        els.progressPill.textContent = '진도: 브라우저 저장';
+        els.progressPill.className = 'pill';
+      }
     } catch(e) {
       console.warn('localStorage save failed', e);
     }
@@ -363,6 +367,31 @@
       els.userPill.textContent = 'Google 로그인 전';
       els.userPill.className = 'pill';
     }
+  }
+
+  function nowKstString() {
+    const d = new Date();
+    const parts = new Intl.DateTimeFormat('ko-KR', {
+      timeZone: 'Asia/Seoul',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    }).formatToParts(d).reduce((acc, p) => {
+      acc[p.type] = p.value;
+      return acc;
+    }, {});
+    return `${parts.year}.${parts.month}.${parts.day}.${parts.hour}:${parts.minute}`;
+  }
+
+  function setProgressStatus(statusText, isOk=null) {
+    if (!els.progressPill) return;
+    els.progressPill.textContent = `진도: 브라우저 저장 / ${statusText} (${nowKstString()})`;
+    if (isOk === true) els.progressPill.className = 'pill good';
+    else if (isOk === false) els.progressPill.className = 'pill bad';
+    else els.progressPill.className = 'pill';
   }
   async function cloudLoad(showAlert=false){
     if (!firebaseReady()) { setCloudStatus('Firebase 설정 필요'); if(showAlert) alert('index.html의 firebaseConfig를 입력하세요.'); return false; }
@@ -394,10 +423,10 @@
   }
   async function cloudSave(silent=false){
     saveState();
-    if (!firebaseReady()) { setCloudStatus('Firebase 설정 필요'); return false; }
+    if (!firebaseReady()) { setCloudStatus('Firebase 설정 필요'); setProgressStatus('firestore 저장실패', false); return false; }
     const user = cloudUser();
-    if (!user) { setCloudStatus('브라우저 저장 중'); return false; }
-    if (!dataset || !dataset.datasetId || !QUESTIONS.length) return false;
+    if (!user) { setCloudStatus('브라우저 저장 중'); setProgressStatus('firestore 저장실패', false); return false; }
+    if (!dataset || !dataset.datasetId || !QUESTIONS.length) { setProgressStatus('firestore 저장실패', false); return false; }
     try {
       setCloudStatus('저장 중...');
       const api = window.__LQ_FIREBASE__.api;
@@ -411,10 +440,11 @@
         updatedAt: api.serverTimestamp()
       }, { merge:true });
       setCloudStatus('Firestore 자동저장 완료', true);
+      setProgressStatus('firestore 저장완료', true);
       if(!silent) alert('클라우드 진도를 저장했습니다.');
       return true;
     } catch(e) {
-      console.error(e); setCloudStatus('저장 실패'); if(!silent) alert('클라우드 저장 실패: ' + e.message); return false;
+      console.error(e); setCloudStatus('저장 실패'); setProgressStatus('firestore 저장실패', false); if(!silent) alert('클라우드 저장 실패: ' + e.message); return false;
     }
   }
   function saveStateEverywhere(){
@@ -523,7 +553,7 @@
     els.modeSelect.value = state.mode;
     rebuildOrder(state.lastQuestionId);
     render();
-    if (els.progressPill) els.progressPill.textContent = '진도: ' + progressSource;
+    if (els.progressPill) { els.progressPill.textContent = '진도: ' + progressSource; els.progressPill.className = 'pill'; }
   }
 
   function currentQ() { return QUESTIONS.find(q => q.id === order[pos]) || QUESTIONS[0]; }
