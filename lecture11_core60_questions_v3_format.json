@@ -125,8 +125,8 @@
       "page": "Page 10",
       "priority": "상",
       "type": "blank",
-      "question": "Consequences on primary circuit during LB LOCA include primary pressure (          ) bar, reactor inlet liquid temperature (          ) degrees C, reactor outlet liquid temperature (          ) degrees C, maximum cold leg diameter about (          ) cm, and maximum flow at the break about (          ) ton/sec.",
-      "answer": "155 / 285 / 330 / 70 / 40",
+      "question": "Consequences on primary circuit during LB LOCA include primary pressure 155 bar, reactor inlet liquid temperature 285 degrees C, reactor outlet liquid temperature 330 degrees C, maximum cold leg diameter about 70 cm, and maximum flow at the break about 40 ton/sec.",
+      "answer": "",
       "explanation": "숫자 암기형입니다. LB LOCA 초기 조건 숫자를 한 문제로 묶었습니다."
     },
     {
@@ -134,8 +134,8 @@
       "page": "Page 12",
       "priority": "상",
       "type": "blank",
-      "question": "Consequences on Fuel Rods during LB LOCA include power of one rod at 100% normal power (          ) kWth, mean linear power (          ) Wth/cm, temperature at fuel center (          ) degrees C, clad surface temperature (          ) degrees C, and internal rod pressure (          ) to (          ) bar.",
-      "answer": "70 / 170 / 1400 / 330 / 50 / 200",
+      "question": "Consequences on Fuel Rods during LB LOCA include power of one rod at 100% normal power 70 kWth, mean linear power 170 Wth/cm, temperature at fuel center 1400 degrees C, clad surface temperature 330 degrees C, and internal rod pressure 50 to 200 bar.",
+      "answer": "",
       "explanation": "Fuel rod 조건 숫자입니다. 계산형 문제의 기초 숫자이므로 한 세트로 외우면 효율적입니다."
     },
     {
@@ -197,8 +197,8 @@
       "page": "Page 27",
       "priority": "상",
       "type": "blank",
-      "question": "LB LOCA: Temperature of bubble in the pellet rapidly increases from (          ) degrees C to (          ) degrees C. REA: Temperature of bubble in the pellet rapidly increases from (          ) degrees C to (          ) degrees C.",
-      "answer": "500 / 1200 / 500 / 2000",
+      "question": "LB LOCA: Temperature of bubble in the pellet rapidly increases from 500 degrees C to 1200 degrees C. REA: Temperature of bubble in the pellet rapidly increases from 500 degrees C to 2000 degrees C.",
+      "answer": "",
       "explanation": "LB LOCA와 REA의 bubble temperature rise 숫자입니다. 계산형으로도 변환 가능합니다."
     },
     {
@@ -215,8 +215,8 @@
       "page": "Page 29",
       "priority": "최상",
       "type": "blank",
-      "question": "Pellets fine fragmentation with size <= (          ) mm becomes strong for fuels with average burnup of (          ) GWD/MTU and more. Pellets fine fragmentation with size <= (          ) mm becomes clear for fuels with average burnup of (          ) GWD/MTU and more.",
-      "answer": "2 / 55 / 1 / 60",
+      "question": "Pellets fine fragmentation with size <= 2 mm becomes strong for fuels with average burnup of 55 GWD/MTU and more. Pellets fine fragmentation with size <= 1 mm becomes clear for fuels with average burnup of 60 GWD/MTU and more.",
+      "answer": "",
       "explanation": "fine fragmentation threshold 숫자입니다. 2mm-55, 1mm-60을 짝으로 외우세요."
     },
     {
@@ -224,8 +224,8 @@
       "page": "Page 30",
       "priority": "최상",
       "type": "blank",
-      "question": "The average value of a strain threshold for relocation is (          )%. EPRI used (          )% strain criterion and NRC/DG-1434 uses a conservative (          )% cladding strain criterion.",
-      "answer": "3.7 / 5 / 3",
+      "question": "The average value of a strain threshold for relocation is 3.7 %. EPRI used 5 % strain criterion and NRC/DG-1434 uses a conservative 3 % cladding strain criterion.",
+      "answer": "",
       "explanation": "relocation/dispersal strain 기준입니다. 3.7%, 5%, 3%의 관계를 구분해야 합니다."
     },
     {
@@ -233,8 +233,8 @@
       "page": "Page 31",
       "priority": "최상",
       "type": "blank",
-      "question": "It is conservatively assumed that all fuel above a burnup of (          ) GWD/MTU in the rod length with greater than (          )-percent cladding strain could (          ).",
-      "answer": "55 / 3 / disperse",
+      "question": "It is conservatively assumed that all fuel above a burnup of 55 GWD/MTU in the rod length with greater than 3-percent cladding strain could (          ).",
+      "answer": "disperse",
       "explanation": "DG-1434 성격의 보수적 dispersal 가정입니다. 55 GWD/MTU와 3% cladding strain이 핵심입니다."
     },
     {
@@ -251,8 +251,8 @@
       "page": "Page 33",
       "priority": "최상",
       "type": "blank",
-      "question": "The packing fraction is defined as the ratio of the volume of (          ) to the total available local (          ). High burnup packing fraction range may be about (          )% to (          )%.",
-      "answer": "fuel / volume / 70 / 85",
+      "question": "The packing fraction is defined as the ratio of the volume of (          ) to the total available local (          ). High burnup packing fraction range may be about 70 % to 85 %.",
+      "answer": "fuel / volume",
       "explanation": "packing fraction 정의와 범위입니다. fuel relocation/dispersal 평가에서 중요한 수치입니다."
     },
     {
@@ -269,8 +269,8 @@
       "page": "Page 36",
       "priority": "최상",
       "type": "blank",
-      "question": "Since Fukushima Daiichi nuclear power plants accident in (          ), Accident Tolerant Fuels have been developed around the world.",
-      "answer": "2011",
+      "question": "Since Fukushima Daiichi nuclear power plants accident in 2011, Accident Tolerant Fuels have been developed around the world.",
+      "answer": "",
       "explanation": "ATF 개발 배경의 기준 연도입니다. Fukushima 2011은 숫자형 빈칸 가능성이 큽니다."
     },
     {
@@ -278,8 +278,8 @@
       "page": "Page 37",
       "priority": "최상",
       "type": "blank",
-      "question": "Station blackout caused cooling of the pressure vessel to be disrupted and temperatures inside the core to (          ). Zirconium melts at (          ) degrees C, loss of mechanical integrity happens at (          ) degrees C, and a run-away reaction occurs at (          ) degrees C.",
-      "answer": "rise / 1855 / 875 / 1200",
+      "question": "Station blackout caused cooling of the pressure vessel to be disrupted and temperatures inside the core to (          ). Zirconium melts at 1855 degrees C, loss of mechanical integrity happens at 875 degrees C, and a run-away reaction occurs at 1200 degrees C.",
+      "answer": "rise",
       "explanation": "Fukushima 사고 progression과 Zr 관련 온도 숫자를 묶었습니다. 875, 1200, 1855는 매우 중요합니다."
     },
     {
@@ -332,8 +332,8 @@
       "page": "Page 50",
       "priority": "최상",
       "type": "blank",
-      "question": "In the US, ATF was redefined based on NEIMA Act Section (          ). Fuels should have potential to enhance safety in case of a severe accident for a longer time than the current UO2-zirconium alloy fuel (          ).",
-      "answer": "107 / system",
+      "question": "In the US, ATF was redefined based on NEIMA Act Section 107. Fuels should have potential to enhance safety in case of a severe accident for a longer time than the current UO2-zirconium alloy fuel (          ).",
+      "answer": "system",
       "explanation": "US ATF 정의와 법적 근거입니다. NEIMA Section 107을 숫자로 외우세요."
     },
     {
@@ -359,8 +359,8 @@
       "page": "Page 53",
       "priority": "최상",
       "type": "blank",
-      "question": "EU Taxonomy (Climate Delegate Act, '22.7) requires ATF should be used by (          ). Korea Taxonomy ('22.9) requires ATF should be used by (          ).",
-      "answer": "2025 / 2031",
+      "question": "EU Taxonomy (Climate Delegate Act, '22.7) requires ATF should be used by 2025. Korea Taxonomy ('22.9) requires ATF should be used by 2031.",
+      "answer": "",
       "explanation": "정책 일정 숫자입니다. EU 2025, Korea 2031을 비교해서 외우세요."
     },
     {
@@ -431,8 +431,8 @@
       "page": "Page 29-31",
       "priority": "상",
       "type": "blank",
-      "question": "Important regulatory numbers for FFRD include fine fragmentation threshold (          ) GWD/MTU, clearer <=1 mm fragmentation threshold (          ) GWD/MTU, average relocation strain threshold (          )%, and conservative dispersal strain criterion (          )%.",
-      "answer": "55 / 60 / 3.7 / 3",
+      "question": "Important regulatory numbers for FFRD include fine fragmentation threshold 55 GWD/MTU, clearer <=1 mm fragmentation threshold 60 GWD/MTU, average relocation strain threshold 3.7 %, and conservative dispersal strain criterion 3 %.",
+      "answer": "",
       "explanation": "FFRD 숫자형 핵심을 하나로 묶었습니다. 시험 직전 반복용입니다."
     },
     {
@@ -440,8 +440,8 @@
       "page": "Page 37-53",
       "priority": "상",
       "type": "blank",
-      "question": "Important ATF numbers include Fukushima year (          ), Zr mechanical integrity loss temperature (          ) degrees C, Zr run-away reaction temperature (          ) degrees C, Zr melting temperature (          ) degrees C, EU ATF use by (          ), and Korea ATF use by (          ).",
-      "answer": "2011 / 875 / 1200 / 1855 / 2025 / 2031",
+      "question": "Important ATF numbers include Fukushima year 2011, Zr mechanical integrity loss temperature 875 degrees C, Zr run-away reaction temperature 1200 degrees C, Zr melting temperature 1855 degrees C, EU ATF use by 2025, and Korea ATF use by 2031.",
+      "answer": "",
       "explanation": "ATF 숫자형 핵심을 한 문제로 압축했습니다."
     },
     {
