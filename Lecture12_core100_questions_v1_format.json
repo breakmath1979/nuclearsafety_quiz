@@ -740,7 +740,7 @@
       "priority": "최상",
       "type": "blank",
       "question": "PIRT procedure ends with Determine importance & knowledge (          ) -> Determine (          ) matrix -> Draft PIRT (          ).",
-      "answer": "levels / V/V / report",
+      "answer": "levels / V&V / report",
       "explanation": "PIRT 작성 절차 후반부입니다."
     },
     {
