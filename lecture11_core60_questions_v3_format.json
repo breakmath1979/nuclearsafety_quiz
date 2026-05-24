@@ -134,8 +134,8 @@
       "page": "Page 12",
       "priority": "상",
       "type": "blank",
-      "question": "Consequences on Fuel Rods during LB LOCA include power of one rod at 100% normal power 70 kWth, mean linear power 170 Wth/cm, temperature at fuel center 1400 degrees C, clad surface temperature 330 degrees C, and internal rod pressure 50 to 200 bar.",
-      "answer": "",
+      "question": "Consequences on (          ) (          ) during LB LOCA include power of one rod at 100% normal power 70 kWth, mean linear power 170 Wth/cm, temperature at fuel center 1400 degrees C, clad surface temperature 330 degrees C, and internal rod pressure 50 to 200 bar.",
+      "answer": "Fuel / Rods",
       "explanation": "Fuel rod 조건 숫자입니다. 계산형 문제의 기초 숫자이므로 한 세트로 외우면 효율적입니다."
     },
     {
@@ -197,8 +197,8 @@
       "page": "Page 27",
       "priority": "상",
       "type": "blank",
-      "question": "LB LOCA: Temperature of bubble in the pellet rapidly increases from 500 degrees C to 1200 degrees C. REA: Temperature of bubble in the pellet rapidly increases from 500 degrees C to 2000 degrees C.",
-      "answer": "",
+      "question": "LB LOCA: Temperature of bubble in the pellet rapidly (          ) from 500 degrees C to 1200 degrees C. REA: Temperature of bubble in the pellet rapidly increases from 500 degrees C to 2000 degrees C.",
+      "answer": "increases",
       "explanation": "LB LOCA와 REA의 bubble temperature rise 숫자입니다. 계산형으로도 변환 가능합니다."
     },
     {
@@ -215,8 +215,8 @@
       "page": "Page 29",
       "priority": "최상",
       "type": "blank",
-      "question": "Pellets fine fragmentation with size <= 2 mm becomes strong for fuels with average burnup of 55 GWD/MTU and more. Pellets fine fragmentation with size <= 1 mm becomes clear for fuels with average burnup of 60 GWD/MTU and more.",
-      "answer": "",
+      "question": "Pellets fine (          ) with size <= 2 mm becomes strong for fuels with average burnup of 55 GWD/MTU and more. Pellets fine fragmentation with size <= 1 mm becomes clear for fuels with average burnup of 60 GWD/MTU and more.",
+      "answer": "fragmentation",
       "explanation": "fine fragmentation threshold 숫자입니다. 2mm-55, 1mm-60을 짝으로 외우세요."
     },
     {
@@ -224,8 +224,8 @@
       "page": "Page 30",
       "priority": "최상",
       "type": "blank",
-      "question": "The average value of a strain threshold for relocation is 3.7 %. EPRI used 5 % strain criterion and NRC/DG-1434 uses a conservative 3 % cladding strain criterion.",
-      "answer": "",
+      "question": "The average value of a strain threshold for (          ) is 3.7 %. EPRI used 5 % strain criterion and NRC/DG-1434 uses a conservative 3 % cladding strain criterion.",
+      "answer": "relocation",
       "explanation": "relocation/dispersal strain 기준입니다. 3.7%, 5%, 3%의 관계를 구분해야 합니다."
     },
     {
@@ -269,8 +269,8 @@
       "page": "Page 36",
       "priority": "최상",
       "type": "blank",
-      "question": "Since Fukushima Daiichi nuclear power plants accident in 2011, Accident Tolerant Fuels have been developed around the world.",
-      "answer": "",
+      "question": "Since Fukushima Daiichi nuclear power plants accident in 2011, Accident (          ) Fuels have been developed around the world.",
+      "answer": "Tolerant",
       "explanation": "ATF 개발 배경의 기준 연도입니다. Fukushima 2011은 숫자형 빈칸 가능성이 큽니다."
     },
     {
@@ -359,8 +359,8 @@
       "page": "Page 53",
       "priority": "최상",
       "type": "blank",
-      "question": "EU Taxonomy (Climate Delegate Act, '22.7) requires ATF should be used by 2025. Korea Taxonomy ('22.9) requires ATF should be used by 2031.",
-      "answer": "",
+      "question": "EU Taxonomy (Climate Delegate Act, '22.7) requires ATF should be used by 2025. Korea Taxonomy ('22.9) requires (          ) should be used by 2031.",
+      "answer": "ATF",
       "explanation": "정책 일정 숫자입니다. EU 2025, Korea 2031을 비교해서 외우세요."
     },
     {
@@ -431,8 +431,8 @@
       "page": "Page 29-31",
       "priority": "상",
       "type": "blank",
-      "question": "Important regulatory numbers for FFRD include fine fragmentation threshold 55 GWD/MTU, clearer <=1 mm fragmentation threshold 60 GWD/MTU, average relocation strain threshold 3.7 %, and conservative dispersal strain criterion 3 %.",
-      "answer": "",
+      "question": "Important regulatory numbers for (          ) include fine fragmentation threshold 55 GWD/MTU, clearer <=1 mm fragmentation threshold 60 GWD/MTU, average relocation strain threshold 3.7 %, and conservative dispersal strain criterion 3 %.",
+      "answer": "FFRD",
       "explanation": "FFRD 숫자형 핵심을 하나로 묶었습니다. 시험 직전 반복용입니다."
     },
     {
@@ -440,8 +440,8 @@
       "page": "Page 37-53",
       "priority": "상",
       "type": "blank",
-      "question": "Important ATF numbers include Fukushima year 2011, Zr mechanical integrity loss temperature 875 degrees C, Zr run-away reaction temperature 1200 degrees C, Zr melting temperature 1855 degrees C, EU ATF use by 2025, and Korea ATF use by 2031.",
-      "answer": "",
+      "question": "Important ATF numbers include Fukushima year 2011, Zr mechanical (          ) loss temperature 875 degrees C, Zr run-away reaction temperature 1200 degrees C, Zr melting temperature 1855 degrees C, EU ATF use by 2025, and Korea ATF use by 2031.",
+      "answer": "integrity",
       "explanation": "ATF 숫자형 핵심을 한 문제로 압축했습니다."
     },
     {
