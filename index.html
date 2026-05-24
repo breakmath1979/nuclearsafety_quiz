@@ -850,11 +850,14 @@
   }
 
   function exportExamText() {
-    const blob = new Blob([makeExamText()], { type:'text/plain;charset=utf-8' });
+    // 스마트폰/갤탭/Windows 일부 앱은 UTF-8 TXT를 자동 인식하지 못해 한글이 깨질 수 있습니다.
+    // UTF-8 BOM을 앞에 붙이면 대부분의 메모장/문서앱에서 한글을 정상 인식합니다.
+    const text = '\ufeff' + makeExamText();
+    const blob = new Blob([text], { type:'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = safeId(dataset.datasetId) + '_AI맞춤실전시험_' + new Date().toISOString().slice(0,10) + '.txt';
+    a.download = safeId(dataset.datasetId) + '_AI맞춤실전시험_' + new Date().toISOString().slice(0,10) + '_UTF8.txt';
     document.body.appendChild(a);
     a.click();
     a.remove();
