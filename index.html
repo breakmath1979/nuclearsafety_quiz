@@ -149,16 +149,6 @@
 
   <div class="card">
     <div class="meta">
-      <span class="pill" id="cloudPill">클라우드: Firebase 설정 필요</span>
-      <span class="pill" id="userPill">Google 로그인 전</span>
-    </div>
-    <div class="row">
-      <button class="secondary small" id="googleLoginBtn">Google 로그인</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="meta">
       <span class="pill" id="summarySolved">풀이 0</span>
       <span class="pill good" id="summaryRight">총 맞음 0</span>
       <span class="pill bad" id="summaryWrong">총 틀림 0</span>
@@ -201,10 +191,12 @@
     const auth = authMod.getAuth(app);
     const db = fsMod.getFirestore(app);
     const provider = new authMod.GoogleAuthProvider();
+    provider.setCustomParameters({ login_hint: "joyofmath79@gmail.com" });
+    await authMod.setPersistence(auth, authMod.browserLocalPersistence);
     window.__LQ_FIREBASE__.ready = true;
     window.__LQ_FIREBASE__.db = db;
     window.__LQ_FIREBASE__.api = {
-      signIn: () => authMod.signInWithPopup(auth, provider),
+      signIn: () => authMod.signInWithRedirect(auth, provider),
       signOut: () => authMod.signOut(auth),
       doc: fsMod.doc,
       getDoc: fsMod.getDoc,
@@ -230,7 +222,7 @@
   let dataSets = [];
   let dataset = { title:'', datasetId:'none', questions:[], progressFile:'' };
   let QUESTIONS = [];
-  let state = { stats:{}, extraBlanks:{}, favorites:{}, excluded:{}, mode:'all' };
+  let state = { stats:{}, extraBlanks:{}, favorites:{}, excluded:{}, mode:'all', lastQuestionId:null };
   let order = [];
   let pos = 0;
   let showAnswer = false;
@@ -304,13 +296,14 @@
       stats[k] = { right:0, wrong:0 };
       extraBlanks[k] = [];
     });
-    return { stats, extraBlanks, favorites:{}, excluded:{}, mode:'all' };
+    return { stats, extraBlanks, favorites:{}, excluded:{}, mode:'all', lastQuestionId:null };
   }
 
   function normalizeState(s) {
     const base = makeEmptyState();
     s = s || {};
     base.mode = s.mode || 'all';
+    base.lastQuestionId = s.lastQuestionId || null;
 
     Object.keys(s.stats || {}).forEach(k => {
       base.stats[k] = {
@@ -413,6 +406,8 @@
         datasetId: safeId(dataset.datasetId),
         title: dataset.title || '',
         progress: state,
+        email: user.email || '',
+        targetEmail: 'joyofmath79@gmail.com',
         updatedAt: api.serverTimestamp()
       }, { merge:true });
       setCloudStatus('Firestore 자동저장 완료', true);
@@ -526,7 +521,7 @@
     const progressSource = await loadProgressState();
     state.mode = state.mode || 'all';
     els.modeSelect.value = state.mode;
-    rebuildOrder();
+    rebuildOrder(state.lastQuestionId);
     render();
     if (els.progressPill) els.progressPill.textContent = '진도: ' + progressSource;
   }
@@ -771,6 +766,9 @@
   function move(delta) {
     if (!order.length) return;
     pos = (pos + delta + order.length) % order.length;
+    const q = currentQ();
+    if (q) state.lastQuestionId = q.id;
+    saveStateEverywhere();
     render();
   }
 
@@ -789,6 +787,8 @@
         state.mode = 'all';
         els.modeSelect.value = 'all';
         rebuildOrder(q.id);
+        state.lastQuestionId = q.id;
+        saveStateEverywhere();
         els.listCard.classList.add('hidden');
         render();
       });
@@ -834,8 +834,10 @@
   els.datasetSelect.addEventListener('change', () => switchDataset(els.datasetSelect.value));
   els.modeSelect.addEventListener('change', () => {
     state.mode = els.modeSelect.value;
+    const cq = currentQ();
+    if (cq) state.lastQuestionId = cq.id;
     saveStateEverywhere();
-    rebuildOrder();
+    rebuildOrder(state.lastQuestionId);
     render();
   });
   els.shuffleBtn.addEventListener('click', shuffleOrder);
