@@ -125,8 +125,8 @@
       "page": "Page 10",
       "priority": "상",
       "type": "blank",
-      "question": "Consequences on primary circuit during LB LOCA include primary pressure 155 bar, reactor inlet liquid temperature 285 degrees C, reactor outlet liquid temperature 330 degrees C, maximum cold leg diameter about 70 cm, and maximum flow at the break about 40 ton/sec.",
-      "answer": "",
+      "question": "Consequences on primary (          ) during LB LOCA include primary pressure 155 bar, reactor inlet liquid temperature 285 degrees C, reactor outlet liquid temperature 330 degrees C, maximum cold leg diameter about 70 cm, and maximum flow at the break about 40 ton/sec.",
+      "answer": "circuit",
       "explanation": "숫자 암기형입니다. LB LOCA 초기 조건 숫자를 한 문제로 묶었습니다."
     },
     {
