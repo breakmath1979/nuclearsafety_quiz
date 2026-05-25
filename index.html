@@ -87,6 +87,8 @@
       </select>
       <button class="secondary small" id="shuffleBtn">섞기</button>
       <button class="secondary small" id="listBtn">목록</button>
+      <input id="examCountInput" type="number" min="1" max="200" value="20" title="시험지 출력 문제 수" style="width:74px; padding:7px 8px; border-radius:10px; font-size:13px;">
+      <span class="hint" style="margin-left:-4px;">문제</span>
       <button class="secondary small" id="examBtn">시험지TXT</button>
     </div>
   </div>
@@ -230,7 +232,7 @@
   const $ = id => document.getElementById(id);
   const els = {
     appTitle:$('appTitle'), datasetSelect:$('datasetSelect'), modeSelect:$('modeSelect'),
-    shuffleBtn:$('shuffleBtn'), listBtn:$('listBtn'), examBtn:$('examBtn'),
+    shuffleBtn:$('shuffleBtn'), listBtn:$('listBtn'), examBtn:$('examBtn'), examCountInput:$('examCountInput'),
     numPill:$('numPill'), pagePill:$('pagePill'), priorityPill:$('priorityPill'),
     rightPill:$('rightPill'), wrongPill:$('wrongPill'), favPill:$('favPill'), excludePill:$('excludePill'), progressInner:$('progressInner'),
     questionText:$('questionText'), userAnswer:$('userAnswer'), showAnswerBtn:$('showAnswerBtn'),
@@ -489,6 +491,10 @@
 
   async function init() {
     try {
+      if (els.examCountInput) {
+        const savedExamCount = localStorage.getItem(APP_KEY + '_exam_count');
+        els.examCountInput.value = savedExamCount || '20';
+      }
       const manifest = await fetchJson(MANIFEST_URL);
       const list = Array.isArray(manifest) ? manifest : (manifest.datasets || []);
       dataSets = [];
@@ -826,10 +832,20 @@
     });
   }
 
+  function getExamCount() {
+    const raw = els.examCountInput ? Number(els.examCountInput.value) : 20;
+    if (!Number.isFinite(raw) || raw <= 0) return 20;
+    return Math.max(1, Math.min(200, Math.floor(raw)));
+  }
+
   function makeExamText() {
-    const selected = QUESTIONS.slice().filter(q => !(state.excluded && state.excluded[String(q.id)])).sort((a,b) => weaknessScore(b) - weaknessScore(a)).slice(0, Math.min(25, QUESTIONS.length));
+    const count = getExamCount();
+    const pool = QUESTIONS.slice()
+      .filter(q => !(state.excluded && state.excluded[String(q.id)]))
+      .sort((a,b) => weaknessScore(b) - weaknessScore(a));
+    const selected = pool.slice(0, Math.min(count, pool.length));
     const lines = [];
-    lines.push(dataset.title + ' - AI 맞춤 실전시험');
+    lines.push(dataset.title + ' - AI 맞춤 실전시험 (' + selected.length + '문제)');
     lines.push('생성일: ' + new Date().toLocaleString());
     lines.push('='.repeat(70));
     lines.push('[문제]');
@@ -857,7 +873,7 @@
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = safeId(dataset.datasetId) + '_AI맞춤실전시험_' + new Date().toISOString().slice(0,10) + '_UTF8.txt';
+    a.download = safeId(dataset.datasetId) + '_AI맞춤실전시험_' + getExamCount() + '문제_' + new Date().toISOString().slice(0,10) + '_UTF8.txt';
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -881,7 +897,19 @@
   });
   els.closeListBtn.addEventListener('click', () => els.listCard.classList.add('hidden'));
   els.searchInput.addEventListener('input', renderList);
-  els.examBtn.addEventListener('click', exportExamText);
+  if (els.examCountInput) els.examCountInput.addEventListener('change', () => {
+    const count = getExamCount();
+    els.examCountInput.value = count;
+    localStorage.setItem(APP_KEY + '_exam_count', String(count));
+  });
+  els.examBtn.addEventListener('click', () => {
+    if (els.examCountInput) {
+      const count = getExamCount();
+      els.examCountInput.value = count;
+      localStorage.setItem(APP_KEY + '_exam_count', String(count));
+    }
+    exportExamText();
+  });
   els.showAnswerBtn.addEventListener('click', () => {
     showAnswer = !showAnswer;
     els.answerBox.classList.toggle('show', showAnswer);
