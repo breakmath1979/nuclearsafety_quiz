@@ -981,11 +981,6 @@
     const lines = [];
     lines.push(dataset.title + ' - ' + currentModeLabel() + ' 실전시험 (' + selected.length + '문제)');
     lines.push('생성일: ' + new Date().toLocaleString());
-    lines.push('학습 범위: ' + currentModeLabel());
-    lines.push('문제 순서: 현재 화면 순서 그대로' + (((state.mode || 'all') === 'ai') ? ' (AI 추천 + 섞임 반영)' : ''));
-    lines.push('선정 기준: ' + ((state.mode || 'all') === 'ai'
-      ? '현재 화면의 AI 추천/섞임 순서 그대로 적용 - 현재 보이는 문제부터 순서대로 출력'
-      : '현재 선택한 학습 범위에서 취약도 높은 순'));
     lines.push('='.repeat(70));
     lines.push('[문제]');
     selected.forEach((q, i) => {
