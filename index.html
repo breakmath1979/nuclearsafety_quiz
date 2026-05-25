@@ -90,6 +90,12 @@
       <input id="examCountInput" type="number" min="1" max="200" value="20" title="시험지 출력 문제 수" style="width:74px; padding:7px 8px; border-radius:10px; font-size:13px;">
       <span class="hint" style="margin-left:-4px;">문제</span>
       <button class="secondary small" id="examBtn">시험지TXT</button>
+      <span class="hint" style="margin-left:2px;">시간</span>
+      <input id="autoRevealSeconds" type="number" min="1" max="300" step="1" placeholder="초" title="자동 정답 확인 시간(초)" style="width:62px; padding:7px 8px; border-radius:10px; font-size:13px;">
+      <span class="hint" style="margin-left:-4px;">초</span>
+      <label class="hint" style="display:inline-flex; align-items:center; gap:4px;">
+        자동 넘김 <input id="autoRevealCheck" type="checkbox" title="설정한 시간 뒤 자동으로 정답 보기" style="width:auto; padding:0;">
+      </label>
     </div>
   </div>
 
@@ -145,7 +151,7 @@
       <span class="pill" id="aiWeakCount">취약 0</span>
       <span class="pill good" id="aiMasterCount">완전암기 0</span>
     </div>
-    <div class="hint" id="aiCoachText">AI 추천은 최근에 푼 문제는 한 텀 쉬게 하고, AI에서 틀린 문제는 다시 나오게 하여 반복 복습시킵니다.</div>
+    <div class="hint" id="aiCoachText">AI 추천은 최근에 푼 문제는 한 텀 쉬게 하고, AI에서 틀린 문제는 다시 나오게 하며, 2연속 맞힌 문제는 AI 추천에서 졸업시킵니다.</div>
     <div class="progressOuter" style="margin-top:8px;"><div class="progressInner" id="aiMemoryBar"></div></div>
   </div>
 
@@ -228,11 +234,12 @@
   let order = [];
   let pos = 0;
   let showAnswer = false;
+  let autoRevealTimer = null;
 
   const $ = id => document.getElementById(id);
   const els = {
     appTitle:$('appTitle'), datasetSelect:$('datasetSelect'), modeSelect:$('modeSelect'),
-    shuffleBtn:$('shuffleBtn'), listBtn:$('listBtn'), examBtn:$('examBtn'), examCountInput:$('examCountInput'),
+    shuffleBtn:$('shuffleBtn'), listBtn:$('listBtn'), examBtn:$('examBtn'), examCountInput:$('examCountInput'), autoRevealSeconds:$('autoRevealSeconds'), autoRevealCheck:$('autoRevealCheck'),
     numPill:$('numPill'), pagePill:$('pagePill'), priorityPill:$('priorityPill'),
     rightPill:$('rightPill'), wrongPill:$('wrongPill'), favPill:$('favPill'), excludePill:$('excludePill'), progressInner:$('progressInner'),
     questionText:$('questionText'), userAnswer:$('userAnswer'), showAnswerBtn:$('showAnswerBtn'),
@@ -295,7 +302,7 @@
     const stats = {}, extraBlanks = {};
     QUESTIONS.forEach(q => {
       const k = String(q.id);
-      stats[k] = { right:0, wrong:0 };
+      stats[k] = { right:0, wrong:0, rightStreak:0 };
       extraBlanks[k] = [];
     });
     return { stats, extraBlanks, favorites:{}, excluded:{}, aiCooldown:{}, aiRetry:{}, mode:'all', lastQuestionId:null };
@@ -310,7 +317,8 @@
     Object.keys(s.stats || {}).forEach(k => {
       base.stats[k] = {
         right: Number((s.stats[k] || {}).right || 0),
-        wrong: Number((s.stats[k] || {}).wrong || 0)
+        wrong: Number((s.stats[k] || {}).wrong || 0),
+        rightStreak: Number((s.stats[k] || {}).rightStreak || 0)
       };
     });
 
@@ -504,6 +512,13 @@
         const savedExamCount = localStorage.getItem(APP_KEY + '_exam_count');
         els.examCountInput.value = savedExamCount || '20';
       }
+      if (els.autoRevealSeconds) {
+        const savedAutoSec = localStorage.getItem(APP_KEY + '_auto_reveal_seconds');
+        els.autoRevealSeconds.value = savedAutoSec || '';
+      }
+      if (els.autoRevealCheck) {
+        els.autoRevealCheck.checked = localStorage.getItem(APP_KEY + '_auto_reveal_on') === '1';
+      }
       const manifest = await fetchJson(MANIFEST_URL);
       const list = Array.isArray(manifest) ? manifest : (manifest.datasets || []);
       dataSets = [];
@@ -676,6 +691,11 @@
     return !!(state.aiCooldown && Number(state.aiCooldown[k] || 0) > 0);
   }
 
+  function isAiMastered(q) {
+    const st = statOf(q.id);
+    return Number(st.rightStreak || 0) >= 2;
+  }
+
   function aiRecommendScore(q) {
     const k = String(q.id);
     let score = weaknessScore(q);
@@ -704,19 +724,64 @@
 
     if (which === 'wrong') {
       state.aiRetry[k] = true;
-    } else if (which === 'right' && state.aiRetry[k]) {
-      delete state.aiRetry[k];
+    } else if (which === 'right') {
+      if (state.aiRetry[k]) delete state.aiRetry[k];
+
+      const st = statOf(q.id);
+      if (Number(st.rightStreak || 0) >= 2) {
+        delete state.aiCooldown[k];
+        delete state.aiRetry[k];
+      }
     }
   }
 
   function makeAiOrder() {
-    let arr = QUESTIONS.slice().filter(q => !(state.excluded && state.excluded[String(q.id)]));
+    let arr = QUESTIONS.slice()
+      .filter(q => !(state.excluded && state.excluded[String(q.id)]))
+      .filter(q => !isAiMastered(q));
+
     const fresh = arr.filter(q => !isAiCooling(q.id));
     if (fresh.length > 0) arr = fresh;
+
     return arr.slice().sort((a,b) => aiRecommendScore(b) - aiRecommendScore(a));
   }
 
+  function clearAutoRevealTimer() {
+    if (autoRevealTimer) {
+      clearTimeout(autoRevealTimer);
+      autoRevealTimer = null;
+    }
+  }
+
+  function getAutoRevealSeconds() {
+    const raw = els.autoRevealSeconds ? Number(els.autoRevealSeconds.value) : 0;
+    if (!Number.isFinite(raw) || raw <= 0) return 0;
+    return Math.max(1, Math.min(300, Math.floor(raw)));
+  }
+
+  function saveAutoRevealSettings() {
+    try {
+      if (els.autoRevealSeconds) localStorage.setItem(APP_KEY + '_auto_reveal_seconds', String(els.autoRevealSeconds.value || ''));
+      if (els.autoRevealCheck) localStorage.setItem(APP_KEY + '_auto_reveal_on', els.autoRevealCheck.checked ? '1' : '0');
+    } catch(e) {}
+  }
+
+  function startAutoRevealTimer() {
+    clearAutoRevealTimer();
+    if (!els.autoRevealCheck || !els.autoRevealCheck.checked) return;
+    const sec = getAutoRevealSeconds();
+    if (!sec) return;
+
+    autoRevealTimer = setTimeout(() => {
+      showAnswer = true;
+      els.answerBox.classList.add('show');
+      els.showAnswerBtn.textContent = '정답 숨기기';
+      autoRevealTimer = null;
+    }, sec * 1000);
+  }
+
   function render() {
+    clearAutoRevealTimer();
     if (!QUESTIONS.length) return;
 
     if (!order.length) {
@@ -765,6 +830,7 @@
     els.explainText.textContent = q.explanation || '';
     renderChips();
     renderSummary();
+    startAutoRevealTimer();
   }
 
   function renderChips() {
@@ -798,7 +864,7 @@
   }
 
   function renderSummary() {
-    let solved=0, right=0, wrong=0, blanks=0, excludedCount=0, aiRetryCount=0, mastered=0, risk=0, weak=0;
+    let solved=0, right=0, wrong=0, blanks=0, excludedCount=0, aiRetryCount=0, aiGraduatedCount=0, mastered=0, risk=0, weak=0;
     QUESTIONS.forEach(q => {
       const st = statOf(q.id);
       const total = st.right + st.wrong;
@@ -809,6 +875,7 @@
       blanks += extraOf(q.id).length;
       if (state.excluded && state.excluded[String(q.id)]) excludedCount++;
       if (state.aiRetry && state.aiRetry[String(q.id)]) aiRetryCount++;
+      if (isAiMastered(q)) aiGraduatedCount++;
       if (st.right >= 2 && st.wrong === 0) mastered++;
       if (st.wrong >= 2 || score >= 5) risk++;
       if (st.wrong > 0 || score >= 2.5) weak++;
@@ -817,7 +884,7 @@
     els.summarySolved.textContent = `풀이 ${solved}/${QUESTIONS.length}`;
     els.summaryRight.textContent = '총 맞음 ' + right;
     els.summaryWrong.textContent = '총 틀림 ' + wrong;
-    els.summaryBlanks.textContent = '추가 빈칸 ' + blanks + ' / 수동 제외 ' + excludedCount + ' / AI재도전 ' + aiRetryCount;
+    els.summaryBlanks.textContent = '추가 빈칸 ' + blanks + ' / 수동 제외 ' + excludedCount + ' / AI재도전 ' + aiRetryCount + ' / AI졸업 ' + aiGraduatedCount;
     els.aiMemoryRate.textContent = '암기율 ' + memoryRate + '%';
     els.aiRiskCount.textContent = '위험 ' + risk;
     els.aiWeakCount.textContent = '취약 ' + weak;
@@ -826,7 +893,7 @@
 
     const top = makeAiOrder().slice(0, 3);
     els.aiCoachText.textContent = top.length
-      ? 'AI 추천: ' + top.map(q => '#' + q.id + '(' + q.page + ')').join(', ') + ' 순서로 복습하세요. 최근 풀이 문제는 잠시 쉬고, AI에서 틀린 문제는 다시 등장합니다.'
+      ? 'AI 추천: ' + top.map(q => '#' + q.id + '(' + q.page + ')').join(', ') + ' 순서로 복습하세요. 최근 풀이 문제는 잠시 쉬고, AI에서 틀린 문제는 다시 등장하며, 2연속 정답 문제는 AI 추천에서 제외됩니다.'
       : 'AI 추천은 학습 기록을 기준으로 생성됩니다.';
   }
 
@@ -852,8 +919,14 @@
   function mark(which) {
     const q = currentQ();
     const st = statOf(q.id);
-    if (which === 'right') st.right++;
-    if (which === 'wrong') st.wrong++;
+    if (which === 'right') {
+      st.right++;
+      st.rightStreak = Number(st.rightStreak || 0) + 1;
+    }
+    if (which === 'wrong') {
+      st.wrong++;
+      st.rightStreak = 0;
+    }
     state.stats[String(q.id)] = st;
     updateAiMemoryAfterMark(q, which);
     saveStateEverywhere();
@@ -915,7 +988,8 @@
       const map = new Map(QUESTIONS.map(q => [String(q.id), q]));
       const ordered = order
         .map(id => map.get(String(id)))
-        .filter(q => q && !(state.excluded && state.excluded[String(q.id)]));
+        .filter(q => q && !(state.excluded && state.excluded[String(q.id)]))
+        .filter(q => (state.mode || 'all') !== 'ai' || !isAiMastered(q));
 
       // 현재 화면 문제부터 시험지가 시작되도록 pos 기준으로 회전한다.
       // pos=0이면 섞인 순서 그대로 출력된다.
@@ -1034,6 +1108,18 @@
   });
   els.closeListBtn.addEventListener('click', () => els.listCard.classList.add('hidden'));
   els.searchInput.addEventListener('input', renderList);
+  if (els.autoRevealSeconds) els.autoRevealSeconds.addEventListener('change', () => {
+    const sec = getAutoRevealSeconds();
+    els.autoRevealSeconds.value = sec ? String(sec) : '';
+    saveAutoRevealSettings();
+    startAutoRevealTimer();
+  });
+  if (els.autoRevealCheck) els.autoRevealCheck.addEventListener('change', () => {
+    saveAutoRevealSettings();
+    if (els.autoRevealCheck.checked) startAutoRevealTimer();
+    else clearAutoRevealTimer();
+  });
+
   if (els.examCountInput) els.examCountInput.addEventListener('change', () => {
     const count = getExamCount();
     els.examCountInput.value = count;
@@ -1048,6 +1134,7 @@
     exportExamText();
   });
   els.showAnswerBtn.addEventListener('click', () => {
+    clearAutoRevealTimer();
     showAnswer = !showAnswer;
     els.answerBox.classList.toggle('show', showAnswer);
     els.showAnswerBtn.textContent = showAnswer ? '정답 숨기기' : '정답 보기';
@@ -1085,7 +1172,7 @@
   els.resetCurrentBtn.addEventListener('click', () => {
     const q = currentQ();
     if (!confirm('현재 문제의 맞음/틀림 기록과 추가 빈칸을 초기화할까요?')) return;
-    state.stats[String(q.id)] = { right:0, wrong:0 };
+    state.stats[String(q.id)] = { right:0, wrong:0, rightStreak:0 };
     state.extraBlanks[String(q.id)] = [];
     if (state.aiRetry) delete state.aiRetry[String(q.id)];
     if (state.aiCooldown) delete state.aiCooldown[String(q.id)];
